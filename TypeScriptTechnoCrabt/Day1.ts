@@ -14,7 +14,7 @@ var peopleDetails: {
   }
 };
 
-var Product: {
+type ProductMain = {
   name: string;
   price: number;
   quantity: number;
@@ -22,7 +22,8 @@ var Product: {
     color: string;
     type: string;
   };
-} = {
+};
+var Product: ProductMain = {
   name: "Ryan Computer",
   price: 1000,
   quantity: 2,
