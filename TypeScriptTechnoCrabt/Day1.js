@@ -6,3 +6,12 @@ var peopleDetails = {
         postoffice: "4000"
     }
 };
+var Product = {
+    name: "Ryan Computer",
+    price: 1000,
+    quantity: 2,
+    specifications: {
+        color: "Blue",
+        type: "Laptop"
+    }
+};
