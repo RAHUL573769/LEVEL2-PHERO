@@ -71,28 +71,3 @@ db.dataCollection.aggregate([
     $unwind: "$friends"
   }
 ]);
-db.dataCollection.aggregate([
-  {
-    $bucket: {
-      groupBy: "$age",
-      boundaries: [20, 40, 60, 80],
-      default: "80 uporer burora",
-      output: {
-        count: { $sum: 1 }
-      }
-    }
-  },
-  {
-    $sort: {
-      age: 3
-    }
-  },
-  {
-    $limit: 1
-  },
-  {
-    $project: {
-      name: 1
-    }
-  }
-]);
