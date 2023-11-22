@@ -14,15 +14,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 require("dotenv").config();
 const app_1 = __importDefault(require("./app"));
+const config_1 = __importDefault(require("./app/config"));
 const port = 3000;
 // getting-started.js
 const mongoose = require("mongoose");
 server().catch((err) => console.log(err));
-console.log(process.env);
 function server() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            yield mongoose.connect(process.env.DATABASE_URL);
+            yield mongoose.connect(config_1.default.database);
             console.log("Databse Connected");
         }
         catch (error) {
@@ -32,5 +32,5 @@ function server() {
     });
 }
 app_1.default.listen(port, () => {
-    console.log(`Example app listening on port ${port}`);
+    console.log(`Example app listening on port ${config_1.default.port}`);
 });

@@ -8,4 +8,5 @@ const app = (0, express_1.default)();
 app.get("/", (req, res) => {
     res.send("Hello World!");
 });
+console.log(process.cwd());
 exports.default = app;
