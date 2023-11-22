@@ -12,14 +12,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = __importDefault(require("express"));
+exports.userController = void 0;
 const user_model_1 = __importDefault(require("../models/user.model"));
-const router = express_1.default.Router();
-const getRoute = (req, res) => {
-    console.log("Hello World");
-};
 const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(req.body);
     try {
         const userData = req.body;
         const result = yield user_model_1.default.create(userData);
@@ -34,8 +29,6 @@ const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         console.log("Errror Found");
     }
 });
-// conrouter.post("/createuser", userController.createUser);
-exports.default = {
-    getRoute,
+exports.userController = {
     createUser
 };
