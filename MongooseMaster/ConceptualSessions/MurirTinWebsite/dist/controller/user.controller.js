@@ -8,16 +8,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.userController = void 0;
-const user_model_1 = __importDefault(require("../models/user.model"));
+const user_service_1 = require("../services/user.service");
 const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const userData = req.body;
-        const result = yield user_model_1.default.create(userData);
+        // const result = await User.create(userData);
+        const result = yield user_service_1.userServices.createUser(userData);
         console.log("Daata Added");
         res.status(201).json({
             message: "User Created",
@@ -29,6 +27,23 @@ const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         console.log("Errror Found");
     }
 });
+const getAllUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        // const userData = req.body;
+        // const result = await User.create(userData);
+        const result = yield user_service_1.userServices.getAllUser();
+        console.log(result);
+        res.status(201).json({
+            message: "User Received",
+            status: "success",
+            data: result
+        });
+    }
+    catch (error) {
+        console.log("Errror Found");
+    }
+});
 exports.userController = {
-    createUser
+    createUser,
+    getAllUser
 };
