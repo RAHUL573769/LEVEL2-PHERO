@@ -1,10 +1,9 @@
 import express, { Request, Response } from "express";
+import userRouter from "./routes/userRouter";
 
 const app = express();
+app.use("/", userRouter.getRoute);
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
-console.log(process.cwd());
+// console.log(process.cwd());
 
 export default app;
