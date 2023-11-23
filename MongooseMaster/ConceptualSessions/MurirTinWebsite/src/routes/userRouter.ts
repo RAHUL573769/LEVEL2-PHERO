@@ -26,7 +26,10 @@ const getRoute = (req: Request, res: Response) => {
 // };
 router.post("/users", userController.createUser);
 
-router.get("/users", userController.getAllUser);
+router.get("/", userController.getAllUser);
+router.get("/:id", userController.getSingleUser);
+router.patch("/:id", userController.updateUser);
+
 export const userRotes = router;
 // conrouter.post("/createuser", userController.createUser);
 // export default {

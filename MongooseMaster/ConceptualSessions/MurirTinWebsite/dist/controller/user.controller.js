@@ -43,7 +43,59 @@ const getAllUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         console.log("Errror Found");
     }
 });
+const getSingleUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const userId = req.params.id;
+        // const result = await User.create(userData);
+        const result = yield user_service_1.userServices.getSingleUser(userId);
+        console.log(result);
+        res.status(201).json({
+            message: "Single User Received",
+            status: "success",
+            data: result
+        });
+    }
+    catch (error) {
+        console.log("Errror Found");
+    }
+});
+const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const userData = req.body;
+        const userId = req.params.id;
+        // const result = await User.create(userData);
+        const result = yield user_service_1.userServices.updateUser(userId, userData);
+        console.log(result);
+        res.status(201).json({
+            message: "User Updated ",
+            status: "success",
+            data: result
+        });
+    }
+    catch (error) {
+        console.log("Errror Found");
+    }
+});
+const deleteUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        // const userData = req.body;
+        // const result = await User.create(userData);
+        const result = yield user_service_1.userServices.getAllUser();
+        console.log(result);
+        res.status(201).json({
+            message: "User Received",
+            status: "success",
+            data: result
+        });
+    }
+    catch (error) {
+        console.log("Errror Found");
+    }
+});
 exports.userController = {
     createUser,
-    getAllUser
+    getAllUser,
+    getSingleUser,
+    updateUser,
+    deleteUser
 };

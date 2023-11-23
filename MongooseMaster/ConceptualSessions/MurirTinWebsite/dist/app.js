@@ -11,6 +11,8 @@ app.use(express_1.default.json());
 app.use((0, cors_1.default)());
 app.use("/users", userRouter_1.userRotes);
 app.use("/post", userRouter_1.userRotes);
+app.use("/update", userRouter_1.userRotes);
+app.use("/single", userRouter_1.userRotes);
 // app.use("/", userRouter.getRoute);
 // console.log(process.cwd());
 exports.default = app;

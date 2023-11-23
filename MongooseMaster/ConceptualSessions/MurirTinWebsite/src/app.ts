@@ -6,6 +6,10 @@ app.use(express.json());
 app.use(cors());
 app.use("/users", userRotes);
 app.use("/post", userRotes);
+app.use("/update", userRotes);
+
+app.use("/single", userRotes);
+
 // app.use("/", userRouter.getRoute);
 
 // console.log(process.cwd());

@@ -26,7 +26,9 @@ const getRoute = (req, res) => {
 //   }
 // };
 router.post("/users", user_controller_1.userController.createUser);
-router.get("/users", user_controller_1.userController.getAllUser);
+router.get("/", user_controller_1.userController.getAllUser);
+router.get("/:id", user_controller_1.userController.getSingleUser);
+router.patch("/:id", user_controller_1.userController.updateUser);
 exports.userRotes = router;
 // conrouter.post("/createuser", userController.createUser);
 // export default {
