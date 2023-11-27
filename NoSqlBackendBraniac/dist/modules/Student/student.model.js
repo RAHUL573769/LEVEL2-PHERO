@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.quardianSchema = void 0;
+exports.StudentModel = exports.studentSchema = exports.quardianSchema = void 0;
 const mongoose_1 = require("mongoose");
 const studentNameSchema = new mongoose_1.Schema({
     firstName: {
@@ -20,7 +20,7 @@ exports.quardianSchema = new mongoose_1.Schema({
     middleName: String,
     lastName: String
 });
-const studentSchema = new mongoose_1.Schema({
+exports.studentSchema = new mongoose_1.Schema({
     id: {
         type: String,
         required: [true, "Id is Required"],
@@ -75,3 +75,4 @@ const studentSchema = new mongoose_1.Schema({
     },
     isDeleted: {}
 });
+exports.StudentModel = (0, mongoose_1.model)("Student", exports.studentSchema);

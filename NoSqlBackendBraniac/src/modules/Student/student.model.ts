@@ -1,5 +1,10 @@
-import { Schema } from "mongoose";
-import { guardian, studentInterface, studentName } from "./student.interface";
+import { Schema, model } from "mongoose";
+import {
+  StudentInterface2,
+  guardian,
+  studentInterface,
+  studentName
+} from "./student.interface";
 
 const studentNameSchema = new Schema<studentName>({
   firstName: {
@@ -21,7 +26,7 @@ export const quardianSchema = new Schema<guardian>({
   lastName: String
 });
 
-const studentSchema = new Schema<studentInterface>({
+export const studentSchema = new Schema<studentInterface>({
   id: {
     type: String,
     required: [true, "Id is Required"],
@@ -77,3 +82,7 @@ const studentSchema = new Schema<studentInterface>({
   },
   isDeleted: {}
 });
+export const StudentModel = model<studentInterface, StudentInterface2>(
+  "Student",
+  studentSchema
+);

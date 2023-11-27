@@ -21,7 +21,8 @@ const userSchema = new Schema<IUser>(
     },
     status: {
       type: String,
-      enum: ["in-progress", "blocked"]
+      enum: ["in-progress", "blocked"],
+      default: "in-progress"
     },
     isDeleted: {
       type: Boolean,
@@ -32,4 +33,4 @@ const userSchema = new Schema<IUser>(
     timestamps: true
   }
 );
-const UserModel = model<IUser>("user", userSchema);
+export const UserModel = model<IUser>("user", userSchema);
