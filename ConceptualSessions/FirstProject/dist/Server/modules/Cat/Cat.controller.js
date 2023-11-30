@@ -15,7 +15,7 @@ const createCatController = (req, res) => __awaiter(void 0, void 0, void 0, func
     try {
         const data = req.body;
         const catDataAdded = yield Cat_service_1.catServices.addCat(data);
-        res.status(500).json({
+        res.status(200).json({
             success: true,
             message: "Data Added"
         });

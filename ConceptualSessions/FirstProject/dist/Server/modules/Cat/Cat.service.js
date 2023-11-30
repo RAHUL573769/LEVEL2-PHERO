@@ -13,14 +13,14 @@ exports.catServices = void 0;
 const Cat_model_1 = require("./Cat.model");
 const addCat = (catData) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        console.log("Try Block Hit");
+        // console.log("Try Block Hit");
         const result = yield Cat_model_1.Cat.create(catData);
-        console.log("Data Added");
+        console.log(result);
         return result;
     }
     catch (error) {
         console.log(error);
-        console.log("Catch Block Hit");
+        // console.log("Catch Block Hit");
     }
 });
 exports.catServices = {

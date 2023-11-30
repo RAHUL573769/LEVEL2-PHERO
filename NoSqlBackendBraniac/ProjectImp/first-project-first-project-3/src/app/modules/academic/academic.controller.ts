@@ -2,9 +2,9 @@ import httpStatus from 'http-status';
 
 import { RequestHandler } from 'express';
 import sendResponse from '../../utils/sendResponse';
-import { UserServices } from './user.service';
 
-const createStudent: RequestHandler = async (req, res, next) => {
+
+const createAcademic: RequestHandler = async (req, res, next) => {
   try {
     // const { password, student: studentData } = req.body;
 
@@ -26,6 +26,6 @@ const createStudent: RequestHandler = async (req, res, next) => {
   }
 };
 
-export const UserControllers = {
-  createStudent,
+export const AcademicSemesterControllers = {
+  createAcademic,
 };

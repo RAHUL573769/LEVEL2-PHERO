@@ -3,14 +3,14 @@ import { Cat } from "./Cat.model";
 
 const addCat = async (catData: ICat) => {
   try {
-    console.log("Try Block Hit");
+    // console.log("Try Block Hit");
     const result = await Cat.create(catData);
 
-    console.log("Data Added");
+    console.log(result);
     return result;
   } catch (error) {
     console.log(error);
-    console.log("Catch Block Hit");
+    // console.log("Catch Block Hit");
   }
 };
 export const catServices = {

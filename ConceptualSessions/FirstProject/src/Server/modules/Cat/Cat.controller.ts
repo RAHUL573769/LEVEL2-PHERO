@@ -5,7 +5,7 @@ const createCatController = async (req: Request, res: Response) => {
   try {
     const data = req.body;
     const catDataAdded = await catServices.addCat(data);
-    res.status(500).json({
+    res.status(200).json({
       success: true,
       message: "Data Added"
     });
