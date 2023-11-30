@@ -23,6 +23,19 @@ const addCat = (catData) => __awaiter(void 0, void 0, void 0, function* () {
         // console.log("Catch Block Hit");
     }
 });
+const getCat = () => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        // console.log("Try Block Hit");
+        const result = yield Cat_model_1.Cat.find();
+        console.log(result);
+        return result;
+    }
+    catch (error) {
+        console.log(error);
+        // console.log("Catch Block Hit");
+    }
+});
 exports.catServices = {
-    addCat
+    addCat,
+    getCat
 };

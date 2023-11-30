@@ -28,4 +28,21 @@ const createCatController = (req, res) => __awaiter(void 0, void 0, void 0, func
         });
     }
 });
-exports.CatController = { createCatController };
+const getCatController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const data = req.body;
+        const catDataAdded = yield Cat_service_1.catServices.getCat();
+        res.status(200).json({
+            success: true,
+            message: "Data Fetched Successfully"
+        });
+        console.log(data);
+    }
+    catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "Something Went Wrong"
+        });
+    }
+});
+exports.CatController = { createCatController, getCatController };

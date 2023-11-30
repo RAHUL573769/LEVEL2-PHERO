@@ -17,4 +17,21 @@ const createCatController = async (req: Request, res: Response) => {
     });
   }
 };
-export const CatController = { createCatController };
+
+const getCatController = async (req: Request, res: Response) => {
+  try {
+    const data = req.body;
+    const catDataAdded = await catServices.getCat();
+    res.status(200).json({
+      success: true,
+      message: "Data Fetched Successfully"
+    });
+    console.log(data);
+  } catch (error: any) {
+    res.status(500).json({
+      success: false,
+      message: "Something Went Wrong"
+    });
+  }
+};
+export const CatController = { createCatController, getCatController };

@@ -7,6 +7,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use("/create", catRoutes);
+app.use("/get", catRoutes);
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Hello World!");

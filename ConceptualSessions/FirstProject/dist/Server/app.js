@@ -10,6 +10,7 @@ const Cat_route_1 = require("./modules/Cat/Cat.route");
 app.use(express_1.default.json());
 app.use((0, cors_1.default)());
 app.use("/create", Cat_route_1.catRoutes);
+app.use("/get", Cat_route_1.catRoutes);
 app.get("/", (req, res) => {
     res.send("Hello World!");
 });
