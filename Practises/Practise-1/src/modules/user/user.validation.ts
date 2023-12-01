@@ -9,3 +9,7 @@ const userValidationSchema = z.object({
   status: StatusEnum.default("in-progress"),
   isDeleted: z.boolean().default(false)
 });
+
+export const UserValidation = {
+  userValidationSchema
+};

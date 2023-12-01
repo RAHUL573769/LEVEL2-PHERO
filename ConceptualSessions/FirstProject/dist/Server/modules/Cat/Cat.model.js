@@ -24,3 +24,6 @@ const catSchema = new mongoose_1.Schema({
     }
 });
 exports.Cat = (0, mongoose_1.model)("Cat", catSchema);
+// catSchema.methods.generateId = async function () {
+//   console.log("genertated");
+// };

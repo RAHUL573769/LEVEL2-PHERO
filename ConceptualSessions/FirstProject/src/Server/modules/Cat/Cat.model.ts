@@ -1,7 +1,7 @@
 import { Schema, model } from "mongoose";
-import { ICat } from "./Cat.interface";
+import { CatModel, ICat, ICatMethods } from "./Cat.interface";
 
-const catSchema = new Schema<ICat>({
+const catSchema = new Schema<ICat, CatModel, ICatMethods>({
   id: {
     type: Number,
     required: true,
@@ -23,4 +23,8 @@ const catSchema = new Schema<ICat>({
   }
 });
 
-export const Cat = model("Cat", catSchema);
+export const Cat = model<ICat, CatModel>("Cat", catSchema);
+
+// catSchema.methods.generateId = async function () {
+//   console.log("genertated");
+// };

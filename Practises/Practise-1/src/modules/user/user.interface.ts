@@ -1,6 +1,6 @@
 export type UserRole = "admin" | "student" | "faculty";
 export type UserStatus = "in-progress" | "blocked";
-export type TUser = {
+export type IUser = {
   id: number;
   password: string;
   needsPasswordChange: boolean;

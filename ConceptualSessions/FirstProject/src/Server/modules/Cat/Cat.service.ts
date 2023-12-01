@@ -3,11 +3,16 @@ import { Cat } from "./Cat.model";
 
 const addCat = async (catData: ICat) => {
   try {
-    // console.log("Try Block Hit");
+    console.log("Try Block Hit");
     const result = await Cat.create(catData);
 
     console.log(result);
     return result;
+
+    // const cat = new Cat(catData);
+    // const id = await cat.generateId();
+
+    // console.log(id);
   } catch (error) {
     console.log(error);
     // console.log("Catch Block Hit");

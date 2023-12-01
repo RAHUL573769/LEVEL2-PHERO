@@ -1,9 +1,9 @@
 import { Schema, model } from "mongoose";
-import { TUser, UserRole, UserStatus } from "./user.interface";
+import { IUser, UserRole, UserStatus } from "./user.interface";
 
 const Role: UserRole[] = ["admin", "faculty", "student"];
 const Status: UserStatus[] = ["blocked", "in-progress"];
-const userSchema = new Schema<TUser>({
+const userSchema = new Schema<IUser>({
   id: {
     type: Number,
     required: true
@@ -31,4 +31,4 @@ const userSchema = new Schema<TUser>({
   }
 });
 
-export const User = model<TUser>("User", userSchema);
+export const User = model<IUser>("User", userSchema);
