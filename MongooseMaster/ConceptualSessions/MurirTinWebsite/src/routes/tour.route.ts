@@ -29,6 +29,8 @@ router.post("/tours", TourController.createTour);
 
 router.get("/", TourController.getAllTour);
 router.get("/:id", TourController.getSingleTour);
+router.get("/:id/next-schedule", TourController.getNextSchedule);
+
 router.patch("/:id", TourController.updateTour);
 
 export const tourRotes = router;

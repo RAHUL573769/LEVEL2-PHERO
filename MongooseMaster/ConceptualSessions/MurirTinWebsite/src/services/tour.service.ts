@@ -15,6 +15,12 @@ const getSingleTour = async (id: string): Promise<ITour | null> => {
   return result;
 };
 
+const getNextSchedule = async (id: string): Promise<any> => {
+  const result = await Tour.findById(id);
+  const nextSchedule = result?.getNextNearestStartAndEndDate();
+  return { result, nextSchedule };
+};
+
 const updateTour = async (id: string, data: ITour): Promise<ITour | null> => {
   const result = await Tour.findByIdAndUpdate(id, data, {
     new: true,
@@ -28,5 +34,6 @@ export const TourServices = {
   getAllTour,
   getSingleTour,
   updateTour,
-  deleteTour
+  deleteTour,
+  getNextSchedule
 };

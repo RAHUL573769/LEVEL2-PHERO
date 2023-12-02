@@ -1,6 +1,7 @@
 import { Schema, model } from "mongoose";
-import { IBooking } from "../interface/booking.interface";
+import { BookingStatus, IBooking } from "../interface/booking.interface";
 
+export const BookingsStatus: BookingStatus[] = ["cancelled", "paid", "pending"];
 const bookingSchema = new Schema<IBooking>({
   user: {
     type: Schema.Types.ObjectId,
@@ -11,18 +12,18 @@ const bookingSchema = new Schema<IBooking>({
     ref: "Tour"
   },
   bookedSlots: {
-    type: Number,
-    required: [true, "A booking must have bookedSlots"]
+    type: Number
+    // required: [true, "A booking must have bookedSlots"]
   },
   bookingStatus: {
     type: String,
-    enum: ["pending", "paid", "cancelled"],
-    required: [true, "A booking must have a bookingStatus"]
+    enum: BookingsStatus
+    // required: [true, "A booking must have a bookingStatus"]
   },
 
   price: {
-    type: Number,
-    required: [true, "A booking must have a price"]
+    type: Number
+    // required: [true, "A booking must have a price"]
   }
 });
 

@@ -47,4 +47,10 @@ const tourSchema = new mongoose_1.Schema({
     toJSON: { virtuals: true },
     toObject: { virtuals: true }
 });
+tourSchema.virtual("durationDays").get(function () {
+    return this.durationHours / 24;
+});
+tourSchema.methods.getNextNearestStartAndEndDate = function () {
+    const today = 12098;
+};
 exports.Tour = (0, mongoose_1.model)("Tour", tourSchema);

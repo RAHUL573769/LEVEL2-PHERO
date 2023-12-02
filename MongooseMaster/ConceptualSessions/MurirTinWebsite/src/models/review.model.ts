@@ -20,4 +20,6 @@ const reviewSchema = new Schema<IReview>({
   }
 });
 
+reviewSchema.index({ tour: 1, user: 1 }, { unique: true });
+
 export const Review = model<IReview>("Review", reviewSchema);

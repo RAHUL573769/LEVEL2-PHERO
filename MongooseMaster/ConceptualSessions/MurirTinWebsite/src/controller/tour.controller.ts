@@ -64,6 +64,22 @@ const updateTour = async (req: Request, res: Response) => {
     console.log("Errror Found");
   }
 };
+const getNextSchedule = async (req: Request, res: Response) => {
+  try {
+    // const TourData = req.body;
+    const TourId = req.params.id;
+    // const result = await Tour.create(TourData);
+    const result = await TourServices.updateTour(TourId, TourData);
+    console.log(result);
+    res.status(201).json({
+      message: "Tour Updated ",
+      status: "success",
+      data: result
+    });
+  } catch (error: any) {
+    console.log("Errror Found");
+  }
+};
 const deleteTour = async (req: Request, res: Response) => {
   try {
     // const TourData = req.body;
@@ -84,5 +100,6 @@ export const TourController = {
   getAllTour,
   getSingleTour,
   updateTour,
-  deleteTour
+  deleteTour,
+  getNextSchedule
 };
