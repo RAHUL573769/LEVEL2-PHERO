@@ -9,7 +9,8 @@ interface ITour {
   createdAt: Date;
   startDate: Date[];
   startLocation: string;
-  location: string[];
+  availableSeats: number;
+  locations: string[];
   slug: string;
 }
 export { ITour };

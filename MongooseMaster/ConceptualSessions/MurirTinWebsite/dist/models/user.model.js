@@ -30,5 +30,10 @@ const userSchema = new mongoose_1.Schema({
         default: "active"
     }
 });
+//
+userSchema.pre("find", function (next) {
+    this.find({ userStatus: { $eq: "active" } });
+    next();
+});
 const User = (0, mongoose_1.model)("user", userSchema);
 exports.default = User;

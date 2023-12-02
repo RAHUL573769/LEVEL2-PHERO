@@ -31,5 +31,12 @@ const userSchema = new Schema<IUser>({
     default: "active"
   }
 });
+
+//
+userSchema.pre("find", function (this, next) {
+  this.find({ userStatus: { $eq: "active" } });
+  next();
+});
+
 const User = model<IUser>("user", userSchema);
 export default User;
