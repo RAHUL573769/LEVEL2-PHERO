@@ -10,11 +10,32 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.userServices = void 0;
+const user_model_1 = require("./user.model");
 const createIntoDb = (password, studentData) => __awaiter(void 0, void 0, void 0, function* () {
-    const userData = {};
-    userData.password = password;
-    userData.role = "student";
-    userData.id = 324256;
-    console.log(userData);
+    //   const userData: Partial<IUser> = {};
+    //   userData.password = password;
+    //   userData.role = "student";
+    //   userData.id = 324256;
+    //   console.log(userData);
+    //if password not siven use default password
+    const user = {};
+    if (!password) {
+        user.password = "Default Password";
+    }
+    else {
+        user.password = password;
+    }
+    user.role = "student";
+    //manually generated id
+    user.id = "20301022";
+    //create a user model
+    const result = yield user_model_1.User.create(userData);
+    // create a sudent
+    if (Object.keys(result).length) {
+        //set id ,_id as user
+        studentData.id = result.id;
+        studentData.user = result._id;
+    }
+    return result;
 });
 exports.userServices = { createIntoDb };

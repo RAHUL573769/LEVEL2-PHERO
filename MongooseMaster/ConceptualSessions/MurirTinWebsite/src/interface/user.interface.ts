@@ -1,9 +1,12 @@
+export type userRole = "user" | "admin";
+export type userStatus = "active" | "inactive";
+
 interface IUser {
   name: string;
   email: string;
   age: number;
   photo: string;
-  role: "user" | "admin";
-  userStatus: "active" | "inactive";
+  role: userRole;
+  userStatus: userStatus;
 }
 export { IUser };

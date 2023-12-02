@@ -1,6 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = require("mongoose");
+const USER_ROLE = ["admin", "user"];
+const USER_STATUS = ["active", "inactive"];
 const userSchema = new mongoose_1.Schema({
     name: {
         type: String,
@@ -19,12 +21,12 @@ const userSchema = new mongoose_1.Schema({
     photo: String,
     role: {
         type: String,
-        enum: ["admin", "user"],
+        enum: USER_ROLE,
         default: "user"
     },
     userStatus: {
         type: String,
-        enum: ["active", "inactive"],
+        enum: USER_STATUS,
         default: "active"
     }
 });

@@ -8,3 +8,8 @@ export type IUser = {
   status: UserStatus;
   isDeleted: boolean;
 };
+export type NewUser = {
+  password: string;
+  role: string;
+  id: string;
+};

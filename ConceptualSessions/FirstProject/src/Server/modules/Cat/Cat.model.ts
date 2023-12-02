@@ -1,7 +1,7 @@
 import { Schema, model } from "mongoose";
 import { CatModel, ICat, ICatMethods } from "./Cat.interface";
 
-const catSchema = new Schema<ICat, CatModel, ICatMethods>({
+const catSchema = new Schema<ICat, CatModel, ICatMethods  >({
   id: {
     type: Number,
     required: true,

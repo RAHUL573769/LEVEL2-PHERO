@@ -1,6 +1,8 @@
 import { Schema, model } from "mongoose";
-import { IUser } from "../interface/user.interface";
+import { IUser, userRole, userStatus } from "../interface/user.interface";
 
+const USER_ROLE: userRole[] = ["admin", "user"];
+const USER_STATUS: userStatus[] = ["active", "inactive"];
 const userSchema = new Schema<IUser>({
   name: {
     type: String,
@@ -20,12 +22,12 @@ const userSchema = new Schema<IUser>({
 
   role: {
     type: String,
-    enum: ["admin", "user"],
+    enum: USER_ROLE,
     default: "user"
   },
   userStatus: {
     type: String,
-    enum: ["active", "inactive"],
+    enum: USER_STATUS,
     default: "active"
   }
 });
