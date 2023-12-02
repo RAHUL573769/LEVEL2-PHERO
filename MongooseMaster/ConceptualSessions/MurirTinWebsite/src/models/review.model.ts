@@ -1,4 +1,4 @@
-import { Schema } from "mongoose";
+import { Schema, model } from "mongoose";
 import { IReview } from "../interface/review.interface";
 
 const reviewSchema = new Schema<IReview>({
@@ -19,3 +19,5 @@ const reviewSchema = new Schema<IReview>({
     ref: "User"
   }
 });
+
+export const Review = model<IReview>("Review", reviewSchema);

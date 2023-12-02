@@ -1,15 +1,15 @@
-import { Schema } from "mongoose";
+import { Schema, model } from "mongoose";
 import { ITour } from "../interface/tour.interface";
 
 const tourSchema = new Schema<ITour>(
   {
     name: {
-      type: String,
-      required: [true, "Please tell us your name"]
+      type: String
+      // required: [true, "Please tell us your name"]
     },
     durationHours: {
-      type: Number,
-      required: [true, "Please tell us your durationHours"]
+      type: Number
+      // required: [true, "Please tell us your durationHours"]
     },
     ratingAverage: {
       type: Number,
@@ -20,26 +20,26 @@ const tourSchema = new Schema<ITour>(
       default: 0
     },
     price: {
-      type: Number,
-      required: [true, "Please tell us your price"]
+      type: Number
+      // required: [true, "Please tell us your price"]
     },
     imageCover: {
-      type: String,
-      required: [true, "Please tell us your imageCover"]
+      type: String
+      // required: [true, "Please tell us your imageCover"]
     },
     images: [String],
     createdAt: {
       type: Date,
       default: Date.now()
     },
-    startDate: [Date],
+    startDate: { type: [Date] },
     startLocation: {
-      type: String,
-      required: [true, "Please tell us your startLocation"]
+      type: String
+      // required: [true, "Please tell us your startLocation"]
     },
     availableSeats: {
-      type: Number,
-      required: [true, "Please tell us your availableSeats"]
+      type: Number
+      // required: [true, "Please tell us your availableSeats"]
     },
     locations: [String],
     slug: String
@@ -49,3 +49,4 @@ const tourSchema = new Schema<ITour>(
     toObject: { virtuals: true }
   }
 );
+export const Tour = model<ITour>("Tour", tourSchema);

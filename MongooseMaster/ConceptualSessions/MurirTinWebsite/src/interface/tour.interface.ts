@@ -1,4 +1,4 @@
-interface ITour {
+export interface ITour {
   name: string;
   durationHours: number;
   ratingAverage: number;
@@ -13,4 +13,3 @@ interface ITour {
   locations: string[];
   slug: string;
 }
-export { ITour };
