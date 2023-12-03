@@ -32,6 +32,9 @@ export const studentSchema = new Schema<studentInterface>({
     // required: [true, "Id is Required"],
     unique: true
   },
+  password: {
+    type: String
+  },
 
   user: {
     type: Schema.Types.ObjectId,

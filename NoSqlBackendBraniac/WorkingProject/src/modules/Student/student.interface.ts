@@ -60,6 +60,7 @@ export type localGuardian = {
 export type studentInterface = {
   id: string;
   user: Types.ObjectId;
+  password: string;
   name: studentName;
   gender: "male" | "female";
   dateOfBirth: string;
