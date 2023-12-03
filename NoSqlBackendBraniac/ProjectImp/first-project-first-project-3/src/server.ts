@@ -8,6 +8,7 @@ async function main() {
 
     app.listen(3000, () => {
       console.log(`app is listening on port `);
+      console.log('DbConn');
     });
   } catch (err) {
     console.log(err);

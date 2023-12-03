@@ -6,15 +6,15 @@ const userSchema = new Schema<TUser>(
   {
     id: {
       type: String,
-      required: true,
+      // required: true,
     },
     password: {
       type: String,
-      required: true,
+      // required: true,
     },
     needsPasswordChange: {
       type: Boolean,
-      default: true,
+      // default: true,
     },
     role: {
       type: String,

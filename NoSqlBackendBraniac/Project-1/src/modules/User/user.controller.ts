@@ -7,8 +7,13 @@ const createStudent = async (
   next: NextFunction
 ) => {
   try {
-    const { password, student: studentData } = req.body;
-
+    const {
+      password,
+      student: { ...studentData }
+    } = req.body;
+    // const { studentData } = req.body;
+    console.log("12", studentData);
+    // console.log(req.body);
     const result = await UserServices.createStudentIntoDb(
       password,
       studentData
@@ -17,9 +22,7 @@ const createStudent = async (
       message: "Data Student is crested "
     });
   } catch (error) {
-    res.status(500).json({
-      message: "Data Student is  fAILED crested "
-    });
+    console.log(error);
   }
 };
 export const UserController = {

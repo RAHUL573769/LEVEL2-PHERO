@@ -6,12 +6,12 @@ const userValidationSchema = z.object({
       invalid_type_error: "Password must be string"
     })
     .max(20, { message: "Password Cannot be more than 20 Characters" })
-    .optional(),
+    .optional()
 
   // needsPasswordChange: z.boolean().optional(),
   // role: z.enum(["student", "faculty", "admin"]),
-  status: z.enum(["in-progress", "blocked"]).default("in-progress"),
-  isDeleted: z.boolean().optional().default(false)
+  // status: z.enum(["in-progress", "blocked"]).default("in-progress"),
+  // isDeleted: z.boolean().optional().default(false)
 });
 
 export const UserValidation = {

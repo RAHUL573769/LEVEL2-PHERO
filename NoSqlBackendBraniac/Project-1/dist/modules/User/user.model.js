@@ -4,12 +4,12 @@ exports.UserModel = void 0;
 const mongoose_1 = require("mongoose");
 const userSchema = new mongoose_1.Schema({
     id: {
-        type: String,
-        required: true
+        type: Number
+        // required: true
     },
     password: {
-        type: String,
-        required: true
+        type: String
+        // required: true
     },
     needsPasswordChange: {
         type: Boolean,
