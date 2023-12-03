@@ -4,15 +4,15 @@ exports.StudentModel = exports.studentSchema = exports.quardianSchema = void 0;
 const mongoose_1 = require("mongoose");
 const studentNameSchema = new mongoose_1.Schema({
     firstName: {
-        type: String,
-        required: true
+        type: String
+        // required: true
     },
     middleName: {
         type: String
     },
     lastName: {
-        type: String,
-        required: true
+        type: String
+        // required: true
     }
 });
 exports.quardianSchema = new mongoose_1.Schema({
@@ -23,11 +23,13 @@ exports.quardianSchema = new mongoose_1.Schema({
 exports.studentSchema = new mongoose_1.Schema({
     id: {
         type: String,
-        required: [true, "Id is Required"],
+        // required: [true, "Id is Required"],
         unique: true
     },
     user: {
-        type: mongoose_1.Schema.Types.ObjectId
+        type: mongoose_1.Schema.Types.ObjectId,
+        unique: true,
+        ref: "User"
     },
     name: {
         type: String,
@@ -43,15 +45,15 @@ exports.studentSchema = new mongoose_1.Schema({
         type: String
     },
     email: {
-        type: String,
-        required: [true, "Email is Required"]
+        type: String
+        // required: [true, "Email is Required"]
     },
     contactNumber: {
         type: String
     },
     emergencyContactNumber: {
-        type: String,
-        required: [true, "This is Needed"]
+        type: String
+        // required: [true, "This is Needed"]
     },
     bloodGroup: {
         type: String,

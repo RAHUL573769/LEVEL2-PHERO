@@ -4,7 +4,7 @@ exports.UserModel = void 0;
 const mongoose_1 = require("mongoose");
 const userSchema = new mongoose_1.Schema({
     id: {
-        type: Number
+        type: String
         // required: true
     },
     password: {

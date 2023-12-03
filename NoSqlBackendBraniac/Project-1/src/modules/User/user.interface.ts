@@ -1,5 +1,5 @@
 export type IUser = {
-  id: number;
+  id: string;
   password: string;
   needsPasswordChange: boolean;
   role: "admin" | "student" | "faculty";
