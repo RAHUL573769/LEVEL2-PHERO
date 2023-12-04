@@ -8,20 +8,19 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.studentController = void 0;
 const student_service_1 = require("./student.service");
+const catchAsync_1 = __importDefault(require("../../utils/catchAsync"));
 // const catchAsync = (fn: RequestHandler) => {
 //   return (req: Request, res: Response, next: NextFunction) => {
 //     Promise.resolve(fn(req, res, next)).catch((err) => console.log(err));
 //   };
 // };
-const catchAsync = (fn) => {
-    return (req, res, next) => {
-        Promise.resolve(fn(req, res, next)).catch((err) => console.log(err));
-    };
-};
-const getStudents = catchAsync((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+const getStudents = (0, catchAsync_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { studentId } = req.params;
         const result = yield student_service_1.StudentServices.getSingleStudentFromDb(studentId);
@@ -36,7 +35,7 @@ const getStudents = catchAsync((req, res, next) => __awaiter(void 0, void 0, voi
         console.log(error);
     }
 }));
-const getAllStudents = catchAsync((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+const getAllStudents = (0, catchAsync_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const result = yield student_service_1.StudentServices.getAllStudentsFromDb();
         res.status(200).json({
@@ -50,7 +49,7 @@ const getAllStudents = catchAsync((req, res, next) => __awaiter(void 0, void 0, 
         next(err);
     }
 }));
-const deleteStudent = catchAsync((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+const deleteStudent = (0, catchAsync_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { studentId } = req.params;
         const result = yield student_service_1.StudentServices.deleteDataFromDb(studentId);

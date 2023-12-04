@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.studentValidationSchemas = exports.studentValidationSchema = void 0;
+exports.studentValidationSchemas = void 0;
 const zod_1 = require("zod");
 const userNameSchema = zod_1.z.object({
     firstName: zod_1.z.string(),
@@ -17,7 +17,7 @@ const localGuardianSchema = zod_1.z.object({
     middleName: zod_1.z.string(),
     lastName: zod_1.z.string()
 });
-exports.studentValidationSchema = zod_1.z.object({
+const studentValidationSchema = zod_1.z.object({
     body: zod_1.z.object({
         id: zod_1.z.string(),
         password: zod_1.z.string(),
@@ -39,5 +39,5 @@ exports.studentValidationSchema = zod_1.z.object({
     })
 });
 exports.studentValidationSchemas = {
-    studentValidationSchema: exports.studentValidationSchema
+    studentValidationSchema
 };

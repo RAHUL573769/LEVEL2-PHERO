@@ -16,7 +16,7 @@ const localGuardianSchema = z.object({
   middleName: z.string(),
   lastName: z.string()
 });
-export const studentValidationSchema = z.object({
+const studentValidationSchema = z.object({
   body: z.object({
     id: z.string(),
     password: z.string(),
