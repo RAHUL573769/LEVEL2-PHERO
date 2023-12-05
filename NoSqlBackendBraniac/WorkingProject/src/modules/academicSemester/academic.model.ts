@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose";
+import { Error, Schema, model } from "mongoose";
 import {
   AcademicSemester,
   TAcademicSemesterCode,
@@ -53,6 +53,18 @@ const academicSemesterSchema = new Schema<AcademicSemester>({
     type: String,
     enum: months
   }
+});
+
+academicSemesterSchema.pre("save", async function (next) {
+  const isSemesterExists = await AcademicSemesterModel.findOne({
+    name: this.name,
+    year: this.year
+  });
+
+  if (isSemesterExists) {
+    throw new Error("Semester Alresdy exist");
+  }
+  next();
 });
 
 export const AcademicSemesterModel = model<AcademicSemester>(

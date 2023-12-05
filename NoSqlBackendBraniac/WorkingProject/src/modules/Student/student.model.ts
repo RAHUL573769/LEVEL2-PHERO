@@ -85,6 +85,10 @@ export const studentSchema = new Schema<studentInterface>({
   profileImage: {
     type: String
   },
+  academicSemester: {
+    type: Schema.Types.ObjectId,
+    ref: "AcademicSemester"
+  },
   isDeleted: {}
 });
 export const StudentModel = model<studentInterface, StudentInterface2>(

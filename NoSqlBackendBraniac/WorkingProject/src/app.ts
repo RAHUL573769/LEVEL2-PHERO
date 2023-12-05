@@ -2,13 +2,14 @@ import express, { NextFunction, Request, Response } from "express";
 import cors from "cors";
 import { UserRoute } from "./modules/User/user.route";
 import { StudentRoutes } from "./modules/Student/student.route";
+import { AcademicRoutes } from "./modules/academicSemester/academic.route";
 const app = express();
 app.use(express.json());
 app.use(cors());
 
 app.use("/create", UserRoute);
 app.use("/api/v1", StudentRoutes);
-
+app.use("/academic", AcademicRoutes);
 // app.use((_err: any, req: Request, next: NextFunction) => {
 //   let statusCode = 500;
 //   let message = "Somethiing went wrong";

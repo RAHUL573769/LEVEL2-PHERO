@@ -78,6 +78,10 @@ exports.studentSchema = new mongoose_1.Schema({
     profileImage: {
         type: String
     },
+    academicSemester: {
+        type: mongoose_1.Schema.Types.ObjectId,
+        ref: "AcademicSemester"
+    },
     isDeleted: {}
 });
 exports.StudentModel = (0, mongoose_1.model)("Student", exports.studentSchema);

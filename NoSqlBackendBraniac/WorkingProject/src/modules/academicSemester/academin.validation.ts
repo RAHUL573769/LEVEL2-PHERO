@@ -35,3 +35,4 @@ const academicSemesterValidation = z.object({
     ])
   })
 });
+export const AcademicSemesterValidations={academicSemesterValidation}
