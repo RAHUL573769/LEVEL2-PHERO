@@ -33,6 +33,6 @@ const validateRequest = (scheme) => {
 };
 router.post("/create-academic-department", validateRequest(academicDepartment_validation_1.AcademicDepartmentValidationSchemas.academicDepartmentValidationSchema), academic_controller_1.AcademicDepartmentControllers.createAcademicDepartment);
 router.get("/", academic_controller_1.AcademicDepartmentControllers.getAllAcademicDepartment);
-router.get("/:semesterId", academic_controller_1.AcademicDepartmentControllers.createAcademicDepartment);
+router.get("/:semesterId", academic_controller_1.AcademicDepartmentControllers.getSingleAcademicDepartment);
 router.patch("/:semesterId", validateRequest(academicDepartment_validation_1.AcademicDepartmentValidationSchemas.updateAcademicDepartmentValidationSchema), academic_controller_1.AcademicDepartmentControllers.updateAcademicDepartment);
 exports.AcademicDepartmentRoutes = router;

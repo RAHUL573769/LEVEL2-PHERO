@@ -28,7 +28,7 @@ router.post(
 router.get("/", AcademicDepartmentControllers.getAllAcademicDepartment);
 router.get(
   "/:semesterId",
-  AcademicDepartmentControllers.createAcademicDepartment
+  AcademicDepartmentControllers.getSingleAcademicDepartment
 );
 
 router.patch(

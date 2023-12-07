@@ -12,6 +12,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AcademicDepartmentServices = void 0;
 const academicDepartment_model_1 = require("./academicDepartment.model");
 const createAcademicDepartment = (payLoad) => __awaiter(void 0, void 0, void 0, function* () {
+    // const isDepartmentExists = await AcademicDepartment.findOne({
+    //   name: payLoad.name
+    // });
+    // if (isDepartmentExists) {
+    //   throw new Error("This department always exists");
+    // }
     const result = yield academicDepartment_model_1.AcademicDepartment.create(payLoad);
     return result;
 });

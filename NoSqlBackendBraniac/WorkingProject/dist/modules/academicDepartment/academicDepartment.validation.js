@@ -6,20 +6,20 @@ const academicDepartmentValidationSchema = zod_1.z.object({
     body: zod_1.z.object({
         name: zod_1.z
             .string({ invalid_type_error: "Invalid Password" })
-            .optional()
-    }),
-    academicFaculty: zod_1.z.string({
-        invalid_type_error: "Required"
+            .optional(),
+        academicFaculty: zod_1.z.string({
+            invalid_type_error: "Required"
+        })
     })
 });
 const updateAcademicDepartmentValidationSchema = zod_1.z.object({
     body: zod_1.z.object({
         name: zod_1.z
             .string({ invalid_type_error: "Invalid Password" })
-            .optional()
-    }),
-    academicFaculty: zod_1.z.string({
-        invalid_type_error: "Required"
+            .optional(),
+        academicFaculty: zod_1.z.string({
+            invalid_type_error: "Required"
+        })
     })
 });
 exports.AcademicDepartmentValidationSchemas = {

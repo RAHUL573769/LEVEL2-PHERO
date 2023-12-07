@@ -6,10 +6,14 @@ const createAcademicDepartment = catchAsync(async (req, res) => {
   const result = await AcademicDepartmentServices.createAcademicDepartment(
     req.body
   );
+
+  console.log(result);
+  return result;
 });
 
 const getAllAcademicDepartment = catchAsync(async (req, res) => {
   const result = await AcademicDepartmentServices.getAcademicDepartment();
+  console.log(result);
   return result;
 });
 

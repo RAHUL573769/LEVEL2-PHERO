@@ -5,10 +5,10 @@ const academicDepartmentValidationSchema = z.object({
     name: z
       .string({ invalid_type_error: "Invalid Password" })
 
-      .optional()
-  }),
-  academicFaculty: z.string({
-    invalid_type_error: "Required"
+      .optional(),
+    academicFaculty: z.string({
+      invalid_type_error: "Required"
+    })
   })
 });
 const updateAcademicDepartmentValidationSchema = z.object({
@@ -16,10 +16,10 @@ const updateAcademicDepartmentValidationSchema = z.object({
     name: z
       .string({ invalid_type_error: "Invalid Password" })
 
-      .optional()
-  }),
-  academicFaculty: z.string({
-    invalid_type_error: "Required"
+      .optional(),
+    academicFaculty: z.string({
+      invalid_type_error: "Required"
+    })
   })
 });
 export const AcademicDepartmentValidationSchemas = {

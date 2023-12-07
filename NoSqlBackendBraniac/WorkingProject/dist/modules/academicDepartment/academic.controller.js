@@ -18,9 +18,12 @@ const academicDepartment_service_1 = require("./academicDepartment.service");
 // import { AcademicSemesterServices } from "./academic.services";
 const createAcademicDepartment = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield academicDepartment_service_1.AcademicDepartmentServices.createAcademicDepartment(req.body);
+    console.log(result);
+    return result;
 }));
 const getAllAcademicDepartment = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield academicDepartment_service_1.AcademicDepartmentServices.getAcademicDepartment();
+    console.log(result);
     return result;
 }));
 const getSingleAcademicDepartment = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
