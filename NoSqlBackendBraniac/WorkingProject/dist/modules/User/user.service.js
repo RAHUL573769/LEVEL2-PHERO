@@ -20,6 +20,7 @@ const createStudentIntoDb = (password, studentData) => __awaiter(void 0, void 0,
     userData.id = "203414342";
     //set student-role
     userData.role = "student";
+    // const generateStudentId=(payload:AcademicSemester);
     if (!password) {
         userData.password = "Set to default password as password not given";
     }

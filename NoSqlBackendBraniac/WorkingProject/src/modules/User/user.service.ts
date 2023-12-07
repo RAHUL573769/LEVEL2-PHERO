@@ -1,5 +1,6 @@
 import { studentInterface } from "../Student/student.interface";
 import { StudentModel, studentSchema } from "../Student/student.model";
+import { AcademicSemester } from "../academicSemester/acaemic.semester";
 import { IUser, NewUser } from "./user.interface";
 import { UserModel } from "./user.model";
 
@@ -16,6 +17,8 @@ const createStudentIntoDb = async (
 
   //set student-role
   userData.role = "student";
+
+  // const generateStudentId=(payload:AcademicSemester);
   if (!password) {
     userData.password = "Set to default password as password not given";
   } else {
