@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.User = exports.StudentGender = exports.StudentBloodGroup = void 0;
+exports.Student = exports.StudentGender = exports.StudentBloodGroup = void 0;
 const mongoose_1 = require("mongoose");
 const userNameSchema = new mongoose_1.Schema({
     firstName: {
@@ -100,4 +100,4 @@ const studentSchema = new mongoose_1.Schema({
         type: String
     }
 });
-exports.User = (0, mongoose_1.model)("User", studentSchema);
+exports.Student = (0, mongoose_1.model)("Student", studentSchema);

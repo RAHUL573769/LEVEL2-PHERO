@@ -10,7 +10,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserServices = void 0;
+const student_model_1 = require("../student/student.model");
 const user_model_1 = require("./user.model");
+// import { Student } from './../student/student.model';
 const createStudentIntoDb = (password, studentData) => __awaiter(void 0, void 0, void 0, function* () {
     const newUserInPartialUserSchema = {};
     newUserInPartialUserSchema.role = "student";
@@ -24,11 +26,13 @@ const createStudentIntoDb = (password, studentData) => __awaiter(void 0, void 0,
     const newPartialUser = yield user_model_1.User.create(newUserInPartialUserSchema);
     newPartialUser.id = "20303024";
     if (Object.keys(newPartialUser).length) {
-        console.log("19", newPartialUser);
+        // console.log("19", newPartialUser);
         studentData.user = newPartialUser._id;
         studentData.id = newPartialUser.id;
+        const newStudent = yield student_model_1.Student.create(studentData);
+        return newStudent;
     }
-    return newPartialUser;
+    // return newPartialUser;
 });
 exports.UserServices = {
     createStudentIntoDb
