@@ -35,6 +35,21 @@ const getStudents = (0, catchAsync_1.default)((req, res, next) => __awaiter(void
         console.log(error);
     }
 }));
+const postStudents = (0, catchAsync_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { studentData } = req.body;
+        const result = yield student_service_1.StudentServices.createStudent(studentData);
+        res.status(200).json({
+            statusCode: 200,
+            success: true,
+            message: "Student Dat is  created succesfully",
+            data: result
+        });
+    }
+    catch (error) {
+        console.log(error);
+    }
+}));
 const getAllStudents = (0, catchAsync_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const result = yield student_service_1.StudentServices.getAllStudentsFromDb();
@@ -67,5 +82,6 @@ const deleteStudent = (0, catchAsync_1.default)((req, res, next) => __awaiter(vo
 exports.studentController = {
     getStudents,
     getAllStudents,
-    deleteStudent
+    deleteStudent,
+    postStudents
 };

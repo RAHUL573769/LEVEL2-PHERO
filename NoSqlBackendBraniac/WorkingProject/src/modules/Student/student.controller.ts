@@ -24,6 +24,22 @@ const getStudents = catchAsync(
     }
   }
 );
+const postStudents = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { studentData } = req.body;
+      const result = await StudentServices.createStudent(studentData);
+      res.status(200).json({
+        statusCode: 200,
+        success: true,
+        message: "Student Dat is  created succesfully",
+        data: result
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
 
 const getAllStudents = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -61,5 +77,6 @@ const deleteStudent = catchAsync(
 export const studentController = {
   getStudents,
   getAllStudents,
-  deleteStudent
+  deleteStudent,
+  postStudents
 };

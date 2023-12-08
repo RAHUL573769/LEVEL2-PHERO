@@ -1,7 +1,21 @@
+import catchAsync from "../../utils/catchAsync";
+import { studentInterface } from "./student.interface";
 import { StudentModel } from "./student.model";
 
+const createStudent = async (payLoad: studentInterface) => {
+  const result = await StudentModel.create(payLoad);
+  return result;
+};
 const getAllStudentsFromDb = async () => {
-  const result = await StudentModel.find();
+  const result = await StudentModel.find()
+    .populate("admissionSemester")
+    .populate({
+      path: "academicDepartment",
+      populate: {
+        path: "academicFaculty"
+      }
+    });
+
   return result;
 };
 
@@ -18,5 +32,6 @@ const deleteDataFromDb = async (id: string) => {
 export const StudentServices = {
   getAllStudentsFromDb,
   getSingleStudentFromDb,
-  deleteDataFromDb
+  deleteDataFromDb,
+  createStudent
 };

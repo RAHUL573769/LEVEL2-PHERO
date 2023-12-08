@@ -82,6 +82,10 @@ exports.studentSchema = new mongoose_1.Schema({
         type: mongoose_1.Schema.Types.ObjectId,
         ref: "AcademicSemester"
     },
+    academicDepartment: {
+        type: mongoose_1.Schema.Types.ObjectId,
+        ref: "AcademicDepartment"
+    },
     isDeleted: {}
 });
 exports.StudentModel = (0, mongoose_1.model)("Student", exports.studentSchema);

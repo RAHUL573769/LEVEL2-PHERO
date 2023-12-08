@@ -14,11 +14,13 @@ const createAcademicDepartment = async (payLoad: TAcademicDepartment) => {
   return result;
 };
 const getAcademicDepartment = async () => {
-  const result = await AcademicDepartment.find();
+  const result = await AcademicDepartment.find().populate("academicFaculty");
   return result;
 };
 const getSingleAcademicDepartment = async (id: string) => {
-  const result = await AcademicDepartment.findById(id);
+  const result = await AcademicDepartment.findById(id).populate(
+    "academicFaculty"
+  );
   return result;
 };
 const updateAcademicDepartment = async (

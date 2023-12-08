@@ -89,6 +89,10 @@ export const studentSchema = new Schema<studentInterface>({
     type: Schema.Types.ObjectId,
     ref: "AcademicSemester"
   },
+  academicDepartment: {
+    type: Schema.Types.ObjectId,
+    ref: "AcademicDepartment"
+  },
   isDeleted: {}
 });
 export const StudentModel = model<studentInterface, StudentInterface2>(

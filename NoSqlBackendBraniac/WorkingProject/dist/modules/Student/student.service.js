@@ -11,8 +11,19 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.StudentServices = void 0;
 const student_model_1 = require("./student.model");
+const createStudent = (payLoad) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield student_model_1.StudentModel.create(payLoad);
+    return result;
+});
 const getAllStudentsFromDb = () => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield student_model_1.StudentModel.find();
+    const result = yield student_model_1.StudentModel.find()
+        .populate("admissionSemester")
+        .populate({
+        path: "academicDepartment",
+        populate: {
+            path: "academicFaculty"
+        }
+    });
     return result;
 });
 const getSingleStudentFromDb = (id) => __awaiter(void 0, void 0, void 0, function* () {
@@ -26,5 +37,6 @@ const deleteDataFromDb = (id) => __awaiter(void 0, void 0, void 0, function* () 
 exports.StudentServices = {
     getAllStudentsFromDb,
     getSingleStudentFromDb,
-    deleteDataFromDb
+    deleteDataFromDb,
+    createStudent
 };

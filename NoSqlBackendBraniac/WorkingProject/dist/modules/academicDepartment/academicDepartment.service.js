@@ -22,11 +22,11 @@ const createAcademicDepartment = (payLoad) => __awaiter(void 0, void 0, void 0, 
     return result;
 });
 const getAcademicDepartment = () => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield academicDepartment_model_1.AcademicDepartment.find();
+    const result = yield academicDepartment_model_1.AcademicDepartment.find().populate("academicFaculty");
     return result;
 });
 const getSingleAcademicDepartment = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield academicDepartment_model_1.AcademicDepartment.findById(id);
+    const result = yield academicDepartment_model_1.AcademicDepartment.findById(id).populate("academicFaculty");
     return result;
 });
 const updateAcademicDepartment = (id, payload) => __awaiter(void 0, void 0, void 0, function* () {

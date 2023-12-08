@@ -74,6 +74,7 @@ export type studentInterface = {
   localGuardian: localGuardian;
   profileImage?: string;
   academicSemester: Types.ObjectId;
+  academicDepartment: Types.ObjectId;
   isDeleted: boolean;
 };
 export interface StudentInterface2 extends Model<studentInterface> {
