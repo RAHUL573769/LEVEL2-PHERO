@@ -19,7 +19,7 @@ const catchAsync = (fn) => {
 const createStudent = catchAsync((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { password, student: studentData } = req.body;
-        console.log("15", req.body.studentData);
+        console.log("15", req.body);
         const result = yield user_services_1.UserServices.createStudentIntoDb(password, studentData);
         console.log("22", result);
         res.status(202).json({

@@ -30,7 +30,8 @@ const getAllStudent = (0, catchAsync_1.catchAsync)((req, res) => __awaiter(void 
 const getSingleStudent = (0, catchAsync_1.catchAsync)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         // console.log("15", studentData);
-        const result = yield student_services_1.StudentServices.getSingleStudentInfo;
+        const id = req.params.id;
+        const result = yield student_services_1.StudentServices.getSingleStudentInfo(id);
         console.log("22", result);
         res.status(202).json({
             message: "Single User Data FetchedSuccessfully",
@@ -45,7 +46,9 @@ const getSingleStudent = (0, catchAsync_1.catchAsync)((req, res) => __awaiter(vo
 const updateStudent = (0, catchAsync_1.catchAsync)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         // console.log("15", studentData);
-        const result = yield student_services_1.StudentServices.updateStudentsInfoInDb;
+        const id = req.params.id;
+        const data = req.body;
+        const result = yield student_services_1.StudentServices.updateStudentsInfoInDb(id, data);
         console.log("22", result);
         res.status(202).json({
             message: "Data Updated Succesfully",

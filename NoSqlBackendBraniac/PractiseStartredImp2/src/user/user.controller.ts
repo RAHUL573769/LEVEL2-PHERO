@@ -12,7 +12,7 @@ const createStudent: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
     try {
       const { password, student: studentData } = req.body;
-      console.log("15", req.body.studentData);
+      console.log("15", req.body);
 
       const result = await UserServices.createStudentIntoDb(
         password,
