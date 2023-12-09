@@ -10,12 +10,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AcademicSemesterServices = void 0;
+const academic_semester_conts_1 = require("./academic.semester.conts");
 const academic_semester_model_1 = require("./academic.semester.model");
 const getAcademicSemesterFromDb = () => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield academic_semester_model_1.AcademicSemester.find();
     return result;
 });
 const createAcademicSemesterFromDb = (payload) => __awaiter(void 0, void 0, void 0, function* () {
+    if (academic_semester_conts_1.academicSemesterNameCodeMapper[payload.name] !== payload.code) {
+        throw new Error("Invalid Semester Code");
+    }
     const result = yield academic_semester_model_1.AcademicSemester.create(payload);
     return result;
 });

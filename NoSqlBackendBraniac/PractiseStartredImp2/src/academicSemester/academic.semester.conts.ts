@@ -1,3 +1,5 @@
+import { TAcademicSemesterNameMapper } from "./academic.semester";
+
 export type AcademicSemesterName = "Autumn" | "Summer" | "Fall";
 export type AcademicSemesterCode = "01" | "02" | "03";
 export type AcademicSemesterMonth =
@@ -33,3 +35,8 @@ export const AcademicSemesterMonths: AcademicSemesterMonth[] = [
   "November",
   "December"
 ];
+export const academicSemesterNameCodeMapper: TAcademicSemesterNameMapper = {
+  Autumn: "01",
+  Summer: "02",
+  Fall: "03"
+};

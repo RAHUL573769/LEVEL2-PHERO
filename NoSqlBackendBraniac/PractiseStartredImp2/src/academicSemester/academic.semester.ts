@@ -7,7 +7,11 @@ import {
 export type TAcademicSemester = {
   name: AcademicSemesterName;
   code: AcademicSemesterCode;
-  year: Date;
+  year: Number;
   startMonth: AcademicSemesterMonth;
   endMonth: AcademicSemesterMonth;
+};
+
+export type TAcademicSemesterNameMapper = {
+  [key: string]: string;
 };

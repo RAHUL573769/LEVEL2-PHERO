@@ -9,7 +9,7 @@ import {
 const academicSemesterValidation = z.object({
   body: z.object({
     name: z.enum([...AcademicSemesterNames] as [string, ...string[]]),
-    year: z.date(),
+    year: z.number(),
     code: z.enum([...AcademicSemesterCodes] as [string, ...string[]]),
 
     startMonth: z.enum([...AcademicSemesterMonths] as [string, ...string[]]),
