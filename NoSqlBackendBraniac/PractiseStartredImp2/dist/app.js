@@ -8,12 +8,14 @@ const express_1 = __importDefault(require("express"));
 const user_route_1 = require("./user/user.route");
 const globalErrorHandler_1 = __importDefault(require("./middlewares/globalErrorHandler"));
 const notFound_1 = __importDefault(require("./middlewares/notFound"));
+const student_route_1 = require("./student/student.route");
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use((0, cors_1.default)());
 app.use(globalErrorHandler_1.default);
 app.use(notFound_1.default);
-app.use("/create", user_route_1.UserRoute);
+app.use("/user", user_route_1.UserRoute);
+app.use("/student", student_route_1.StudentRoute);
 app.get("/", (req, res) => {
     res.send("Hello World!");
 });

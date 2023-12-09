@@ -11,10 +11,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserController = void 0;
 const user_services_1 = require("./user.services");
-const createStudent = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const catchAsync = (fn) => {
+    return (req, res, next) => {
+        Promise.resolve(fn(req, res, next)).catch((err) => console.log(err));
+    };
+};
+const createStudent = catchAsync((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { password, student: studentData } = req.body;
-        // console.log("15", studentData);
+        console.log("15", req.body.studentData);
         const result = yield user_services_1.UserServices.createStudentIntoDb(password, studentData);
         console.log("22", result);
         res.status(202).json({
@@ -26,7 +31,7 @@ const createStudent = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     catch (error) {
         console.log(error);
     }
-});
+}));
 exports.UserController = {
     createStudent
 };
