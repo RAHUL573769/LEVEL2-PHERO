@@ -1,15 +1,15 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AcademicSemesterVAalidations = void 0;
+exports.AcademicSemesterValidations = void 0;
 const zod_1 = require("zod");
-const academic_semester_model_1 = require("./academic.semester.model");
+const academic_semester_conts_1 = require("./academic.semester.conts");
 const academicSemesterValidation = zod_1.z.object({
     body: zod_1.z.object({
-        name: zod_1.z.enum([...academic_semester_model_1.AcademicSemesterNames]),
-        year: zod_1.z.enum([...academic_semester_model_1.AcademicSemesterMonths]),
-        code: zod_1.z.enum([...academic_semester_model_1.AcademicSemesterCodes])
+        name: zod_1.z.enum([...academic_semester_conts_1.AcademicSemesterNames]),
+        year: zod_1.z.enum([...academic_semester_conts_1.AcademicSemesterMonths]),
+        code: zod_1.z.enum([...academic_semester_conts_1.AcademicSemesterCodes])
     })
 });
-exports.AcademicSemesterVAalidations = {
+exports.AcademicSemesterValidations = {
     academicSemesterValidation
 };

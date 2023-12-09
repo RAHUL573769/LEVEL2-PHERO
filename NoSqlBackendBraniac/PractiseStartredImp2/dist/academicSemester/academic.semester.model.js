@@ -1,32 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AcademicSemester = exports.AcademicSemesterMonths = exports.AcademicSemesterCodes = exports.AcademicSemesterNames = void 0;
+exports.AcademicSemester = void 0;
 const mongoose_1 = require("mongoose");
-exports.AcademicSemesterNames = [
-    "Autumn",
-    "Fall",
-    "Summer"
-];
-exports.AcademicSemesterCodes = ["01", "02", "03"];
-exports.AcademicSemesterMonths = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December"
-];
+const academic_semester_conts_1 = require("./academic.semester.conts");
 const academicSemesterSchema = new mongoose_1.Schema({
     name: {
         type: String,
         enum: {
-            values: exports.AcademicSemesterNames
+            values: academic_semester_conts_1.AcademicSemesterNames
         }
     },
     year: {
@@ -35,18 +16,18 @@ const academicSemesterSchema = new mongoose_1.Schema({
     code: {
         type: String,
         enum: {
-            values: exports.AcademicSemesterCodes
+            values: academic_semester_conts_1.AcademicSemesterCodes
         }
     },
     endMonth: {
         type: String,
         enum: {
-            values: exports.AcademicSemesterMonths
+            values: academic_semester_conts_1.AcademicSemesterMonths
         },
         startMonth: {
             type: String,
             enum: {
-                values: exports.AcademicSemesterMonths
+                values: academic_semester_conts_1.AcademicSemesterMonths
             }
         }
     }

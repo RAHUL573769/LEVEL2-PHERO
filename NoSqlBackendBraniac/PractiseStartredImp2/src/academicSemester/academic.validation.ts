@@ -1,10 +1,11 @@
 import { z } from "zod";
+
+import { TAcademicSemester } from "./academic.semester";
 import {
   AcademicSemesterCodes,
   AcademicSemesterMonths,
   AcademicSemesterNames
-} from "./academic.semester.model";
-import { TAcademicSemester } from "./academic.semester";
+} from "./academic.semester.conts";
 const academicSemesterValidation = z.object({
   body: z.object({
     name: z.enum([...AcademicSemesterNames] as [string, ...string[]]),
@@ -12,6 +13,6 @@ const academicSemesterValidation = z.object({
     code: z.enum([...AcademicSemesterCodes] as [string, ...string[]])
   })
 });
-export const AcademicSemesterVAalidations = {
+export const AcademicSemesterValidations = {
   academicSemesterValidation
 };
