@@ -15,7 +15,7 @@ const catchAsync_1 = require("../utils/catchAsync");
 const getAllStudent = (0, catchAsync_1.catchAsync)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         // console.log("15", studentData);
-        const result = yield student_services_1.StudentServices.getStudentsFromDb;
+        const result = yield student_services_1.StudentServices.getStudentsFromDb();
         console.log("22", result);
         res.status(202).json({
             message: "User Data FetchedSuccessfully",

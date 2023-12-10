@@ -16,11 +16,12 @@ const getStudentsFromDb = () => __awaiter(void 0, void 0, void 0, function* () {
     return result;
 });
 const getSingleStudentInfo = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield student_model_1.Student.findOne(id);
+    const result = yield student_model_1.Student.findById(id);
     return result;
 });
 const updateStudentsInfoInDb = (id, payload) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield student_model_1.Student.findByIdAndUpdate({ _id: id, payload }, { new: true });
+    return result;
 });
 exports.StudentServices = {
     getSingleStudentInfo,

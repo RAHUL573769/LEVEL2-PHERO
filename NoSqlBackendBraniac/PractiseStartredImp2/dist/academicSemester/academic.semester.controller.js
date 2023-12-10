@@ -15,7 +15,7 @@ const academi_semester_service_1 = require("./academi.semester.service");
 const getAllAcademicSemester = (0, catchAsync_1.catchAsync)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         // console.log("15", studentData);
-        const result = yield academi_semester_service_1.AcademicSemesterServices.getAcademicSemesterFromDb;
+        const result = yield academi_semester_service_1.AcademicSemesterServices.getAcademicSemesterFromDb();
         console.log("22", result);
         res.status(202).json({
             message: "Academic Semester Data Fetched Successfully",
@@ -46,7 +46,7 @@ const createAllAcademicSemester = (0, catchAsync_1.catchAsync)((req, res) => __a
 const getSingleAcademicSemester = (0, catchAsync_1.catchAsync)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         // console.log("15", studentData);
-        const id = req.params.id;
+        const { id } = req.params;
         const result = yield academi_semester_service_1.AcademicSemesterServices.getSingleAcademicSemesterInfo(id);
         console.log("22", result);
         res.status(202).json({

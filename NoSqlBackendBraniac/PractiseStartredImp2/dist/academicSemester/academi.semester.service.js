@@ -17,14 +17,16 @@ const getAcademicSemesterFromDb = () => __awaiter(void 0, void 0, void 0, functi
     return result;
 });
 const createAcademicSemesterFromDb = (payload) => __awaiter(void 0, void 0, void 0, function* () {
-    if (academic_semester_conts_1.academicSemesterNameCodeMapper[payload.name] !== payload.code) {
+    if (payload.name &&
+        payload.code &&
+        academic_semester_conts_1.academicSemesterNameCodeMapper[payload.name] !== payload.code) {
         throw new Error("Invalid Semester Code");
     }
     const result = yield academic_semester_model_1.AcademicSemester.create(payload);
     return result;
 });
 const getSingleAcademicSemesterInfo = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield academic_semester_model_1.AcademicSemester.findOne(id);
+    const result = yield academic_semester_model_1.AcademicSemester.findById(id);
     return result;
 });
 const updateAcademicSemesterInfoInDb = (id, payload) => __awaiter(void 0, void 0, void 0, function* () {

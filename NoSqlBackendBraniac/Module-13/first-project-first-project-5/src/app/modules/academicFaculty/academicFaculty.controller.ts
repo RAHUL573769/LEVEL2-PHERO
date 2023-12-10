@@ -29,14 +29,14 @@ const getAllAcademicFaculties = catchAsync(async (req, res) => {
 
 const getSingleAcademicFaculty = catchAsync(async (req, res) => {
   const { facultyId } = req.params;
-  const result =
+  const data =
     await AcademicFacultyServices.getSingleAcademicFacultyFromDB(facultyId);
-
+  console.log(data);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: 'Academic faculty is retrieved succesfully',
-    data: result,
+    data: data,
   });
 });
 

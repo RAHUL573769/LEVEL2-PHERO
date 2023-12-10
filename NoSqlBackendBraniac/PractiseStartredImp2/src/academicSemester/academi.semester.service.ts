@@ -9,7 +9,11 @@ const getAcademicSemesterFromDb = async () => {
 };
 
 const createAcademicSemesterFromDb = async (payload: TAcademicSemester) => {
-  if (academicSemesterNameCodeMapper[payload.name] !== payload.code) {
+  if (
+    payload.name &&
+    payload.code &&
+    academicSemesterNameCodeMapper[payload.name] !== payload.code
+  ) {
     throw new Error("Invalid Semester Code");
   }
   const result = await AcademicSemester.create(payload);
@@ -18,7 +22,7 @@ const createAcademicSemesterFromDb = async (payload: TAcademicSemester) => {
 };
 
 const getSingleAcademicSemesterInfo = async (id: String) => {
-  const result = await AcademicSemester.findOne(id);
+  const result = await AcademicSemester.findById(id);
 
   return result;
 };

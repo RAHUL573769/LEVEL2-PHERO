@@ -6,7 +6,7 @@ const getAllStudent = catchAsync(async (req: Request, res: Response) => {
   try {
     // console.log("15", studentData);
 
-    const result = await StudentServices.getStudentsFromDb;
+    const result = await StudentServices.getStudentsFromDb();
     console.log("22", result);
     res.status(202).json({
       message: "User Data FetchedSuccessfully",

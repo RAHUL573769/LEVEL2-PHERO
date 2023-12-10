@@ -5,8 +5,8 @@ import { StudentController } from "./student.controller";
 
 const router = express.Router();
 
-router.get("/get-all-student", StudentController.getAllStudent);
-router.get("/get-single-student", StudentController.getSingleStudent);
-router.patch("/update-single-student", StudentController.updateStudent);
+router.get("", StudentController.getAllStudent);
+router.get("/get-single-student/:id", StudentController.getSingleStudent);
+router.patch("/update-single-student/:id", StudentController.updateStudent);
 
 export const StudentRoute = router;

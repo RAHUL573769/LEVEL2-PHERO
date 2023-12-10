@@ -1,13 +1,23 @@
+import { TAcademicSemester } from "../academicSemester/academic.semester";
+import { AcademicSemester } from "../academicSemester/academic.semester.model";
 import { TStudent } from "../student/student.interface";
 import { Student } from "../student/student.model";
 import { TUser } from "./user.interface";
 import { User } from "./user.model";
+import { generateStudentId } from "./user.utils";
 // import { Student } from './../student/student.model';
 
 const createStudentIntoDb = async (password: String, studentData: TStudent) => {
   const newUserInPartialUserSchema: Partial<TUser> = {};
 
   newUserInPartialUserSchema.role = "student";
+
+  //year semester  4 digit number
+  // const genertaedStudentId=
+  const admissionSemester = await AcademicSemester.findById(
+    studentData.admissionSemester
+  );
+
   //   console.log("9", studentData);
   if (!password) {
     newUserInPartialUserSchema.password = "Default Password";
@@ -16,7 +26,7 @@ const createStudentIntoDb = async (password: String, studentData: TStudent) => {
   }
 
   const newPartialUser = await User.create(newUserInPartialUserSchema);
-  newPartialUser.id = "20303024";
+  newPartialUser.id = generateStudentId(admissionSemester as TAcademicSemester);
   if (Object.keys(newPartialUser).length) {
     // console.log("19", newPartialUser);
 

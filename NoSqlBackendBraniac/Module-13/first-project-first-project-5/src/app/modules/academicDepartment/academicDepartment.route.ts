@@ -4,6 +4,7 @@ import { AcademicDepartmentControllers } from './academicDepartment.controller';
 import { AcademicDepartmentValidation } from './academicDepartment.validation';
 
 const router = express.Router();
+router.get('/', AcademicDepartmentControllers.getAllAcademicDepartments);
 
 router.post(
   '/create-academic-department',
@@ -25,7 +26,5 @@ router.patch(
   ),
   AcademicDepartmentControllers.updateAcademicDeartment,
 );
-
-router.get('/', AcademicDepartmentControllers.getAllAcademicDepartments);
 
 export const AcademicDepartmentRoutes = router;

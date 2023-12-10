@@ -10,7 +10,7 @@ router.get(
   AcademicSemesterController.getAllAcademicSemester
 );
 router.get(
-  "/get-single-academic-semester",
+  "/get-single-academic-semester/:id",
   AcademicSemesterController.getSingleAcademicSemester
 );
 router.patch(

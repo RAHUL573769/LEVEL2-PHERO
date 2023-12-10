@@ -10,12 +10,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserServices = void 0;
+const academic_semester_model_1 = require("../academicSemester/academic.semester.model");
 const student_model_1 = require("../student/student.model");
 const user_model_1 = require("./user.model");
+const user_utils_1 = require("./user.utils");
 // import { Student } from './../student/student.model';
 const createStudentIntoDb = (password, studentData) => __awaiter(void 0, void 0, void 0, function* () {
     const newUserInPartialUserSchema = {};
     newUserInPartialUserSchema.role = "student";
+    //year semester  4 digit number
+    // const genertaedStudentId=
+    const admissionSemester = yield academic_semester_model_1.AcademicSemester.findById(studentData.admissionSemester);
     //   console.log("9", studentData);
     if (!password) {
         newUserInPartialUserSchema.password = "Default Password";
@@ -24,7 +29,7 @@ const createStudentIntoDb = (password, studentData) => __awaiter(void 0, void 0,
         newUserInPartialUserSchema.password = "12334";
     }
     const newPartialUser = yield user_model_1.User.create(newUserInPartialUserSchema);
-    newPartialUser.id = "20303024";
+    newPartialUser.id = (0, user_utils_1.generateStudentId)(admissionSemester);
     if (Object.keys(newPartialUser).length) {
         // console.log("19", newPartialUser);
         studentData.user = newPartialUser._id;

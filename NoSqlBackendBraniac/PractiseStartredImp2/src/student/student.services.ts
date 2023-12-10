@@ -7,7 +7,7 @@ const getStudentsFromDb = async () => {
 };
 
 const getSingleStudentInfo = async (id: String) => {
-  const result = await Student.findOne(id);
+  const result = await Student.findById(id);
 
   return result;
 };
@@ -16,6 +16,7 @@ const updateStudentsInfoInDb = async (id: String, payload: String) => {
     { _id: id, payload },
     { new: true }
   );
+  return result;
 };
 export const StudentServices = {
   getSingleStudentInfo,

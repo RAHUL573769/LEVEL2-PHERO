@@ -7,7 +7,7 @@ const getAllAcademicSemester = catchAsync(
     try {
       // console.log("15", studentData);
 
-      const result = await AcademicSemesterServices.getAcademicSemesterFromDb;
+      const result = await AcademicSemesterServices.getAcademicSemesterFromDb();
       console.log("22", result);
       res.status(202).json({
         message: "Academic Semester Data Fetched Successfully",
@@ -42,7 +42,7 @@ const getSingleAcademicSemester = catchAsync(
   async (req: Request, res: Response) => {
     try {
       // console.log("15", studentData);
-      const id = req.params.id;
+      const { id } = req.params;
       const result =
         await AcademicSemesterServices.getSingleAcademicSemesterInfo(id);
       console.log("22", result);
