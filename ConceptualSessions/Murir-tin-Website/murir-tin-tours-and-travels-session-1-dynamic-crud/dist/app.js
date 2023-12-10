@@ -4,16 +4,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const user_route_1 = require("./routes/user.route");
+// import { userRoutes } from './routes/user.route'
 const cors_1 = __importDefault(require("cors"));
-const tour_route_1 = require("./routes/tour.route");
-const review_route_1 = require("./routes/review.route");
+const routes_1 = __importDefault(require("./routes"));
+// import { tourRoutes } from './routes/tour.route'
+// import { reviewRoutes } from './routes/review.route'
+// import { globalRouter } from './routes'
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use((0, cors_1.default)());
-app.use('/api/v1/users', user_route_1.userRoutes);
-app.use('/api/v1/tours', tour_route_1.tourRoutes);
-app.use('/api/v1/reviews', review_route_1.reviewRoutes);
+app.use('/api/', routes_1.default);
 app.get('/', (req, res) => {
     res.status(200).json({
         status: 'success',
@@ -24,7 +24,18 @@ app.get('/', (req, res) => {
 app.all('*', (req, res) => {
     res.status(404).json({
         status: 'success',
-        message: 'Website Not Found',
+        message: `Website Not Found for ${req.originalUrl}`,
     });
+});
+//trying to catch not found route
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+app.use((err, req, res, next) => {
+    const statusCode = err.statusCode();
+    const statusMessage = 'Failed';
+    res.status(statusCode).json({
+        status: statusMessage,
+        message: 'Something went wrong',
+    });
+    next();
 });
 exports.default = app;
