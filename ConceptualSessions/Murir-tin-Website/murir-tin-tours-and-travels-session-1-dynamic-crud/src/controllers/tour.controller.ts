@@ -1,8 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Request, Response } from 'express'
+import { NextFunction, Request, RequestHandler, Response } from 'express'
 import { tourServices } from '../services/tour.service'
 
-const createTour = async (req: Request, res: Response) => {
+const catchAsync = (fn: RequestHandler) => {
+  return (req: Request, res: Response, next: NextFunction) => {
+    Promise.resolve(fn(req, res, next)).catch((err) => console.log(err))
+  }
+}
+const createTour = catchAsync(async (req: Request, res: Response) => {
   try {
     const tourData = req.body
     const result = await tourServices.createTour(tourData)
@@ -18,7 +23,7 @@ const createTour = async (req: Request, res: Response) => {
       message: error.message || 'Something went wrong',
     })
   }
-}
+})
 
 const getAllTours = async (req: Request, res: Response) => {
   try {

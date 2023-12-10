@@ -11,7 +11,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.tourController = void 0;
 const tour_service_1 = require("../services/tour.service");
-const createTour = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const catchAsync = (fn) => {
+    return (req, res, next) => {
+        Promise.resolve(fn(req, res, next)).catch((err) => console.log(err));
+    };
+};
+const createTour = catchAsync((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const tourData = req.body;
         const result = yield tour_service_1.tourServices.createTour(tourData);
@@ -28,7 +33,7 @@ const createTour = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             message: error.message || 'Something went wrong',
         });
     }
-});
+}));
 const getAllTours = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const result = yield tour_service_1.tourServices.getAllTours();

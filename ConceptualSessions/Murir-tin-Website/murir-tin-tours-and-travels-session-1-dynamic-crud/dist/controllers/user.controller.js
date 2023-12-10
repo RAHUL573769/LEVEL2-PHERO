@@ -11,18 +11,30 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.userController = void 0;
 const user_service_1 = require("../services/user.service");
+const sendResponse = (res, data) => {
+    res.status(201).json({
+        status: data.statusCode,
+        message: data.message,
+        data: data.data,
+    });
+};
 const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const userData = req.body;
         const result = yield user_service_1.userServices.createUser(userData);
-        res.status(201).json({
-            status: 'success',
-            message: 'User created successfully',
+        // res.status(201).json({
+        //   status: 'success',
+        //   message: 'User created successfully',
+        //   data: result,
+        // })
+        sendResponse(res, {
+            statusCode: 201,
+            message: 'Success',
             data: result,
         });
     }
     catch (error) {
-        console.log(error);
+        // console.log(error)
         res.status(500).json({
             status: 'fail',
             message: error.message || 'Something went wrong',
@@ -39,7 +51,7 @@ const getAllUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         });
     }
     catch (error) {
-        console.log(error);
+        // console.log(error)
         res.status(500).json({
             status: 'fail',
             message: error.message || 'Something went wrong',
@@ -50,14 +62,19 @@ const getSingleUser = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     try {
         const id = req.params.id;
         const result = yield user_service_1.userServices.getSingleUser(id);
-        res.status(200).json({
-            status: 'success',
-            message: 'Single User fetched successfully',
+        // res.status(200).json({
+        //   status: 'success',
+        //   message: 'Single User fetched successfully',
+        //   data: result,
+        // })
+        sendResponse(res, {
+            statusCode: 201,
+            message: 'Success',
             data: result,
         });
     }
     catch (error) {
-        console.log(error);
+        // console.log(error)
         res.status(500).json({
             status: 'fail',
             message: error.message || 'Something went wrong',
@@ -76,7 +93,7 @@ const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         });
     }
     catch (error) {
-        console.log(error);
+        // console.log(error)
         res.status(500).json({
             status: 'fail',
             message: error.message || 'Something went wrong',
