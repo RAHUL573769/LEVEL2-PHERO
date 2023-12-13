@@ -22,4 +22,67 @@ const createUser = async (req: Request, res: Response) => {
   }
 };
 
-export const UserController = { createUser };
+const getSingleUser = async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id;
+
+    const result = await UserServices.getSingleUser(id);
+
+    res.status(200).json({
+      message: "Single User Fetched Succesfully",
+      status: "Success",
+      data: result
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      message: "User Fetched Failed",
+      status: "Failed",
+      data: error
+    });
+  }
+};
+
+const getAllUser = async (req: Request, res: Response) => {
+  try {
+    const result = await UserServices.getAllUser();
+
+    res.status(200).json({
+      message: "All User Fetched Succesfully",
+      status: "Success",
+      data: result
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      message: "Single User Fetched Failed",
+      status: "Failed",
+      data: error
+    });
+  }
+};
+
+const updateUser = async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id;
+    const data = req.body;
+    const result = await UserServices.updateUser(id, data);
+
+    res.status(200).json({
+      message: " User Updates Succesfully",
+      status: "Success",
+      data: result
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      message: "User Updates Failed",
+      status: "Failed",
+      data: error
+    });
+  }
+};
+
+export const UserController = {
+  createUser,
+  getAllUser,
+  getSingleUser,
+  updateUser
+};

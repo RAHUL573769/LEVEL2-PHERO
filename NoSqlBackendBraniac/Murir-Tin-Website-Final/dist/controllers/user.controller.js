@@ -29,4 +29,63 @@ const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         });
     }
 });
-exports.UserController = { createUser };
+const getSingleUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const id = req.params.id;
+        const result = yield user_services_1.UserServices.getSingleUser(id);
+        res.status(200).json({
+            message: "Single User Fetched Succesfully",
+            status: "Success",
+            data: result
+        });
+    }
+    catch (error) {
+        res.status(500).json({
+            message: "User Fetched Failed",
+            status: "Failed",
+            data: error
+        });
+    }
+});
+const getAllUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const result = yield user_services_1.UserServices.getAllUser();
+        res.status(200).json({
+            message: "All User Fetched Succesfully",
+            status: "Success",
+            data: result
+        });
+    }
+    catch (error) {
+        res.status(500).json({
+            message: "Single User Fetched Failed",
+            status: "Failed",
+            data: error
+        });
+    }
+});
+const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const id = req.params.id;
+        const data = req.body;
+        const result = yield user_services_1.UserServices.updateUser(id, data);
+        res.status(200).json({
+            message: " User Updates Succesfully",
+            status: "Success",
+            data: result
+        });
+    }
+    catch (error) {
+        res.status(500).json({
+            message: "User Updates Failed",
+            status: "Failed",
+            data: error
+        });
+    }
+});
+exports.UserController = {
+    createUser,
+    getAllUser,
+    getSingleUser,
+    updateUser
+};
