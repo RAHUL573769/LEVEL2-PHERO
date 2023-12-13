@@ -68,7 +68,9 @@ const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     try {
         const id = req.params.id;
         const data = req.body;
+        console.log("67", req.body);
         const result = yield user_services_1.UserServices.updateUser(id, data);
+        console.log(result);
         res.status(200).json({
             message: " User Updates Succesfully",
             status: "Success",

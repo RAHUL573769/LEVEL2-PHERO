@@ -2,11 +2,13 @@ export interface ITour {
   name: string;
   durationHours: number;
   ratingAverage: number;
+  ratingQuantity: number;
   price: number;
+  imageCover: string;
   images: string[];
-  createdAt: Date[];
+  createdAt: Date;
   startLocation: string;
-  location: string[];
-
+  endlocation: string;
+  locations: string[];
   slug: string;
 }

@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose";
+import { Document, Query, Schema, model } from "mongoose";
 import { IUser, IUserRole, IUserStatus } from "../interface/user.interface";
 
 export const UserStatus: IUserStatus[] = ["active", "inactive"];
@@ -35,5 +35,11 @@ const userSchema = new Schema<IUser>({
     default: "active"
   }
 });
+//Pre hook for Query Middle ware
+userSchema.pre("find", function (this: Query<IUser, Document>, next) {
+  this.find({ userStatus: { $eq: "active" } });
 
+  next();
+});
+//Pre hook for Query Middle ware
 export const User = model<IUser>("User", userSchema);

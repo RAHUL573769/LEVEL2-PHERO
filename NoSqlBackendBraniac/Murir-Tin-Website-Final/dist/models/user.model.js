@@ -36,4 +36,10 @@ const userSchema = new mongoose_1.Schema({
         default: "active"
     }
 });
+//Pre hook for Query Middle ware
+userSchema.pre("find", function (next) {
+    this.find({ userStatus: { $eq: "active" } });
+    next();
+});
+//Pre hook for Query Middle ware
 exports.User = (0, mongoose_1.model)("User", userSchema);

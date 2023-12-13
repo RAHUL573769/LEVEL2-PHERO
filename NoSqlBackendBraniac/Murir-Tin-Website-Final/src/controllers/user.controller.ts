@@ -64,8 +64,9 @@ const updateUser = async (req: Request, res: Response) => {
   try {
     const id = req.params.id;
     const data = req.body;
+    console.log("67", req.body);
     const result = await UserServices.updateUser(id, data);
-
+    console.log(result);
     res.status(200).json({
       message: " User Updates Succesfully",
       status: "Success",
