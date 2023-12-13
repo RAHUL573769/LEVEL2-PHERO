@@ -9,24 +9,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserController = void 0;
-const user_services_1 = require("../services/user.services");
-const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const userData = req.body;
-        const result = yield user_services_1.UserServices.createUser(userData);
-        res.status(200).json({
-            message: "User Created Succesfully",
-            status: "Success",
-            data: result
-        });
-    }
-    catch (error) {
-        res.status(500).json({
-            message: "User Creation Failed",
-            status: "Failed",
-            data: error
-        });
-    }
+exports.UserServices = void 0;
+const user_model_1 = require("../models/user.model");
+const createUser = (userData) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield user_model_1.User.create(userData);
+    return result;
 });
-exports.UserController = { createUser };
+exports.UserServices = { createUser };
