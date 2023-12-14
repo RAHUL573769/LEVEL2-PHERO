@@ -26,4 +26,4 @@ const reviewSchema = new mongoose_1.Schema({
 });
 //Pre hook for Query Middle ware
 //Pre hook for Query Middle ware
-exports.Review = (0, mongoose_1.model)("Tour", reviewSchema);
+exports.Review = (0, mongoose_1.model)("Review", reviewSchema);

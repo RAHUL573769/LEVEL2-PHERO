@@ -1,7 +1,11 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Tour = void 0;
 const mongoose_1 = require("mongoose");
+const slugify_1 = __importDefault(require("slugify"));
 const tourSchema = new mongoose_1.Schema({
     name: {
         type: String
@@ -43,7 +47,17 @@ const tourSchema = new mongoose_1.Schema({
     },
     locations: [String],
     slug: String
+}, {
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true }
 });
 //Pre hook for Query Middle ware
+tourSchema.virtual("durationDays").get(function () {
+    return this.durationHours / 24;
+});
+tourSchema.pre("save", function (next) {
+    this.slug = (0, slugify_1.default)(this.name, { lower: true });
+    next();
+});
 //Pre hook for Query Middle ware
 exports.Tour = (0, mongoose_1.model)("Tour", tourSchema);
