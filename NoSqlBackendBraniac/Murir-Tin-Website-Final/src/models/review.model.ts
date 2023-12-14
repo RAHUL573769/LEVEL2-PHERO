@@ -29,4 +29,4 @@ const reviewSchema = new Schema<IReview>({
 //Pre hook for Query Middle ware
 
 //Pre hook for Query Middle ware
-export const Review = model<IReview>("Review", reviewSchema);
+export const Review1 = model<IReview>("Review", reviewSchema);

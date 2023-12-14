@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Review = void 0;
+exports.Review1 = void 0;
 const mongoose_1 = require("mongoose");
 const reviewSchema = new mongoose_1.Schema({
     review: {
@@ -28,4 +28,4 @@ const reviewSchema = new mongoose_1.Schema({
 });
 //Pre hook for Query Middle ware
 //Pre hook for Query Middle ware
-exports.Review = (0, mongoose_1.model)("Review", reviewSchema);
+exports.Review1 = (0, mongoose_1.model)("Review", reviewSchema);
