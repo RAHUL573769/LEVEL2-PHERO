@@ -1,31 +1,29 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Review1 = void 0;
+exports.Review = void 0;
 const mongoose_1 = require("mongoose");
 const reviewSchema = new mongoose_1.Schema({
     review: {
-        type: String,
-        required: [true, "Please tell Your Review"]
+        type: String
     },
     rating: {
-        type: Number,
-        required: [true, "Please tell Your Ratings"]
-    },
-    createdAt: {
-        type: Date,
-        default: Date.now()
+        type: Number
     },
     tour: {
         type: mongoose_1.Schema.Types.ObjectId,
         ref: "Tour",
-        required: [true, "Please tell Your Tour"]
+        unique: true
     },
     user: {
         type: mongoose_1.Schema.Types.ObjectId,
-        ref: "User",
-        required: [true, "Please tell Your User Name"]
+        ref: "User"
+    },
+    createdAt: {
+        type: Date,
+        required: false,
+        default: Date.now()
     }
 });
 //Pre hook for Query Middle ware
 //Pre hook for Query Middle ware
-exports.Review1 = (0, mongoose_1.model)("Review", reviewSchema);
+exports.Review = (0, mongoose_1.model)("Tour", reviewSchema);

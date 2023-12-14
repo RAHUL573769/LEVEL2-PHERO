@@ -6,7 +6,7 @@ const createTour = async (req: Request, res: Response) => {
     const tourData = req.body;
 
     const result = await TourServices.createTour(tourData);
-
+    console.log(result);
     res.status(200).json({
       message: "Tour Created Succesfully",
       status: "Success",
@@ -16,7 +16,7 @@ const createTour = async (req: Request, res: Response) => {
     res.status(500).json({
       message: "Tour Creation Failed",
       status: "Failed",
-      data: error
+      data: error.message
     });
   }
 };

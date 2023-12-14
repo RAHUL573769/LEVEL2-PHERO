@@ -15,6 +15,7 @@ const createTour = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     try {
         const tourData = req.body;
         const result = yield tour_service_1.TourServices.createTour(tourData);
+        console.log(result);
         res.status(200).json({
             message: "Tour Created Succesfully",
             status: "Success",
@@ -25,7 +26,7 @@ const createTour = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         res.status(500).json({
             message: "Tour Creation Failed",
             status: "Failed",
-            data: error
+            data: error.message
         });
     }
 });

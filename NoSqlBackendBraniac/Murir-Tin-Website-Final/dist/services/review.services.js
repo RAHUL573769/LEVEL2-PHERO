@@ -9,23 +9,23 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TourServices = void 0;
-const tour_model_1 = require("../models/tour.model");
-const createTour = (tourData) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield tour_model_1.Tour.create(tourData);
+exports.ReviewServices = void 0;
+const review_model_1 = require("../models/review.model");
+const createReview = (reviewData) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield review_model_1.Review.create(reviewData);
     console.log(result);
     return result;
 });
-const getAllTour = () => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield tour_model_1.Tour.find();
+const getAllReview = () => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield review_model_1.Review.find();
     return result;
 });
-const getSingleTour = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield tour_model_1.Tour.findById(id);
+const getSingleReview = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield review_model_1.Review.findById(id);
     return result;
 });
-const updateTour = (id, userData) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield tour_model_1.Tour.findByIdAndUpdate(id, userData, {
+const updateReview = (id, reviewData) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield review_model_1.Review.findByIdAndUpdate(id, reviewData, {
         new: true,
         runValidators: true
     });
@@ -35,10 +35,10 @@ const updateTour = (id, userData) => __awaiter(void 0, void 0, void 0, function*
 //     const result = await User.findByIdAndDelete(id)
 //     return result
 //   }
-exports.TourServices = {
-    createTour,
-    updateTour,
-    getAllTour,
-    getSingleTour
+exports.ReviewServices = {
+    createReview,
+    getAllReview,
+    getSingleReview,
+    updateReview
     //   deleteUser
 };

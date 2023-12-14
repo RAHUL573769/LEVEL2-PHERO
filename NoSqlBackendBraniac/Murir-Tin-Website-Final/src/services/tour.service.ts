@@ -2,7 +2,8 @@ import { ITour } from "../interface/tour.interface";
 import { Tour } from "../models/tour.model";
 
 const createTour = async (tourData: ITour): Promise<ITour> => {
-  const result = await Tour.create(createTour);
+  const result = await Tour.create(tourData);
+  console.log(result);
   return result;
 };
 const getAllTour = async (): Promise<ITour[]> => {

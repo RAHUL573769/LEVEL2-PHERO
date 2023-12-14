@@ -4,12 +4,12 @@ exports.Tour = void 0;
 const mongoose_1 = require("mongoose");
 const tourSchema = new mongoose_1.Schema({
     name: {
-        type: String,
-        required: [true, "Please Tell Your Name"]
+        type: String
+        // required: [true, "Please Tell Your Name"]
     },
     durationHours: {
         type: Number,
-        required: [true, "Please Tell Your Duration Hours"]
+        required: [false, "Please Tell Your Duration Hours"]
     },
     ratingAverage: {
         type: Number,
@@ -20,18 +20,19 @@ const tourSchema = new mongoose_1.Schema({
         default: 0
     },
     price: {
-        type: Number,
-        required: [true, "Please tell your Price"]
+        type: Number
+        // required: [true, "Please tell your Price"]
     },
     imageCover: {
         type: String,
-        required: [true, "Please Tell Your Image Cover"]
+        required: [false, "Please Tell Your Image Cover"]
     },
     images: {
         type: [String]
     },
     createdAt: {
         type: Date,
+        required: false,
         default: Date.now()
     },
     startLocation: {

@@ -1,32 +1,29 @@
 import { Schema, model } from "mongoose";
-import { ITour } from "../interface/tour.interface";
 import { IReview } from "../interface/review";
 
 const reviewSchema = new Schema<IReview>({
   review: {
-    type: String,
-    required: [true, "Please tell Your Review"]
+    type: String
   },
   rating: {
-    type: Number,
-    required: [true, "Please tell Your Ratings"]
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now()
+    type: Number
   },
   tour: {
     type: Schema.Types.ObjectId,
     ref: "Tour",
-    required: [true, "Please tell Your Tour"]
+    unique: true
   },
   user: {
     type: Schema.Types.ObjectId,
-    ref: "User",
-    required: [true, "Please tell Your User Name"]
+    ref: "User"
+  },
+  createdAt: {
+    type: Date,
+    required: false,
+    default: Date.now()
   }
 });
 //Pre hook for Query Middle ware
 
 //Pre hook for Query Middle ware
-export const Review1 = model<IReview>("Review", reviewSchema);
+export const Review = model<IReview>("Tour", reviewSchema);
