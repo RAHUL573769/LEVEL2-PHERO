@@ -78,5 +78,10 @@ tourSchema.methods.getNextStartAndEndDate = function () {
         estimatedendDate
     };
 };
+tourSchema.virtual("reviews", {
+    ref: "Review",
+    foreignField: "tour",
+    localField: "_id"
+});
 //Pre hook for Query Middle ware
 exports.Tour = (0, mongoose_1.model)("Tour", tourSchema);

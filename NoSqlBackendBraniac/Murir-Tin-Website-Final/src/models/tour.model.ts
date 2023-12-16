@@ -16,6 +16,7 @@ const tourSchema = new Schema<ITour, TTourModel, ITourMethods>(
       type: Number,
       default: 4.5
     },
+
     ratingQuantity: {
       type: Number,
       default: 0
@@ -70,8 +71,8 @@ tourSchema.pre("save", function (next) {
 
 //instance methods creation
 tourSchema.methods.getNextStartAndEndDate = function (): {
-  nextNearestDate: Date | null;
-  estimatedendDate: Date | null;
+  nextNearestDate: Date;
+  estimatedendDate: Date;
 } {
   const today = new Date();
   const futureDates = this.startDates.filter((startDate: Date) => {
@@ -90,5 +91,11 @@ tourSchema.methods.getNextStartAndEndDate = function (): {
     estimatedendDate
   };
 };
+
+tourSchema.virtual("reviews", {
+  ref: "Review",
+  foreignField: "tour",
+  localField: "_id"
+});
 //Pre hook for Query Middle ware
 export const Tour = model<ITour, TTourModel>("Tour", tourSchema);

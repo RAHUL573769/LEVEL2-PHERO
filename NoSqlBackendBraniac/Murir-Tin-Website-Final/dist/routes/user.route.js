@@ -12,3 +12,5 @@ router.post("/create-user", user_controller_1.UserController.createUser);
 router.get("/get-user/:id", user_controller_1.UserController.getSingleUser);
 router.patch("/update-user/:id", user_controller_1.UserController.updateUser);
 exports.UserRouter = router;
+// http://localhost:5000/api/vi/users/get-user
+// http://localhost:5000/api/vi/tours/get-tour

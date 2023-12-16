@@ -9,3 +9,5 @@ router.get("/get-user/:id", UserController.getSingleUser);
 router.patch("/update-user/:id", UserController.updateUser);
 
 export const UserRouter = router;
+// http://localhost:5000/api/vi/users/get-user
+// http://localhost:5000/api/vi/tours/get-tour

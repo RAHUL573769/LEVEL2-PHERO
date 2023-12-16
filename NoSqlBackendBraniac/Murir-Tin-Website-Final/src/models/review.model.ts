@@ -25,5 +25,7 @@ const reviewSchema = new Schema<IReview>({
 });
 //Pre hook for Query Middle ware
 
+reviewSchema.index({ tour: 1, user: 1 }, { unique: true });
+
 //Pre hook for Query Middle ware
 export const Review = model<IReview>("Review", reviewSchema);

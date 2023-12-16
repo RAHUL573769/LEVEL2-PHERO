@@ -7,7 +7,10 @@ const createReview = async (reviewData: IReview): Promise<IReview> => {
   return result;
 };
 const getAllReview = async (): Promise<IReview[]> => {
-  const result = await Review.find();
+  const result = await Review.find().populate({
+    path: "user",
+    select: "name photo"
+  });
   return result;
 };
 const getSingleReview = async (id: string): Promise<IReview | null> => {

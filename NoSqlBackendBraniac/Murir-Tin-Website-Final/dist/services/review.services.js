@@ -17,7 +17,10 @@ const createReview = (reviewData) => __awaiter(void 0, void 0, void 0, function*
     return result;
 });
 const getAllReview = () => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield review_model_1.Review.find();
+    const result = yield review_model_1.Review.find().populate({
+        path: "user",
+        select: "name photo"
+    });
     return result;
 });
 const getSingleReview = (id) => __awaiter(void 0, void 0, void 0, function* () {

@@ -21,7 +21,7 @@ const getAllTour = () => __awaiter(void 0, void 0, void 0, function* () {
     return result;
 });
 const getSingleTour = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield tour_model_1.Tour.findById(id);
+    const result = yield tour_model_1.Tour.findById(id).populate("reviews");
     return result;
 });
 const updateTour = (id, userData) => __awaiter(void 0, void 0, void 0, function* () {
