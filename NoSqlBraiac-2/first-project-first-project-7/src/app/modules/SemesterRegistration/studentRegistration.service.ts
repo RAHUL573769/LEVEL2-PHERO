@@ -6,6 +6,15 @@ const createSemesterRegistrationIntoDB = async (
   payload: TSemesterRegistration,
 ) => {
   const academicSemester = payload?.academicSemester;
+
+  const isThereAnyUpcomingorOngoingSemester =
+    await SemesterRegistration.findOne({
+      $or: [{ status: 'Upcoming' }, { status: 'Ongoing' }],
+    });
+
+  if (isThereAnyUpcomingorOngoingSemester) {
+    throw new Error('There os a already semester of this status');
+  }
   const isAcademicSemesterExists =
     await AcademicSemester.findById(academicSemester);
 
@@ -38,6 +47,25 @@ const updateSemesterRegistrationIntoDB = async (
   id: string,
   payload: Partial<TSemesterRegistration>,
 ) => {
+  const isSemesterRegistrationExists = await SemesterRegistration.findById(id);
+
+  if (!isSemesterRegistrationExists) {
+    throw new Error('This semeste is not Found');
+  }
+  const currentSemesterStatus = isSemesterRegistrationExists?.status;
+  const requestedStatus = payload?.status;
+  if (currentSemesterStatus === 'Ended') {
+    throw new Error('This semester already Ended');
+  }
+  // upcomg---->ongoing----->ended
+
+  if (currentSemesterStatus === 'Ongoing' && requestedStatus === 'Upcoming') {
+    throw new Error('You cannot change status for Upcoming and Ongoing`1');
+  }
+
+  if (currentSemesterStatus === 'Ongoing' && requestedStatus === 'Ended') {
+    throw new Error('You cannot change status');
+  }
   const result = await SemesterRegistration.findOneAndUpdate(
     { _id: id },
     payload,
