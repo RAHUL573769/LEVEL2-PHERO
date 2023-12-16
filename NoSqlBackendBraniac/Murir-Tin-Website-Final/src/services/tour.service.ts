@@ -25,6 +25,11 @@ const updateTour = async (
   return result;
 };
 
+const getNextSchedule = async (id: string): Promise<any> => {
+  const tour = await Tour.findById(id);
+  const nextSchedule = tour?.getNextStartAndEndDate;
+};
+
 // const deleteUser = async (id: string): Promise<IUser | null> => {
 //     const result = await User.findByIdAndDelete(id)
 //     return result

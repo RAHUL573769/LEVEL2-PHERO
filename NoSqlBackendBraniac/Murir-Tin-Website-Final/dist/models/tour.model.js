@@ -45,9 +45,14 @@ const tourSchema = new mongoose_1.Schema({
     endlocation: {
         type: String
     },
+    startDates: {
+        type: [String]
+    },
     locations: [String],
     slug: String
-}, {
+}, 
+//second parameter
+{
     toJSON: { virtuals: true },
     toObject: { virtuals: true }
 });
@@ -59,5 +64,19 @@ tourSchema.pre("save", function (next) {
     this.slug = (0, slugify_1.default)(this.name, { lower: true });
     next();
 });
+//instance methods creation
+tourSchema.methods.getNextStartAndEndDate = function () {
+    const today = new Date();
+    const futureDates = this.startDates.filter((startDate) => {
+        return startDate > today;
+    });
+    futureDates.sort((a, b) => a.getTime() - b.getTime());
+    const nextNearestDate = futureDates[0];
+    const estimatedendDate = new Date(nextNearestDate.getTime() + this.durationHours * 60 * 60 * 60);
+    return {
+        nextNearestDate,
+        estimatedendDate
+    };
+};
 //Pre hook for Query Middle ware
 exports.Tour = (0, mongoose_1.model)("Tour", tourSchema);

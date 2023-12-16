@@ -1,8 +1,8 @@
 import { Schema, model } from "mongoose";
-import { ITour } from "../interface/tour.interface";
+import { ITour, ITourMethods, TTourModel } from "../interface/tour.interface";
 import slugify from "slugify";
 
-const tourSchema = new Schema<ITour>(
+const tourSchema = new Schema<ITour, TTourModel, ITourMethods>(
   {
     name: {
       type: String
@@ -20,6 +20,7 @@ const tourSchema = new Schema<ITour>(
       type: Number,
       default: 0
     },
+
     price: {
       type: Number
       // required: [true, "Please tell your Price"]
@@ -42,14 +43,20 @@ const tourSchema = new Schema<ITour>(
     endlocation: {
       type: String
     },
+    startDates: {
+      type: [String]
+    },
     locations: [String],
     slug: String
   },
+
+  //second parameter
   {
     toJSON: { virtuals: true },
     toObject: { virtuals: true }
   }
 );
+
 //Pre hook for Query Middle ware
 tourSchema.virtual("durationDays").get(function () {
   return this.durationHours / 24;
@@ -60,5 +67,28 @@ tourSchema.pre("save", function (next) {
 
   next();
 });
+
+//instance methods creation
+tourSchema.methods.getNextStartAndEndDate = function (): {
+  nextNearestDate: Date | null;
+  estimatedendDate: Date | null;
+} {
+  const today = new Date();
+  const futureDates = this.startDates.filter((startDate: Date) => {
+    return startDate > today;
+  });
+
+  futureDates.sort((a: Date, b: Date) => a.getTime() - b.getTime());
+
+  const nextNearestDate = futureDates[0];
+  const estimatedendDate = new Date(
+    nextNearestDate.getTime() + this.durationHours * 60 * 60 * 60
+  );
+
+  return {
+    nextNearestDate,
+    estimatedendDate
+  };
+};
 //Pre hook for Query Middle ware
-export const Tour = model<ITour>("Tour", tourSchema);
+export const Tour = model<ITour, TTourModel>("Tour", tourSchema);

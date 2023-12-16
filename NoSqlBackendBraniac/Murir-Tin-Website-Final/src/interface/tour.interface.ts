@@ -1,3 +1,5 @@
+import { Model } from "mongoose";
+
 export interface ITour {
   name: string;
   durationHours: number;
@@ -7,8 +9,18 @@ export interface ITour {
   imageCover: string;
   images: string[];
   createdAt: Date;
+  startDates: Date[];
   startLocation: string;
   endlocation: string;
   locations: string[];
   slug: string;
 }
+//instance method creation
+export interface ITourMethods {
+  getNextStartAndEndDate(): {
+    nextNearestDate: Date;
+    estimatedendDate: Date;
+  };
+}
+
+export type TTourModel = Model<ITour, {}, ITourMethods>;

@@ -31,6 +31,10 @@ const updateTour = (id, userData) => __awaiter(void 0, void 0, void 0, function*
     });
     return result;
 });
+const getNextSchedule = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const tour = yield tour_model_1.Tour.findById(id);
+    const nextSchedule = tour === null || tour === void 0 ? void 0 : tour.getNextStartAndEndDate;
+});
 // const deleteUser = async (id: string): Promise<IUser | null> => {
 //     const result = await User.findByIdAndDelete(id)
 //     return result
