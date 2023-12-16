@@ -1,6 +1,5 @@
 import { Types } from 'mongoose';
-
-export type semesterStatus = 'Upcoming' | 'Ongoing' | 'Ended';
+import { semesterStatus } from './studentRegistrstionConstants';
 
 export type TSemesterRegistration = {
   academicSemester: Types.ObjectId;

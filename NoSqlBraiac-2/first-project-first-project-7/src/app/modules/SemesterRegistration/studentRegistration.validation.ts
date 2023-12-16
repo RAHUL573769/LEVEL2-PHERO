@@ -1,5 +1,6 @@
 import { z } from 'zod';
-import { StudentRegistrationStatus } from './studentRegistration.model';
+import { StudentRegistrationStatus } from './studentRegistrstionConstants';
+// import { StudentRegistrationStatus } from './studentRegistration.model';
 export const createSemesterRegistrationValidation = z.object({
   body: z.object({
     academicSemester: z.string(),

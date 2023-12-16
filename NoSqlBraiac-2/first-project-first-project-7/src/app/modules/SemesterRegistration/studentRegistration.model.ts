@@ -1,15 +1,8 @@
 import mongoose from 'mongoose';
-import {
-  TSemesterRegistration,
-  semesterStatus,
-} from './studentRegistration.interface';
+import { TSemesterRegistration } from './studentRegistration.interface';
 import { Schema } from 'mongoose';
+import { StudentRegistrationStatus } from './studentRegistrstionConstants';
 
-export const StudentRegistrationStatus: semesterStatus[] = [
-  'Upcoming',
-  'Ended',
-  'Ongoing',
-];
 const semesterRegistrationSchema = new mongoose.Schema<TSemesterRegistration>(
   {
     academicSemester: {
