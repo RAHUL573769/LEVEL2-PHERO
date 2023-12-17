@@ -1,7 +1,8 @@
-import { Schema, model } from "mongoose";
-import { IReview } from "../interface/review";
+import mongoose, { Schema, model } from "mongoose";
+import { IReview, IReviewModel } from "../interface/review";
+import { Tour } from "./tour.model";
 
-const reviewSchema = new Schema<IReview>({
+const reviewSchema = new Schema<IReview, IReviewModel>({
   review: {
     type: String
   },
@@ -27,5 +28,33 @@ const reviewSchema = new Schema<IReview>({
 
 reviewSchema.index({ tour: 1, user: 1 }, { unique: true });
 
+reviewSchema.statics.calcAverageRatings = async function (
+  tourId: mongoose.Types.ObjectId
+) {
+  const stats = await this.aggregate([
+    {
+      $match: tourId
+    },
+    {
+      $group: {
+        _id: "$tour",
+        numberOfRatings: { $sum: 1 },
+        avgRatings: { $avg: "$ratings" }
+      }
+    }
+  ]);
+
+  if (stats.length > 0) {
+    await Tour.findByIdAndUpdate(tourId, {
+      ratingAverage: stats[0].numberOfRatings,
+      ratingQuantity: stats[0].avgRatings
+    });
+  } else {
+    await Tour.findByIdAndUpdate(tourId, {
+      ratingAverage: 0,
+      ratingQuantity: 0
+    });
+  }
+};
 //Pre hook for Query Middle ware
-export const Review = model<IReview>("Review", reviewSchema);
+export const Review = model<IReview, IReviewModel>("Review", reviewSchema);
