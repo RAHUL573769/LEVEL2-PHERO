@@ -18,8 +18,8 @@ export interface ITour {
 //instance method creation
 export interface ITourMethods {
   getNextStartAndEndDate(): {
-    nextNearestDate: Date;
-    estimatedendDate: Date;
+    nextNearestDate: Date|null;
+    estimatedendDate: Date|null;
   };
 }
 
