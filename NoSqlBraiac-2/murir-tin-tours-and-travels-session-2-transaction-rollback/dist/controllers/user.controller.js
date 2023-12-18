@@ -8,22 +8,31 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.userController = void 0;
 const user_service_1 = require("../services/user.service");
-const sendResponse_1 = __importDefault(require("../utils/sendResponse"));
+const sendResponse_1 = require("../utils/sendResponse");
+// import sendSuccessResponse from '../utils/sendResponse'
 const createUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const userData = req.body;
         const result = yield user_service_1.userServices.createUser(userData);
-        (0, sendResponse_1.default)(res, {
-            statusCode: 201,
-            message: 'User created successfully',
+        (0, sendResponse_1.newSuccessResponse)(res, {
+            statusCode: 200,
+            message: 'uSER Creted Succesfully',
+            status: 'Success',
             data: result,
         });
+        // res.status(200).json({
+        //   message: 'User Created Succesfully',
+        //   status: 'Success',
+        //   data: result,
+        // })
+        // sendSuccessResponse(res, {
+        //   statusCode: 201,
+        //   message: 'User created successfully',
+        //   data: result,
+        // })
     }
     catch (error) {
         next(error);

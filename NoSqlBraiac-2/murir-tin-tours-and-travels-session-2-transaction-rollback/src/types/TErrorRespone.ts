@@ -1,6 +1,6 @@
 export type TErrorResponse = {
   message: string
-  // err,
+  err: string
   statusCode: number
   status: 'error' | 'fail'
   issues: [

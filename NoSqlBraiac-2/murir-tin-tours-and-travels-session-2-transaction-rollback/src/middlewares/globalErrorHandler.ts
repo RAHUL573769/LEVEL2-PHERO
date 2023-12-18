@@ -18,6 +18,7 @@ const globalErrorHandler = (
   // let status = err.status || 'error'
   const errorResponse: TErrorResponse = {
     message: err.message || 'Something went Wrong',
+    err: err,
     status: err.status || 'error',
     statusCode: err.statusCode || 500,
     issues: err.issues || [],
@@ -36,28 +37,28 @@ const globalErrorHandler = (
   //   message = err.message
   //   status = 'error'
   // }
-  if (err instanceof mongoose.Error.ValidationError) {
-    // console.log('Ami Validation Error')
-    errorResponse.statusCode = 400
-    errorResponse.message = err.message
-    errorResponse.status = 'error'
+  // if (err instanceof mongoose.Error.ValidationError) {
 
-    const errorValues = Object.values(err.errors)
-    errorValues.forEach(
-      (errObj: mongoose.Error.ValidatorError | mongoose.Error.CastError) => {
-        errorResponse.issues.push({
-          path: errObj.path,
-          message: errObj.message,
-        })
-      },
-    )
-    // console.log(errorValues)
-  }
+  //   errorResponse.statusCode = 400
+  //   errorResponse.message = err.message
+  //   errorResponse.status = 'error'
+  //   errorResponse.err = 'There is Error While Sending Data'
+  //   const errorValues = Object.values(err.errors)
+  //   errorValues.forEach(
+  //     (errObj: mongoose.Error.ValidatorError | mongoose.Error.CastError) => {
+  //       errorResponse.issues.push({
+  //         path: errObj.path,
+  //         message: errObj.message,
+  //       })
+  //     },
+  //   )
+  //   console.log(errorValues)
+  // }
 
   //step-2
   res.status(errorResponse.statusCode).json({
     message: errorResponse.message,
-    // err,
+    err: errorResponse.err,
     status: errorResponse.status,
     issues: errorResponse.issues,
   })
