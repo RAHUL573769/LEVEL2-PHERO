@@ -5,6 +5,7 @@
 import { NextFunction, Request, Response } from 'express'
 import mongoose from 'mongoose'
 import { TErrorResponse } from '../types/TErrorRespone'
+import { handleValidationError } from '../helpers/errorHelpers'
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const globalErrorHandler = (
@@ -18,7 +19,7 @@ const globalErrorHandler = (
   // let status = err.status || 'error'
   const errorResponse: TErrorResponse = {
     message: err.message || 'Something went Wrong',
-    err: err,
+    err: 'Tthis is validation Error',
     status: err.status || 'error',
     statusCode: err.statusCode || 500,
     issues: err.issues || [],
@@ -37,23 +38,23 @@ const globalErrorHandler = (
   //   message = err.message
   //   status = 'error'
   // }
-  // if (err instanceof mongoose.Error.ValidationError) {
-
-  //   errorResponse.statusCode = 400
-  //   errorResponse.message = err.message
-  //   errorResponse.status = 'error'
-  //   errorResponse.err = 'There is Error While Sending Data'
-  //   const errorValues = Object.values(err.errors)
-  //   errorValues.forEach(
-  //     (errObj: mongoose.Error.ValidatorError | mongoose.Error.CastError) => {
-  //       errorResponse.issues.push({
-  //         path: errObj.path,
-  //         message: errObj.message,
-  //       })
-  //     },
-  //   )
-  //   console.log(errorValues)
-  // }
+  if (err instanceof mongoose.Error.ValidationError) {
+    const errorResponse = handleValidationError(err)
+    // errorResponse.statusCode = 400
+    // errorResponse.message = err.message
+    // errorResponse.status = 'error'
+    // errorResponse.err = 'There is Error While Sending Data'
+    // const errorValues = Object.values(err.errors)
+    // errorValues.forEach(
+    //   (errObj: mongoose.Error.ValidatorError | mongoose.Error.CastError) => {
+    //     errorResponse.issues.push({
+    //       path: errObj.path,
+    //       message: errObj.message,
+    //     })
+    //   },
+    // )
+    // console.log(errorValues)
+  }
 
   //step-2
   res.status(errorResponse.statusCode).json({
