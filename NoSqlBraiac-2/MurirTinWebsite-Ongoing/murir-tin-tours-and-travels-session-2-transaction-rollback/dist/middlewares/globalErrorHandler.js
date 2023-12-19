@@ -24,7 +24,7 @@ const globalErrorHandler = (err, req, res, next) => {
     if (err && err instanceof mongoose_1.default.Error.ValidationError) {
         // console.log('Ami Validation ERROR')
         errorResponse.statusCose = 400;
-        errorResponse.message = err.message;
+        errorResponse.message = 'Mongoose Validation Error';
         errorResponse.status = 'There is a Error .Please rectify';
         // console.log(errorResponse)
         const errorValues = Object.values(err.errors);
