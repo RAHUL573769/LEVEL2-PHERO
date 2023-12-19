@@ -24,5 +24,6 @@ export const handleDuplicateError = (
     err: 'This is Error',
     message: 'Duplicagion Error',
     issues,
+    stack: '',
   }
 }

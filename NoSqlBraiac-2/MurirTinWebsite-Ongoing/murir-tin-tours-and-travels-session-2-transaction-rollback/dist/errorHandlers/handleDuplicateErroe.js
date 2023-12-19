@@ -17,6 +17,7 @@ const handleDuplicateError = (err) => {
         err: 'This is Error',
         message: 'Duplicagion Error',
         issues,
+        stack: '',
     };
 };
 exports.handleDuplicateError = handleDuplicateError;

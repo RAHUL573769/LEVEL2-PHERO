@@ -15,9 +15,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.userController = void 0;
 const user_service_1 = require("../services/user.service");
 const sendResponse_1 = __importDefault(require("../utils/sendResponse"));
+const GenericError_1 = __importDefault(require("../classes/errorClasses/GenericError"));
 const createUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const userData = req.body;
+        if (!userData) {
+            throw new GenericError_1.default('User data Not Found', 400);
+        }
         const result = yield user_service_1.userServices.createUser(userData);
         (0, sendResponse_1.default)(res, {
             statusCode: 201,

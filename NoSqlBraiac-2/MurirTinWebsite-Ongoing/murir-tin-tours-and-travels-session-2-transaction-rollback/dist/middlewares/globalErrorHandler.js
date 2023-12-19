@@ -22,6 +22,7 @@ const globalErrorHandler = (err, req, res, next) => {
         statusCose: http_status_1.default.NOT_FOUND,
         status: 'There is a Error .Please rectify',
         issues: err.issues || [],
+        stack: err.stack,
     };
     // console.log(err.name)
     if (err && err instanceof mongoose_1.default.Error.ValidationError) {
@@ -62,6 +63,7 @@ const globalErrorHandler = (err, req, res, next) => {
         status: errorResponse.status,
         message: errorResponse.message,
         issues: errorResponse.issues,
+        stack: errorResponse.stack,
     });
 };
 exports.default = globalErrorHandler;

@@ -27,6 +27,7 @@ const globalErrorHandler = (
     statusCose: httpStatus.NOT_FOUND,
     status: 'There is a Error .Please rectify',
     issues: err.issues || [],
+    stack: err.stack,
   }
 
   // console.log(err.name)
@@ -68,6 +69,7 @@ const globalErrorHandler = (
     status: errorResponse.status,
     message: errorResponse.message,
     issues: errorResponse.issues,
+    stack: errorResponse.stack,
   })
 }
 

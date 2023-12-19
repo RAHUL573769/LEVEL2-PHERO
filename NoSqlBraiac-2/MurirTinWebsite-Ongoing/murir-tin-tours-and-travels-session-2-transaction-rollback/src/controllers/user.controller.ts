@@ -2,10 +2,14 @@
 import { NextFunction, Request, Response } from 'express'
 import { userServices } from '../services/user.service'
 import sendSuccessResponse from '../utils/sendResponse'
+import GenericError from '../classes/errorClasses/GenericError'
 
 const createUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const userData = req.body
+    if (!userData) {
+      throw new GenericError('User data Not Found', 400)
+    }
     const result = await userServices.createUser(userData)
     sendSuccessResponse(res, {
       statusCode: 201,

@@ -4,6 +4,7 @@ export type TError = {
   statusCose: number
   status: string
   issues: TErrorIssues[]
+  stack: string
 }
 
 export type TErrorIssues = {
