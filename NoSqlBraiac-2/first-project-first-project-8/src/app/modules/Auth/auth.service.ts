@@ -2,7 +2,7 @@ import httpStatus from 'http-status';
 import AppError from '../../errors/AppError';
 import { User } from '../user/user.model';
 import { TLoginUser } from './auth.interface';
-// import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 // import notFound from './../../middlewares/notFound';
 
 const loginUser = async (payload: TLoginUser) => {
@@ -42,7 +42,17 @@ const loginUser = async (payload: TLoginUser) => {
   //Acces Granted
 
   console.log(payload);
-  return {};
+
+  //create a token and send to client
+
+  const jwtPayload = {
+    userId: userData,
+    role: userData.role,
+  };
+  const accessToken = jwt.sign(jwtPayload, 'secret', { expiresIn: 60 * 60 });
+
+  console.log(accessToken);
+  return { accessToken, needsPasswordChange: userData.needsPasswordChange };
 };
 
 export const AuthService = {
