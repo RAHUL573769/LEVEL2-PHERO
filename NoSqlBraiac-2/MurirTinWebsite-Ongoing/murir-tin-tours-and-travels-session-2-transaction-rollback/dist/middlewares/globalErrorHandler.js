@@ -9,6 +9,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
 const http_status_1 = __importDefault(require("http-status"));
 const handleValidationError_1 = require("../errorHandlers/handleValidationError");
+const handleDuplicateErroe_1 = require("../errorHandlers/handleDuplicateErroe");
+const handleCateErro_1 = require("../errorHandlers/handleCateErro");
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const globalErrorHandler = (err, req, res, next) => {
     // let statusCode = err.statusCode || 500
@@ -39,6 +41,22 @@ const globalErrorHandler = (err, req, res, next) => {
         //     })
         //   },
         // )
+    }
+    else if (err.code && err.code === 11000) {
+        errorResponse = (0, handleDuplicateErroe_1.handleDuplicateError)(err);
+    }
+    else if (err instanceof mongoose_1.default.Error.CastError) {
+        errorResponse = (0, handleCateErro_1.handleCastError)(err);
+        // errorResponse.message = 'Invalid ObjectId'
+        // errorResponse.statusCose = 404
+        // errorResponse.err = ''
+        // errorResponse.status = 'Failed'
+        // errorResponse.issues = [
+        //   {
+        //     path: err.path,
+        //     message: err.message,
+        //   },
+        // ]
     }
     res.status(errorResponse.statusCose).json({
         status: errorResponse.status,

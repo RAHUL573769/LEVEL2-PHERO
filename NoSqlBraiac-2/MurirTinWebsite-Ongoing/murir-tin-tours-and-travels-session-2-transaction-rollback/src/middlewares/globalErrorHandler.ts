@@ -8,6 +8,8 @@ import { TError } from '../typers/TError'
 import status from 'http-status'
 import httpStatus from 'http-status'
 import { handleValidationError } from '../errorHandlers/handleValidationError'
+import { handleDuplicateError } from '../errorHandlers/handleDuplicateErroe'
+import { handleCastError } from '../errorHandlers/handleCateErro'
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const globalErrorHandler = (
@@ -47,6 +49,20 @@ const globalErrorHandler = (
     //     })
     //   },
     // )
+  } else if (err.code && err.code === 11000) {
+    errorResponse = handleDuplicateError(err)
+  } else if (err instanceof mongoose.Error.CastError) {
+    errorResponse = handleCastError(err)
+    // errorResponse.message = 'Invalid ObjectId'
+    // errorResponse.statusCose = 404
+    // errorResponse.err = ''
+    // errorResponse.status = 'Failed'
+    // errorResponse.issues = [
+    //   {
+    //     path: err.path,
+    //     message: err.message,
+    //   },
+    // ]
   }
   res.status(errorResponse.statusCose).json({
     status: errorResponse.status,

@@ -11,6 +11,7 @@ const tourSchema = new mongoose_1.Schema({
     name: {
         type: String,
         required: [true, 'Please tell us your name'],
+        unique: true,
     },
     durationHours: {
         type: Number,

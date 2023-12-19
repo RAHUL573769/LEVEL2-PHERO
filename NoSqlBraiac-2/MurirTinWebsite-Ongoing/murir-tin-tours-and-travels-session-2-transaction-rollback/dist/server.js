@@ -19,7 +19,7 @@ const config_1 = __importDefault(require("./config"));
 function server() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            yield mongoose_1.default.connect(config_1.default.database_url);
+            yield mongoose_1.default.connect(config_1.default.database_url_local);
             console.log('Connected to MongoDB');
             app_1.default.listen(5000, () => {
                 console.log(`Example app listening on port `);
