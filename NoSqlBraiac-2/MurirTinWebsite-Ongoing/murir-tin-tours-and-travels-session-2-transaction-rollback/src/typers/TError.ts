@@ -3,10 +3,10 @@ export type TError = {
   err: string
   statusCose: number
   status: string
-  issues: [
-    {
-      path: string
-      message: string
-    },
-  ]
+  issues: TErrorIssues[]
+}
+
+export type TErrorIssues = {
+  path: string
+  message: string
 }

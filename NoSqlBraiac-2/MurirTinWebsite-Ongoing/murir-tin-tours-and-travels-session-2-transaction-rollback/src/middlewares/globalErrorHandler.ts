@@ -7,6 +7,7 @@ import mongoose from 'mongoose'
 import { TError } from '../typers/TError'
 import status from 'http-status'
 import httpStatus from 'http-status'
+import { handleValidationError } from '../errorHandlers/handleValidationError'
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const globalErrorHandler = (
@@ -18,7 +19,7 @@ const globalErrorHandler = (
   // let statusCode = err.statusCode || 500
   // let message = err.message || 'Something went wrong'
   // let status = err.status || 'error'
-  const errorResponse: TError = {
+  let errorResponse: TError = {
     message: err.message || 'Something went wrong',
     err: err,
     statusCose: httpStatus.NOT_FOUND,
@@ -29,21 +30,23 @@ const globalErrorHandler = (
   // console.log(err.name)
 
   if (err && err instanceof mongoose.Error.ValidationError) {
+    errorResponse = handleValidationError(err)
+    console.log(errorResponse)
     // console.log('Ami Validation ERROR')
-    errorResponse.statusCose = 400
-    errorResponse.message = 'Mongoose Validation Error'
-    errorResponse.status = 'There is a Error .Please rectify'
+    // errorResponse.statusCose = 400
+    // errorResponse.message = 'Validation Error'
+    // errorResponse.status = 'There is a Error .Please rectify'
     // console.log(errorResponse)
 
-    const errorValues = Object.values(err.errors)
-    errorValues.forEach(
-      (errObj: mongoose.Error.ValidatorError | mongoose.Error.CastError) => {
-        errorResponse.issues.push({
-          path: errObj.path,
-          message: errObj.message,
-        })
-      },
-    )
+    // const errorValues = Object.values(err.errors)
+    // errorValues.forEach(
+    //   (errObj: mongoose.Error.ValidatorError | mongoose.Error.CastError) => {
+    //     errorResponse.issues.push({
+    //       path: errObj.path,
+    //       message: errObj.message,
+    //     })
+    //   },
+    // )
   }
   res.status(errorResponse.statusCose).json({
     status: errorResponse.status,
