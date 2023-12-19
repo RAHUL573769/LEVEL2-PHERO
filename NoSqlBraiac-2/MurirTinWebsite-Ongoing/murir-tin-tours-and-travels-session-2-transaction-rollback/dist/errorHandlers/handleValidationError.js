@@ -20,6 +20,7 @@ const handleValidationError = (err) => {
         err: 'This is Error',
         message: 'Validation Error',
         issues,
+        // stack: '',
     };
 };
 exports.handleValidationError = handleValidationError;

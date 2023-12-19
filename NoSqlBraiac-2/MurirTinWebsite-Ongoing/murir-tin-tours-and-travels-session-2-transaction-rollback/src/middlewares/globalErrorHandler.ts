@@ -10,6 +10,8 @@ import httpStatus from 'http-status'
 import { handleValidationError } from '../errorHandlers/handleValidationError'
 import { handleDuplicateError } from '../errorHandlers/handleDuplicateErroe'
 import { handleCastError } from '../errorHandlers/handleCateErro'
+import GenericError from '../classes/errorClasses/GenericError'
+import { handleGenericError } from '../errorHandlers/handleGenericError'
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const globalErrorHandler = (
@@ -27,7 +29,7 @@ const globalErrorHandler = (
     statusCose: httpStatus.NOT_FOUND,
     status: 'There is a Error .Please rectify',
     issues: err.issues || [],
-    stack: err.stack,
+    // stack: err.stack,
   }
 
   // console.log(err.name)
@@ -50,6 +52,8 @@ const globalErrorHandler = (
     //     })
     //   },
     // )
+  } else if (err instanceof GenericError) {
+    errorResponse = handleGenericError(err)
   } else if (err.code && err.code === 11000) {
     errorResponse = handleDuplicateError(err)
   } else if (err instanceof mongoose.Error.CastError) {
@@ -69,7 +73,7 @@ const globalErrorHandler = (
     status: errorResponse.status,
     message: errorResponse.message,
     issues: errorResponse.issues,
-    stack: errorResponse.stack,
+    // stack: errorResponse.stack,
   })
 }
 

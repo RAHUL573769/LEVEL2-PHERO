@@ -24,5 +24,6 @@ export const handleValidationError = (
     err: 'This is Error',
     message: 'Validation Error',
     issues,
+    // stack: '',
   }
 }

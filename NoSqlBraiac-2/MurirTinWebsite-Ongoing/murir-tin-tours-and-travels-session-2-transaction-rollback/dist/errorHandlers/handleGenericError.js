@@ -1,23 +1,23 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.handleDuplicateError = void 0;
-const handleDuplicateError = (err) => {
-    // let validationError: TError
+exports.handleGenericError = void 0;
+const handleGenericError = (err) => {
+    //   let validationError: TError
     // console.log(errorResponse)
     const issues = [
         {
             path: '',
-            message: 'Duplicate Error Found',
+            message: err.message,
         },
     ];
     console.log(issues);
     return {
-        statusCose: 409,
+        statusCose: err.statusCode,
         status: 'Failed',
         err: 'This is Error',
-        message: 'Duplicagion Error',
+        message: 'Generic Error',
         issues,
         // stack: '',
     };
 };
-exports.handleDuplicateError = handleDuplicateError;
+exports.handleGenericError = handleGenericError;

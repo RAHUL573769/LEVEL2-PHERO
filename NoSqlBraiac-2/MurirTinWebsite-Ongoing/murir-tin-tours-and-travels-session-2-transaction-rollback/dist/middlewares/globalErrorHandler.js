@@ -11,6 +11,8 @@ const http_status_1 = __importDefault(require("http-status"));
 const handleValidationError_1 = require("../errorHandlers/handleValidationError");
 const handleDuplicateErroe_1 = require("../errorHandlers/handleDuplicateErroe");
 const handleCateErro_1 = require("../errorHandlers/handleCateErro");
+const GenericError_1 = __importDefault(require("../classes/errorClasses/GenericError"));
+const handleGenericError_1 = require("../errorHandlers/handleGenericError");
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const globalErrorHandler = (err, req, res, next) => {
     // let statusCode = err.statusCode || 500
@@ -22,7 +24,7 @@ const globalErrorHandler = (err, req, res, next) => {
         statusCose: http_status_1.default.NOT_FOUND,
         status: 'There is a Error .Please rectify',
         issues: err.issues || [],
-        stack: err.stack,
+        // stack: err.stack,
     };
     // console.log(err.name)
     if (err && err instanceof mongoose_1.default.Error.ValidationError) {
@@ -42,6 +44,9 @@ const globalErrorHandler = (err, req, res, next) => {
         //     })
         //   },
         // )
+    }
+    else if (err instanceof GenericError_1.default) {
+        errorResponse = (0, handleGenericError_1.handleGenericError)(err);
     }
     else if (err.code && err.code === 11000) {
         errorResponse = (0, handleDuplicateErroe_1.handleDuplicateError)(err);
@@ -63,7 +68,7 @@ const globalErrorHandler = (err, req, res, next) => {
         status: errorResponse.status,
         message: errorResponse.message,
         issues: errorResponse.issues,
-        stack: errorResponse.stack,
+        // stack: errorResponse.stack,
     });
 };
 exports.default = globalErrorHandler;
