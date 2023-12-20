@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = require("mongoose");
 const slugify_1 = __importDefault(require("slugify"));
+// import { string } from 'zod'
 //sSchema er upore Model nam er ekta type kaaj
 //but amra TTOurModel diye amader Model type janaisi je amader ITourMethods kichu methods o ache
 const tourSchema = new mongoose_1.Schema({
@@ -14,19 +15,17 @@ const tourSchema = new mongoose_1.Schema({
         unique: true,
     },
     durationHours: {
-        type: Number,
+        type: String,
         required: [true, 'Please tell us your durationHours'],
     },
     ratingAverage: {
-        type: Number,
-        default: 4.5,
+        type: String,
     },
     ratingQuantity: {
-        type: Number,
-        default: 0,
+        type: String,
     },
     price: {
-        type: Number,
+        type: String,
         required: [true, 'Please tell us your price'],
     },
     imageCover: {
@@ -35,16 +34,15 @@ const tourSchema = new mongoose_1.Schema({
     },
     images: [String],
     createdAt: {
-        type: Date,
-        default: Date.now(),
+        type: String,
     },
-    startDates: [Date],
+    startDates: [String],
     startLocation: {
         type: String,
         required: [true, 'Please tell us your startLocation'],
     },
     availableSeats: {
-        type: Number,
+        type: String,
         required: [true, 'Please tell us your availableSeats'],
     },
     locations: [String],
@@ -53,9 +51,9 @@ const tourSchema = new mongoose_1.Schema({
     toJSON: { virtuals: true },
     toObject: { virtuals: true },
 });
-tourSchema.virtual('durationDays').get(function () {
-    return this.durationHours / 24;
-});
+// tourSchema.virtual('durationDays').get(function () {
+//   return this.durationHours / 24
+// })
 tourSchema.virtual('reviews', {
     ref: 'Review',
     foreignField: 'tour',
@@ -65,20 +63,25 @@ tourSchema.pre('save', function (next) {
     this.slug = (0, slugify_1.default)(this.name, { lower: true });
     next();
 });
-tourSchema.methods.getNextNearestStartDateAndEndDate = function () {
-    const today = new Date();
-    const futureDates = this.startDates.filter((startDate) => {
-        return startDate > today;
-    });
-    //   65893905746394 - 4873843278478478
-    futureDates.sort((a, b) => a.getTime() - b.getTime());
-    const nearestStartDate = futureDates[0];
-    const estimatedEndDate = new Date(nearestStartDate.getTime() + this.durationHours * 60 * 60 * 1000);
-    return {
-        nearestStartDate,
-        estimatedEndDate,
-    };
-};
+// tourSchema.methods.getNextNearestStartDateAndEndDate = function (): {
+//   nearestStartDate: Date | null
+//   estimatedEndDate: Date | null
+// } {
+//   const today = new Date()
+//   const futureDates = this.startDates.filter((startDate: Date) => {
+//     return startDate > today
+//   })
+//   //   65893905746394 - 4873843278478478
+//   futureDates.sort((a: Date, b: Date) => a.getTime() - b.getTime())
+//   const nearestStartDate = futureDates[0]
+//   const estimatedEndDate = new Date(
+//     nearestStartDate.getTime() + this.durationHours * 60 * 60 * 1000,
+//   )
+//   return {
+//     nearestStartDate,
+//     estimatedEndDate,
+//   }
+// }
 const Tour = (0, mongoose_1.model)('Tour', tourSchema);
 exports.default = Tour;
 //Fat Model Thin Controller

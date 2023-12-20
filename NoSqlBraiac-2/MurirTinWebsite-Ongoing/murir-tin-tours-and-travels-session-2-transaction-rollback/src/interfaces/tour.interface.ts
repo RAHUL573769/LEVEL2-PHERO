@@ -3,15 +3,15 @@ import { Model } from 'mongoose'
 
 interface ITour {
   name: string
-  durationHours: number
-  ratingAverage: number
-  ratingQuantity: number
-  price: number
-  availableSeats : number
+  durationHours: string
+  ratingAverage: string
+  ratingQuantity: string
+  price: string
+  availableSeats: string
   imageCover: string
   images: string[]
-  createdAt: Date
-  startDates: Date[]
+  createdAt: string
+  startDates: string[]
   startLocation: string
   locations: string[]
   slug: string

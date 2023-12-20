@@ -19,6 +19,7 @@ exports.tourRoutes = void 0;
 const express_1 = __importDefault(require("express"));
 const tour_controller_1 = require("../controllers/tour.controller");
 const tour_validation_1 = require("../validations/tour.validation");
+const validatorHandler_1 = require("./../middlewares/validatorHandler");
 const validator = (schema) => {
     return (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
         const result = yield schema.safeParse(req.body);
@@ -43,7 +44,7 @@ const router = express_1.default.Router();
 //     Promise.resolve(fn(req, res)).catch((error: any) => next(error))
 //   }
 // }
-router.post('/create-tour', validator(tour_validation_1.TourValidation.createTourZodSchema), tour_controller_1.tourController.createTour);
+router.post('/create-tour', validatorHandler_1.ValidatorHandler.validator(tour_validation_1.TourValidation.createTourZodSchema), tour_controller_1.tourController.createTour);
 router.get('/', tour_controller_1.tourController.getAllTours);
 // router.get('/', catchAsyncFunction() ------> (req: Request, res: Response, next: NextFunction) => {
 //     Promise.resolve(fn(req, res)).catch((error: any) => next(error))

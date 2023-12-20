@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.tourRoutes = void 0;
+/* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const express_1 = __importDefault(require("express"));
 const tour_controller_1 = require("../controllers/tour.controller");
@@ -20,7 +21,12 @@ router.get('/', tour_controller_1.tourController.getAllTours);
 //   })
 //router jokhon funtion ke call kore tokhon o oi function er modhe req, res, next ei 3 ta diye dey
 //tourController.getAllTours(req, res, next)
-router.get('/:id', tour_controller_1.tourController.getSingleTour);
+router.get('/:id', 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+(req, res, next) => {
+    const id = req.params.id;
+    console.log(id);
+}, tour_controller_1.tourController.getSingleTour);
 router.patch('/:id', tour_controller_1.tourController.updateTour);
 router.delete('/:id', tour_controller_1.tourController.deleteTour);
 router.get('/:id/next-schedule', tour_controller_1.tourController.getNextSchedule);

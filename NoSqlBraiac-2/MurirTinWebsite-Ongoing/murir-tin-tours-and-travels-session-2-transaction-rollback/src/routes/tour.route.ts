@@ -1,5 +1,6 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import express from 'express'
+import express, { NextFunction, Request, Response } from 'express'
 import { tourController } from '../controllers/tour.controller'
 
 const router = express.Router()
@@ -17,7 +18,15 @@ router.get('/', tourController.getAllTours)
 //   })
 //router jokhon funtion ke call kore tokhon o oi function er modhe req, res, next ei 3 ta diye dey
 //tourController.getAllTours(req, res, next)
-router.get('/:id', tourController.getSingleTour)
+router.get(
+  '/:id',
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  (req: Request, res: Response, next: NextFunction) => {
+    const id = req.params.id
+    console.log(id)
+  },
+  tourController.getSingleTour,
+)
 router.patch('/:id', tourController.updateTour)
 router.delete('/:id', tourController.deleteTour)
 router.get('/:id/next-schedule', tourController.getNextSchedule)

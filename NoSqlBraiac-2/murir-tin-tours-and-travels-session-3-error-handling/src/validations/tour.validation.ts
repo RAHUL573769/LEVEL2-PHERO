@@ -2,31 +2,10 @@ import { z } from 'zod'
 
 export const createTourZodSchema = z
   .object({
-    name: z.string().refine(
-      (data) => {
-        if (data.length < 5) {
-          return false
-        }
-      },
-      {
-        message: 'Name must be less than 5 characters',
-      },
-    ),
-    durationHours: z
-      .number()
-      .int()
-      .positive()
-      .min(1)
-      .refine(
-        (data) => {
-          if (data < 5) {
-            return false
-          }
-        },
-        {
-          message: 'Duration must be greater than 5 hours',
-        },
-      ),
+    name: z.string(),
+
+    durationHours: z.number().int().positive().min(1),
+
     ratingAverage: z.number().int().positive().min(1).max(5),
     price: z.number().int().positive().min(1),
     discountPrice: z.number().int().positive().min(1).optional(),

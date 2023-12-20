@@ -7,7 +7,8 @@ import {
   TourValidation,
   createTourZodSchema,
 } from '../validations/tour.validation'
-import { AnyZodObject, ZodSchema } from 'zod'
+import { ZodSchema } from 'zod'
+import { ValidatorHandler } from './../middlewares/validatorHandler'
 
 const validator = (schema: ZodSchema) => {
   return async (req: Request, res: Response, next: NextFunction) => {
@@ -38,7 +39,7 @@ const router = express.Router()
 
 router.post(
   '/create-tour',
-  validator(TourValidation.createTourZodSchema),
+  ValidatorHandler.validator(TourValidation.createTourZodSchema),
   tourController.createTour,
 )
 
