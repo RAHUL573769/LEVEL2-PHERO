@@ -11,7 +11,7 @@ const userSchema = new Schema<IUser>(
   {
     id: {
       type: String,
-      required: true,
+      required: false,
       unique: true
     },
     password: {
@@ -28,7 +28,8 @@ const userSchema = new Schema<IUser>(
     },
     status: {
       type: String,
-      enum: UserStatus
+      enum: UserStatus,
+      default: "in-progress"
     },
     createdAt: {
       type: Date
@@ -39,3 +40,5 @@ const userSchema = new Schema<IUser>(
   },
   { timestamps: true }
 );
+
+export const User = model<IUser>("User", userSchema);
