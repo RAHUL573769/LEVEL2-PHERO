@@ -18,6 +18,19 @@ const createTour = (tourData) => __awaiter(void 0, void 0, void 0, function* () 
     const result = yield tour_model_1.default.create(tourData);
     return result;
 });
+// eslint-disable-next-line no-unused-vars
+const filter = (model, queryObj) => {
+    // const excludeFields = [
+    //   'page',
+    //   'searchTerm',
+    //   'limit',
+    //   'sortBy',
+    //   'sortOrder',
+    //   'fields',
+    // ]
+    const query = model.find(queryObj);
+    return query;
+};
 const getAllTours = (query) => __awaiter(void 0, void 0, void 0, function* () {
     const quryObject = Object.assign({}, query);
     console.log('Query Object Before Delete', quryObject); //filtering
@@ -31,7 +44,9 @@ const getAllTours = (query) => __awaiter(void 0, void 0, void 0, function* () {
     ];
     excludeFields.forEach((keyword) => delete quryObject[keyword]);
     console.log('Query object after delete', quryObject);
-    const result = yield tour_model_1.default.find(quryObject);
+    // const result = await Tour.find(quryObject)
+    const result = yield filter(tour_model_1.default.find({ price: { $lt: 1200 } }), query);
+    console.log(result);
     return result;
 });
 const getSingleTour = (id) => __awaiter(void 0, void 0, void 0, function* () {
