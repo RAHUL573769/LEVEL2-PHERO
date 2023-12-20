@@ -18,8 +18,20 @@ const createTour = (tourData) => __awaiter(void 0, void 0, void 0, function* () 
     const result = yield tour_model_1.default.create(tourData);
     return result;
 });
-const getAllTours = () => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield tour_model_1.default.find();
+const getAllTours = (query) => __awaiter(void 0, void 0, void 0, function* () {
+    const quryObject = Object.assign({}, query);
+    console.log('Query Object Before Delete', quryObject); //filtering
+    const excludeFields = [
+        'page',
+        'searchTerm',
+        'limit',
+        'sortBy',
+        'sortOrder',
+        'fields',
+    ];
+    excludeFields.forEach((keyword) => delete quryObject[keyword]);
+    console.log('Query object after delete', quryObject);
+    const result = yield tour_model_1.default.find(quryObject);
     return result;
 });
 const getSingleTour = (id) => __awaiter(void 0, void 0, void 0, function* () {

@@ -8,8 +8,22 @@ const createTour = async (tourData: any): Promise<ITour> => {
   return result
 }
 
-const getAllTours = async (): Promise<ITour[]> => {
-  const result = await Tour.find()
+const getAllTours = async (query: any): Promise<ITour[]> => {
+  const quryObject = { ...query }
+  console.log('Query Object Before Delete', quryObject) //filtering
+
+  const excludeFields = [
+    'page',
+    'searchTerm',
+    'limit',
+    'sortBy',
+    'sortOrder',
+    'fields',
+  ]
+
+  excludeFields.forEach((keyword) => delete quryObject[keyword])
+  console.log('Query object after delete', quryObject)
+  const result = await Tour.find(quryObject)
   return result
 }
 
