@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createTourZodSchema = void 0;
+exports.TourValidation = exports.createTourZodSchema = void 0;
 const zod_1 = require("zod");
 exports.createTourZodSchema = zod_1.z
     .object({
@@ -37,3 +37,4 @@ exports.createTourZodSchema = zod_1.z
 }, {
     message: 'Discount price must be less than price',
 });
+exports.TourValidation = { createTourZodSchema: exports.createTourZodSchema };

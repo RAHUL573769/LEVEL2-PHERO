@@ -1,11 +1,12 @@
 import { Document, Query, Schema, model } from 'mongoose'
-import { IUser } from '../interfaces/user.interface'
+import { IUser, userRole } from '../interfaces/user.interface'
 
+const UserRole: userRole[] = ['admin', 'user']
 const userSchema = new Schema<IUser>({
   name: {
     type: String,
     required: [true, 'Please tell us your name'],
-    unique : true
+    unique: true,
   },
   age: {
     type: Number,
@@ -20,7 +21,9 @@ const userSchema = new Schema<IUser>({
   photo: String,
   role: {
     type: String,
-    enum: ['user', 'admin'],
+    enum: {
+      values: UserRole,
+    },
     default: 'user',
   },
   userStatus: {

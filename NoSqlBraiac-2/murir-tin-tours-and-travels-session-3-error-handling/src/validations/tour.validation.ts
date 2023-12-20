@@ -44,3 +44,5 @@ export const createTourZodSchema = z
       message: 'Discount price must be less than price',
     },
   )
+
+export const TourValidation = { createTourZodSchema }

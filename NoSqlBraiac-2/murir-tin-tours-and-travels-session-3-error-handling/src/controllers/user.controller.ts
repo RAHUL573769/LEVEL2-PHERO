@@ -10,6 +10,7 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
     sendSuccessResponse(res, {
       statusCode: 201,
       message: 'User created successfully',
+
       data: result,
     })
   } catch (error: any) {

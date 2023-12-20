@@ -1,3 +1,4 @@
+"use strict";
 var peopleDetails = {
     name: "Rahul",
     age: 27,

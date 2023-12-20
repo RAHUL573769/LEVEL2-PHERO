@@ -1,11 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = require("mongoose");
+const UserRole = ['admin', 'user'];
 const userSchema = new mongoose_1.Schema({
     name: {
         type: String,
         required: [true, 'Please tell us your name'],
-        unique: true
+        unique: true,
     },
     age: {
         type: Number,
@@ -20,7 +21,9 @@ const userSchema = new mongoose_1.Schema({
     photo: String,
     role: {
         type: String,
-        enum: ['user', 'admin'],
+        enum: {
+            values: UserRole,
+        },
         default: 'user',
     },
     userStatus: {

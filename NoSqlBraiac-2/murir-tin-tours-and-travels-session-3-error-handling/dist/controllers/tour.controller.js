@@ -16,7 +16,7 @@ exports.tourController = void 0;
 const tour_service_1 = require("../services/tour.service");
 const catchAsync_1 = __importDefault(require("../utils/catchAsync"));
 const sendResponse_1 = __importDefault(require("../utils/sendResponse"));
-const tour_validation_1 = require("../validations/tour.validation");
+// import { createTourZodSchema } from '../validations/tour.validation'
 // const fn = async () => {
 //   const anotherFn = async () => {}
 //   return anotherFn
@@ -48,11 +48,7 @@ const tour_validation_1 = require("../validations/tour.validation");
 // }
 const createTour = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const tourData = req.body;
-    const validatedData = tour_validation_1.createTourZodSchema.parse(tourData);
-    if (!validatedData) {
-        throw new Error('Validation failed');
-    }
-    const result = yield tour_service_1.tourServices.createTour(validatedData);
+    const result = yield tour_service_1.tourServices.createTour(tourData);
     (0, sendResponse_1.default)(res, {
         statusCode: 201,
         message: 'Tour created successfully',
