@@ -1,0 +1,36 @@
+{
+  "id": "123456789",
+  "user": "60a3c35bb6be8630c61e5ea3",
+  "name": {
+    "firstName": "John",
+    "middleName": "Doe",
+    "lastName": "Smith"
+  },
+  "password": "hashedpassword123",
+  "gender": "male",
+  "dateOfBirth": "1995-08-15",
+  "email": "john.doe@example.com",
+  "contactNumber": 1234567890,
+  "emergencyContactNumber": 9876543210,
+  "presentAddress": "123 Main St, Cityville",
+  "permanentAddress": "456 Oak St, Townsville",
+  "bloodGroup": "A+",
+  "guardianName": {
+    "firstName": "Michael",
+    "middleName": "James",
+    "lastName": "Smith"
+  },
+  "localGuardianName": {
+    "firstName": "Sara",
+    "middleName": "Ann",
+    "lastName": "Johnson"
+  },
+  "profileImage": [
+    {
+      "url": "https://example.com/profile_image.jpg",
+      "caption": "Profile Image"
+    }
+  ],
+  "academicDepartment": "60a3c35bb6be8630c61e5ea4",
+  "academicSemester": "60a3c35bb6be8630c61e5ea5"
+}

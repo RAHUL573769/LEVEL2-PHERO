@@ -1,3 +1,4 @@
+import { Model } from "mongoose";
 import { IUserRole, IUserStatus } from "../constants/userConstants";
 
 export type IUser = {
@@ -10,3 +11,7 @@ export type IUser = {
   createdAt: Date;
   updatedAt: Date;
 };
+
+export interface UserStaticMethods extends Model<IUser> {
+  isUserExists(id: string): Promise<IUser>;
+}

@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-import { IUser } from "./user.interface";
+import { IUser, UserStaticMethods } from "./user.interface";
 import {
   IUserRole,
   IUserStatus,
@@ -7,7 +7,7 @@ import {
   UserStatus
 } from "../constants/userConstants";
 
-const userSchema = new Schema<IUser>(
+const userSchema = new Schema<IUser, UserStaticMethods>(
   {
     id: {
       type: String,
@@ -40,5 +40,9 @@ const userSchema = new Schema<IUser>(
   },
   { timestamps: true }
 );
+userSchema.statics.UserStaticMethods = async function (id: string) {
+  const isUserExists = await User.findOne({ id });
+  return isUserExists;
+};
 
-export const User = model<IUser>("User", userSchema);
+export const User = model<IUser, UserStaticMethods>("User", userSchema);

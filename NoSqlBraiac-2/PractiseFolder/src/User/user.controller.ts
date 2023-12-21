@@ -12,8 +12,9 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
       data: result
     });
   } catch (error) {
-    // console.log("Error is Found while creating User");
-    throw new Error(error);
+    console.log("Error is Found while creating User");
+    console.log(error);
+    // throw new Error(error);
   }
 };
 
