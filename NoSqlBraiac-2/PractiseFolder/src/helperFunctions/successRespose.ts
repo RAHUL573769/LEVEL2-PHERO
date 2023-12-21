@@ -12,7 +12,7 @@ export const successResponse = <T>(
 ) => {
   res.status(data.statusCode).json({
     message: data.message,
-    status: "Sucess",
+    // status: "Success",
     data: data.data
   });
 };

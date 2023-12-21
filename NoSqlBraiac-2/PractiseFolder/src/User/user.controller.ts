@@ -11,7 +11,7 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
     const result = await UserServices.createStudent(password, remainingData);
     successResponse(res, {
       message: "User Created Successfully",
-      statusCode: 300,
+      statusCode: 200,
       data: result
     });
   } catch (error) {

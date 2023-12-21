@@ -5,3 +5,9 @@ export const catchAsync = (fn: RequestHandler) => {
     Promise.resolve(fn(req, res, next)).catch((err) => console.log(err));
   };
 };
+
+export const catchAsync1 = (fn: RequestHandler) => {
+  return (req: Request, res: Response, next: NextFunction) => {
+    Promise.resolve(fn(req, res, next)).catch((err) => console.log(err));
+  };
+};
