@@ -6,4 +6,11 @@ const createStudent = async (studentData: IStudent): Promise<IStudent> => {
 
   return result;
 };
-export const StudentServices = { createStudent };
+
+const getAllStudents = async (): Promise<IStudent[]> => {
+  const result = await Student.find();
+
+  return result;
+};
+
+export const StudentServices = { createStudent, getAllStudents };
