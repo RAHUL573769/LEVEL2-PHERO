@@ -33,8 +33,8 @@ const getStudentFromDb = catchAsync(
         data: result
       });
     } catch (error) {
-      console.log(error);
-      console.log("Dta Creation Failed");
+      console.log("36", error);
+      next(error);
     }
   }
 );
@@ -53,7 +53,7 @@ const getSpecificStudentsFromDb = catchAsync(
         data: result
       });
     } catch (error) {
-      console.log("There is Error");
+      next(error);
     }
   }
 );
