@@ -1,55 +1,17 @@
 import { Schema, model } from "mongoose";
 import { IStudent } from "./student.interface";
 import {
+  StudentBloodGroup,
+  StudentGender,
+  guardianName,
+  localGuardianName,
   studentBloodGroup,
   studentGender,
   studentGuardian,
   studentLocalGuardian,
-  studentName
+  studentName,
+  studentNameSchema
 } from "../constants/student.constants";
-const studentNameSchema = new Schema<studentName>({
-  firstName: {
-    type: String,
-    required: [true, "Student First Name is Required"]
-  },
-  middleName: {
-    type: String
-  },
-  lastName: {
-    type: String,
-    required: [true, "Student Last Name is Required"]
-  }
-});
-const localGuardianName = new Schema<studentLocalGuardian>({
-  firstName: {
-    type: String,
-    required: [true, "Student's Local  First Name is Required"]
-  },
-  middleName: {
-    type: String
-  },
-  lastName: {
-    type: String,
-    required: [true, "Student's Local Last Name is Required"]
-  }
-});
-
-const guardianName = new Schema<studentGuardian>({
-  firstName: {
-    type: String,
-    required: [true, "Student's Guardian  First Name is Required"]
-  },
-  middleName: {
-    type: String
-  },
-  lastName: {
-    type: String,
-    required: [true, "Student's  Guardian Last Name is Required"]
-  }
-});
-
-const StudentBloodGroup: studentBloodGroup[] = ["A+", "A-", "B+"];
-const StudentGender: studentGender[] = ["female", "male", "others"];
 
 const studentSchema = new Schema<IStudent>({
   id: {
@@ -62,8 +24,17 @@ const studentSchema = new Schema<IStudent>({
     ref: "User"
   },
   name: {
-    type: String,
-    name: studentNameSchema
+    firstName: {
+      type: String,
+      required: [true, "Student First Name is Required"]
+    },
+    middleName: {
+      type: String
+    },
+    lastName: {
+      type: String,
+      required: [true, "Student Last Name is Required"]
+    }
   },
   password: {
     type: String
@@ -101,12 +72,30 @@ const studentSchema = new Schema<IStudent>({
     values: StudentBloodGroup
   },
   guardianName: {
-    type: String,
-    values: guardianName
+    firstName: {
+      type: String,
+      required: [true, "Student's Guardian  First Name is Required"]
+    },
+    middleName: {
+      type: String
+    },
+    lastName: {
+      type: String,
+      required: [true, "Student's  Guardian Last Name is Required"]
+    }
   },
   localGuardianName: {
-    type: String,
-    values: localGuardianName
+    firstName: {
+      type: String,
+      required: [true, "Student's Local  First Name is Required"]
+    },
+    middleName: {
+      type: String
+    },
+    lastName: {
+      type: String,
+      required: [true, "Student's Local Last Name is Required"]
+    }
   },
 
   profileImage: {
@@ -120,4 +109,4 @@ const studentSchema = new Schema<IStudent>({
   }
 });
 
-const Student = model<IStudent>("Student", studentSchema);
+export const Student = model<IStudent>("Student", studentSchema);
