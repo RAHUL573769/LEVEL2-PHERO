@@ -1,11 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = require("mongoose");
+const users_constants_1 = require("../constants/users.constants");
 const userSchema = new mongoose_1.Schema({
     name: {
         type: String,
         required: [true, 'Please tell us your name'],
-        unique: true
+        unique: true,
     },
     age: {
         type: Number,
@@ -20,14 +21,25 @@ const userSchema = new mongoose_1.Schema({
     photo: String,
     role: {
         type: String,
-        enum: ['user', 'admin'],
+        enum: Object.values(users_constants_1.User_Role),
         default: 'user',
+    },
+    password: {
+        type: String,
+        required: true,
+        select: 0,
+    },
+    passwordChangedAt: {
+        type: Date,
+        default: null,
     },
     userStatus: {
         type: String,
-        enum: ['active', 'inactive'],
+        enum: Object.values(users_constants_1.Account_status),
         default: 'active',
     },
+}, {
+    timestamps: true,
 });
 //Pre Hook for Query Middleware
 userSchema.pre(/^find/, function (next) {
