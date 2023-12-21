@@ -13,4 +13,17 @@ const getAllStudents = async (): Promise<IStudent[]> => {
   return result;
 };
 
-export const StudentServices = { createStudent, getAllStudents };
+const getSpecificStudent = async (id: string) => {
+  // const numberId = Number(id);
+  // const result = await Student.aggregate([{ $match: { _id: id } }]);
+
+  const result = await Student.findById(id);
+  console.log("19", result);
+  return result;
+};
+
+export const StudentServices = {
+  createStudent,
+  getAllStudents,
+  getSpecificStudent
+};
