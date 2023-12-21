@@ -1,9 +1,9 @@
-export const User_Role = {
+export const USER_ROLE = {
   user: 'user',
   admin: 'admin',
 } as const
 
-export const Account_status = {
+export const ACCOUNT_STATUS = {
   active: 'active',
   inactive: 'inactive',
 } as const

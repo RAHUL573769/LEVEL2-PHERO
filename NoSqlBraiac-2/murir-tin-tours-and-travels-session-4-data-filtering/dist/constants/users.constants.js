@@ -1,11 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Account_status = exports.User_Role = void 0;
-exports.User_Role = {
+exports.ACCOUNT_STATUS = exports.USER_ROLE = void 0;
+exports.USER_ROLE = {
     user: 'user',
     admin: 'admin',
 };
-exports.Account_status = {
+exports.ACCOUNT_STATUS = {
     active: 'active',
     inactive: 'inactive',
 };

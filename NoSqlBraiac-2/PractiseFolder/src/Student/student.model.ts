@@ -21,7 +21,8 @@ const studentSchema = new Schema<IStudent>({
   },
   user: {
     type: Schema.Types.ObjectId,
-    ref: "User"
+    ref: "User",
+    unique: true
   },
   name: {
     firstName: {
