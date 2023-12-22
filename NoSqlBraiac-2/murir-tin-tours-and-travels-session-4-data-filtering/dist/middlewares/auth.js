@@ -23,11 +23,13 @@ const checkAuth = (roles) => {
         const user = yield user_model_1.default.findOne({ email });
         // console.log(user?.role)
         if (!user) {
-            next(new Error('Invalid Email'));
+            throw new Error('User Not FOUND');
         }
         if (roles.includes(user === null || user === void 0 ? void 0 : user.role)) {
-            next(new Error('Invalid User.You Caanot change data'));
+            // next(new Error('Invalid User.You Caanot change data'))
+            throw new Error('Invalid User ..You Caanot ');
         }
+        next();
     }));
 };
 exports.checkAuth = checkAuth;

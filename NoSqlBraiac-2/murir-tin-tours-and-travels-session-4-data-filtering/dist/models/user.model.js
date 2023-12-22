@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = require("mongoose");
 const users_constants_1 = require("../constants/users.constants");
+// import { Account_status, User_Role } from '../constants/users.constants'
 const userSchema = new mongoose_1.Schema({
     name: {
         type: String,
@@ -21,7 +22,7 @@ const userSchema = new mongoose_1.Schema({
     photo: String,
     role: {
         type: String,
-        enum: Object.values(users_constants_1.User_Role),
+        enum: Object.values(users_constants_1.USER_ROLE),
         default: 'user',
     },
     password: {
@@ -35,7 +36,8 @@ const userSchema = new mongoose_1.Schema({
     },
     userStatus: {
         type: String,
-        enum: Object.values(users_constants_1.Account_status),
+        enum: Object.values(users_constants_1.ACCOUNT_STATUS),
+        // enum:['user',"admin"],
         default: 'active',
     },
 }, {

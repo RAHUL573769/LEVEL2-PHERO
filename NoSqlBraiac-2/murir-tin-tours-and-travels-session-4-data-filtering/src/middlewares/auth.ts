@@ -12,11 +12,14 @@ export const checkAuth = (roles: string[]) => {
       const user = await User.findOne({ email })
       // console.log(user?.role)
       if (!user) {
-        next(new Error('Invalid Email'))
+        throw new Error('User Not FOUND')
       }
       if (roles.includes(user?.role)) {
-        next(new Error('Invalid User.You Caanot change data'))
+        // next(new Error('Invalid User.You Caanot change data'))
+
+        throw new Error('Invalid User ..You Caanot ')
       }
+      next()
     },
   )
 }
