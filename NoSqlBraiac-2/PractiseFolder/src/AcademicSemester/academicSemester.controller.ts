@@ -17,7 +17,7 @@ const createAcademicSemester = async (
       data: result
     });
   } catch (error) {
-    console.log("error found");
+    next(error);
   }
 };
 
