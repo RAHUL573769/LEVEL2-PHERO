@@ -1,4 +1,4 @@
-import { Document, Query, Schema, model } from 'mongoose'
+import { Schema, model } from 'mongoose'
 import { IUser } from '../interfaces/user.interface'
 import { ACCOUNT_STATUS, USER_ROLE } from '../constants/users.constants'
 // import { Account_status, User_Role } from '../constants/users.constants'
@@ -24,22 +24,22 @@ const userSchema = new Schema<IUser>(
     role: {
       type: String,
       enum: Object.values(USER_ROLE),
-      default: 'user',
+      default: USER_ROLE.user,
     },
     password: {
       type: String,
       required: true,
-      select: 0,
+      select: 0, //to hide password
     },
     passwordChangedAt: {
       type: Date,
-      default: null,
+      default: null, // Date.now is not given here
     },
     userStatus: {
       type: String,
       enum: Object.values(ACCOUNT_STATUS),
       // enum:['user',"admin"],
-      default: 'active',
+      default: ACCOUNT_STATUS.active,
     },
   },
   {
@@ -48,10 +48,10 @@ const userSchema = new Schema<IUser>(
 )
 
 //Pre Hook for Query Middleware
-userSchema.pre(/^find/, function (this: Query<IUser, Document>, next) {
-  this.find({ userStatus: { $eq: 'active' } })
-  next()
-})
+// userSchema.pre(/^find/, function (this: Query<IUser, Document>, next) {
+//   this.find({ userStatus: { $eq: 'active' } })
+//   next()
+// })
 
 // userSchema.pre("findOne", function (next) {
 //     this.findOne({userStatus : { $eq : "active"}})

@@ -1,3 +1,5 @@
+export type userRole = 'user' | 'admin'
+export type userStatus = 'active' | 'inactive'
 interface IUser {
   name: string
   age: number
@@ -5,8 +7,9 @@ interface IUser {
   password: string
   passwordChangedAt: Date
   photo: string
-  role: 'user' | 'admin'
-  userStatus: 'active' | 'inactive'
+  role: userRole
+
+  userStatus: userStatus
 }
 
 export { IUser }

@@ -23,31 +23,31 @@ const userSchema = new mongoose_1.Schema({
     role: {
         type: String,
         enum: Object.values(users_constants_1.USER_ROLE),
-        default: 'user',
+        default: users_constants_1.USER_ROLE.user,
     },
     password: {
         type: String,
         required: true,
-        select: 0,
+        select: 0, //to hide password
     },
     passwordChangedAt: {
         type: Date,
-        default: null,
+        default: null, // Date.now is not given here
     },
     userStatus: {
         type: String,
         enum: Object.values(users_constants_1.ACCOUNT_STATUS),
         // enum:['user',"admin"],
-        default: 'active',
+        default: users_constants_1.ACCOUNT_STATUS.active,
     },
 }, {
     timestamps: true,
 });
 //Pre Hook for Query Middleware
-userSchema.pre(/^find/, function (next) {
-    this.find({ userStatus: { $eq: 'active' } });
-    next();
-});
+// userSchema.pre(/^find/, function (this: Query<IUser, Document>, next) {
+//   this.find({ userStatus: { $eq: 'active' } })
+//   next()
+// })
 // userSchema.pre("findOne", function (next) {
 //     this.findOne({userStatus : { $eq : "active"}})
 //     next()
