@@ -15,21 +15,18 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.checkAuth = void 0;
 const catchAsync_1 = __importDefault(require("../utils/catchAsync"));
 const user_model_1 = __importDefault(require("../models/user.model"));
-const checkAuth = (roles) => {
-    return (0, catchAsync_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-        console.log(roles);
-        const email = req.body.email;
-        //   console.log(req.body)
-        const user = yield user_model_1.default.findOne({ email });
-        // console.log(user?.role)
-        if (!user) {
-            throw new Error('User Not FOUND');
-        }
-        if (roles.includes(user === null || user === void 0 ? void 0 : user.role)) {
-            // next(new Error('Invalid User.You Caanot change data'))
-            throw new Error('Invalid User ..You Caanot ');
-        }
-        next();
-    }));
-};
-exports.checkAuth = checkAuth;
+exports.checkAuth = (0, catchAsync_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const email = req.body.email;
+    const password = req.body.password;
+    const name = req.body.name;
+    console.log(email, password, name);
+    const user = yield user_model_1.default.findOne({ email, password });
+    console.log(user);
+    if (!user) {
+        throw new Error('Invalid Email and Password');
+    }
+    if ((user === null || user === void 0 ? void 0 : user.role) != 'admin') {
+        throw new Error('You are not Authorizes Password');
+    }
+    next();
+}));
