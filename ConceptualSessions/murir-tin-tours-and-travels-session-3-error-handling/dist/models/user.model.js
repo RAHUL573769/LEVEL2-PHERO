@@ -5,7 +5,7 @@ const userSchema = new mongoose_1.Schema({
     name: {
         type: String,
         required: [true, 'Please tell us your name'],
-        unique: true
+        unique: true,
     },
     age: {
         type: Number,
@@ -30,10 +30,10 @@ const userSchema = new mongoose_1.Schema({
     },
 });
 //Pre Hook for Query Middleware
-userSchema.pre(/^find/, function (next) {
-    this.find({ userStatus: { $eq: 'active' } });
-    next();
-});
+// userSchema.pre(/^find/, function (this: Query<IUser, Document>, next) {
+//   this.find({ userStatus: { $eq: 'active' } })
+//   next()
+// })
 // userSchema.pre("findOne", function (next) {
 //     this.findOne({userStatus : { $eq : "active"}})
 //     next()

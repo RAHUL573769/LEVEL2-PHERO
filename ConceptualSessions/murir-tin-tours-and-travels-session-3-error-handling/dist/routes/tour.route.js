@@ -7,13 +7,16 @@ exports.tourRoutes = void 0;
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const express_1 = __importDefault(require("express"));
 const tour_controller_1 = require("../controllers/tour.controller");
+const tour_validation_1 = require("../validations/tour.validation");
+// import { ZodSchema } from 'zod'
+const zod_validation_1 = require("../middlewares/zod.validation");
 const router = express_1.default.Router();
 // const catchAsyncFunction = (fn: any) => {
 //   return (req: Request, res: Response, next: NextFunction) => {
 //     Promise.resolve(fn(req, res)).catch((error: any) => next(error))
 //   }
 // }
-router.post('/create-tour', tour_controller_1.tourController.createTour);
+router.post('/create-tour', (0, zod_validation_1.validateSchema)(tour_validation_1.createTourZodSchema), tour_controller_1.tourController.createTour);
 router.get('/', tour_controller_1.tourController.getAllTours);
 // router.get('/', catchAsyncFunction() ------> (req: Request, res: Response, next: NextFunction) => {
 //     Promise.resolve(fn(req, res)).catch((error: any) => next(error))

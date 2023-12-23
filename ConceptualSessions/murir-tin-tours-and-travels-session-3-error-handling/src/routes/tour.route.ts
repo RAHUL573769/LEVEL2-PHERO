@@ -1,6 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import express from 'express'
 import { tourController } from '../controllers/tour.controller'
+import { createTourZodSchema } from '../validations/tour.validation'
+// import { ZodSchema } from 'zod'
+import { validateSchema } from '../middlewares/zod.validation'
 
 const router = express.Router()
 
@@ -10,7 +13,11 @@ const router = express.Router()
 //   }
 // }
 
-router.post('/create-tour', tourController.createTour)
+router.post(
+  '/create-tour',
+  validateSchema(createTourZodSchema),
+  tourController.createTour,
+)
 router.get('/', tourController.getAllTours)
 // router.get('/', catchAsyncFunction() ------> (req: Request, res: Response, next: NextFunction) => {
 //     Promise.resolve(fn(req, res)).catch((error: any) => next(error))

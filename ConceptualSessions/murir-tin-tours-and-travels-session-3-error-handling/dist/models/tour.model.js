@@ -1,17 +1,13 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = require("mongoose");
-const slugify_1 = __importDefault(require("slugify"));
 //sSchema er upore Model nam er ekta type kaaj
 //but amra TTOurModel diye amader Model type janaisi je amader ITourMethods kichu methods o ache
 const tourSchema = new mongoose_1.Schema({
     name: {
         type: String,
         required: [true, 'Please tell us your name'],
-        unique: true
+        unique: true,
     },
     //indexing
     durationHours: {
@@ -62,10 +58,10 @@ tourSchema.virtual('reviews', {
     foreignField: 'tour',
     localField: '_id',
 });
-tourSchema.pre('save', function (next) {
-    this.slug = (0, slugify_1.default)(this.name, { lower: true });
-    next();
-});
+// tourSchema.pre('save', function (next) {
+//   this.slug = slugify(this.name, { lower: true })
+//   next()
+// })
 tourSchema.methods.getNextNearestStartDateAndEndDate = function () {
     const today = new Date();
     const futureDates = this.startDates.filter((startDate) => {

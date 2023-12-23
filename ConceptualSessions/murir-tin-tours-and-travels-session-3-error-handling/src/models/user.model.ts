@@ -1,11 +1,11 @@
-import { Document, Query, Schema, model } from 'mongoose'
+import { Schema, model } from 'mongoose'
 import { IUser } from '../interfaces/user.interface'
 
 const userSchema = new Schema<IUser>({
   name: {
     type: String,
     required: [true, 'Please tell us your name'],
-    unique : true
+    unique: true,
   },
   age: {
     type: Number,
@@ -31,10 +31,10 @@ const userSchema = new Schema<IUser>({
 })
 
 //Pre Hook for Query Middleware
-userSchema.pre(/^find/, function (this: Query<IUser, Document>, next) {
-  this.find({ userStatus: { $eq: 'active' } })
-  next()
-})
+// userSchema.pre(/^find/, function (this: Query<IUser, Document>, next) {
+//   this.find({ userStatus: { $eq: 'active' } })
+//   next()
+// })
 
 // userSchema.pre("findOne", function (next) {
 //     this.findOne({userStatus : { $eq : "active"}})

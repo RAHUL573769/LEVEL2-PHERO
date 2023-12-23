@@ -8,26 +8,19 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const app_1 = __importDefault(require("./app"));
-const mongoose_1 = __importDefault(require("mongoose"));
-const config_1 = __importDefault(require("./config"));
-// getting-started.js
-function server() {
-    return __awaiter(this, void 0, void 0, function* () {
-        try {
-            yield mongoose_1.default.connect(config_1.default.database_url_local);
-            console.log('Connected to MongoDB');
-            app_1.default.listen(3000, () => {
-                console.log(`Example app listening on port `);
-            });
+exports.validateSchema = void 0;
+const validateSchema = (schema) => {
+    return (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+        const result = yield schema.safeParseAsync(req.body);
+        if (!result.success) {
+            next(result.error);
         }
-        catch (error) {
-            console.log(error);
+        else {
+            req.body = result.data;
+            console.log('22', req.body);
+            next();
         }
     });
-}
-server().catch((err) => console.log(err));
+};
+exports.validateSchema = validateSchema;

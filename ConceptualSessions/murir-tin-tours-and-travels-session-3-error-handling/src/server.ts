@@ -6,10 +6,10 @@ import config from './config'
 
 async function server() {
   try {
-    await mongoose.connect(config.database_url)
+    await mongoose.connect(config.database_url_local)
     console.log('Connected to MongoDB')
-    app.listen(process.env.PORT, () => {
-      console.log(`Example app listening on port ${config.port}`)
+    app.listen(3000, () => {
+      console.log(`Example app listening on port `)
     })
   } catch (error) {
     console.log(error)

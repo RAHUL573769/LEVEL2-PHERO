@@ -1,6 +1,5 @@
 import { Schema, model } from 'mongoose'
 import { ITour, ITourMethods, TTourModel } from '../interfaces/tour.interface'
-import slugify from 'slugify'
 //sSchema er upore Model nam er ekta type kaaj
 //but amra TTOurModel diye amader Model type janaisi je amader ITourMethods kichu methods o ache
 const tourSchema = new Schema<ITour, TTourModel, ITourMethods>(
@@ -8,7 +7,7 @@ const tourSchema = new Schema<ITour, TTourModel, ITourMethods>(
     name: {
       type: String,
       required: [true, 'Please tell us your name'],
-      unique: true
+      unique: true,
     },
     //indexing
     durationHours: {
@@ -64,10 +63,10 @@ tourSchema.virtual('reviews', {
   localField: '_id',
 })
 
-tourSchema.pre('save', function (next) {
-  this.slug = slugify(this.name, { lower: true })
-  next()
-})
+// tourSchema.pre('save', function (next) {
+//   this.slug = slugify(this.name, { lower: true })
+//   next()
+// })
 
 tourSchema.methods.getNextNearestStartDateAndEndDate = function (): {
   nearestStartDate: Date | null

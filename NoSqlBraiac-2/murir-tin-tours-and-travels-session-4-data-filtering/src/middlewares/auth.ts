@@ -26,7 +26,7 @@ export const checkAuth = (...roles: Array<keyof typeof USER_ROLE>) => {
       const decodedToken = jwt.verify(token, 'jwt-secret')
       console.log(decodedToken)
 
-      //   const { email, role } = decodedToken
+        const { email, role } = decodedToken
 
       //   const user = await User.findOne({ email, password })
       //   const user = await User.findOne({ email })
