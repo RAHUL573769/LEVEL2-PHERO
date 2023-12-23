@@ -14,23 +14,33 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.checkAuth = void 0;
 const catchAsync_1 = __importDefault(require("../utils/catchAsync"));
-const user_model_1 = __importDefault(require("../models/user.model"));
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const checkAuth = (...roles) => {
-    console.log('Roles in Check Route', roles);
+    //   console.log('Roles in Check Route', roles)
     return (0, catchAsync_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-        const email = req.body.email;
-        const password = req.body.password;
-        const name = req.body.name;
-        console.log(email, password, name);
-        const user = yield user_model_1.default.findOne({ email, password });
-        console.log(user);
-        if (!user) {
-            throw new Error('Invalid Email and Password');
+        const token = req.headers.authorization;
+        console.log(token);
+        //   const email = req.body.email
+        //   const password = req.body.password
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        //   const name = req.body.name
+        //   console.log(email, password, name)
+        if (!token) {
+            throw new Error('Inavalid Token');
         }
-        const checkAuthorization = roles.includes(user.role);
-        if (!checkAuthorization) {
-            throw new Error('You are not Authorizes Password');
-        }
+        const decodedToken = jsonwebtoken_1.default.verify(token, 'jwt-secret');
+        console.log(decodedToken);
+        //   const { email, role } = decodedToken
+        //   const user = await User.findOne({ email, password })
+        //   const user = await User.findOne({ email })
+        //   console.log(user)
+        //   if (!user) {
+        //     throw new Error('Invalid Email and Password')
+        //   }
+        //   const checkAuthorization = roles.includes(user.role)
+        //   if (!checkAuthorization) {
+        //     throw new Error('You are not Authorizes Password')
+        //   }
         next();
     }));
 };

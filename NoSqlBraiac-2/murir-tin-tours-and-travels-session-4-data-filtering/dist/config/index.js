@@ -13,4 +13,5 @@ exports.default = {
     database_url_local: process.env.DATABASE_URL_LOCAL,
     database_url: process.env.DATABASE_URL,
     node_env: process.env.NODE_ENV,
+    // JWT_SECRET:process.env.JWT_SECRET
 };

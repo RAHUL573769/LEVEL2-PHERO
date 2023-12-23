@@ -1,3 +1,4 @@
+import { AuthRoutes } from '../routes/auth.rout'
 import { bookingRoutes } from '../routes/booking.route'
 import { reviewRoutes } from '../routes/review.route'
 import { tourRoutes } from '../routes/tour.route'
@@ -39,6 +40,11 @@ const routes = [
   {
     path: '/bookings',
     route: bookingRoutes,
+  },
+
+  {
+    path: '/auth',
+    route: AuthRoutes,
   },
 ]
 
