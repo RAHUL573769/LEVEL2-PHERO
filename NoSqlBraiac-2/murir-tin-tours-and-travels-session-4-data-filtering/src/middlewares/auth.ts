@@ -4,7 +4,7 @@ import { NextFunction, Request, Response } from 'express'
 import catchAsyncFunction from '../utils/catchAsync'
 import { USER_ROLE } from '../constants/users.constants'
 import User from '../models/user.model'
-import jwt from 'jsonwebtoken'
+import jwt, { JwtPayload } from 'jsonwebtoken'
 import { verify } from './../../node_modules/@types/jsonwebtoken/index.d'
 
 export const checkAuth = (...roles: Array<keyof typeof USER_ROLE>) => {
@@ -26,8 +26,8 @@ export const checkAuth = (...roles: Array<keyof typeof USER_ROLE>) => {
       const decodedToken = jwt.verify(token, 'jwt-secret')
       console.log(decodedToken)
 
-        const { email, role } = decodedToken
-
+      const { email, role } = decodedToken as JwtPayload
+      console.log(email, role)
       //   const user = await User.findOne({ email, password })
       //   const user = await User.findOne({ email })
       //   console.log(user)

@@ -1,11 +1,11 @@
 import { IUser } from '../interfaces/user.interface'
 import User from '../models/user.model'
-import jwt from 'jsonwebtoken'
+import jwt, { JwtPayload } from 'jsonwebtoken'
 
-type JwtPayload = {
-  email: string
-  role: string
-}
+// type JwtPayload = {
+//   email: string
+//   role: string
+// }
 interface IRegister
   extends Omit<
     IUser,

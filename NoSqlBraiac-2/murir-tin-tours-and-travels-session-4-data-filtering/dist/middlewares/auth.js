@@ -30,7 +30,8 @@ const checkAuth = (...roles) => {
         }
         const decodedToken = jsonwebtoken_1.default.verify(token, 'jwt-secret');
         console.log(decodedToken);
-        //   const { email, role } = decodedToken
+        const { email, role } = decodedToken;
+        console.log(email, role);
         //   const user = await User.findOne({ email, password })
         //   const user = await User.findOne({ email })
         //   console.log(user)
