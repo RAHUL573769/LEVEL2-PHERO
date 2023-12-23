@@ -7,22 +7,20 @@ import catchAsyncFunction from '../utils/catchAsync'
 import { NextFunction } from 'express'
 import { USER_ROLE } from '../constants/users.constants'
 import { checkAuth } from '../middlewares/auth'
+import { authController } from '../controllers/authController'
 // import { checkAuth } from '../middlewares/auth'
 // import { checkAuth } from '../middlewares/auth'
 
 const router = express.Router()
 router.post(
-  '/create-user',
+  '/register',
   // checkAuth(USER_ROLE.admin, USER_ROLE.user),
-  userController.createUser,
+  authController.register,
 )
-router.get(
-  '/',
-  checkAuth(USER_ROLE.admin, USER_ROLE.user),
-  userController.getAllUsers,
-)
-router.get('/:id', userController.getSingleUser)
-router.patch('/:id', userController.updateUser)
-router.delete('/:id', userController.deleteUser)
+router.post(
+  '/login',
 
-export const userRoutes = router
+  authController.login,
+)
+
+export const AuthRoutes = router
