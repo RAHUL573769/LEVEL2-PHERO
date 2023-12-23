@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ITour } from '../interfaces/tour.interface'
 import Tour from '../models/tour.model'
@@ -8,8 +9,16 @@ const createTour = async (tourData: any): Promise<ITour> => {
   return result
 }
 
-const getAllTours = async (): Promise<ITour[]> => {
-  const result = await Tour.find()
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const getAllTours = async (query: any): Promise<ITour[]> => {
+  // console.log(query)
+  const queryObj = { ...query }
+  console.log('Before Query Obj', queryObj)
+  const excludedFields = ['page', 'searchTerm', 'limit', 'sortBy', 'sortOrder']
+  excludedFields.forEach((keyword) => delete queryObj[keyword])
+  console.log('After Query Obj', queryObj)
+
+  const result = await Tour.find(queryObj)
   return result
 }
 
