@@ -13,10 +13,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.authServices = void 0;
+const jwtHelpers_1 = require("../helpers/jwtHelpers");
 const user_model_1 = __importDefault(require("../models/user.model"));
-const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const register = (payload) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield user_model_1.default.create(Object.assign(Object.assign({}, payload), { userStatus: 'active', role: 'user' }));
+    // const password = payload.password
+    // const hashedPassword = await bcrypt.hash(password, 21)
+    // console.log(hashedPassword)
+    const result = yield user_model_1.default.create(Object.assign(Object.assign({}, payload), { userStatus: 'active', 
+        // password: hashedPassword,
+        role: 'user' }));
     return result;
 });
 const login = (payload) => __awaiter(void 0, void 0, void 0, function* () {
@@ -34,9 +39,10 @@ const login = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     };
     // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
     //token creation
-    const token = jsonwebtoken_1.default.sign(jwtPayload, 'jwt-secret', {
-        expiresIn: '1hr',
-    });
+    // const token = jwt.sign(jwtPayload, 'jwt-secret', {
+    //   expiresIn: '1hr',
+    // })
+    const token = (0, jwtHelpers_1.createToken)(jwtPayload, 'jwt-secret', { expiresIn: '1D' });
     return { token };
 });
 exports.authServices = {

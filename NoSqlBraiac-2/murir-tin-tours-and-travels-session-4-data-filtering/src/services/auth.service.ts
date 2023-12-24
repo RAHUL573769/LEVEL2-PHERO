@@ -1,24 +1,26 @@
+import { createToken } from '../helpers/jwtHelpers'
 import { IUser } from '../interfaces/user.interface'
 import User from '../models/user.model'
-import jwt, { JwtPayload } from 'jsonwebtoken'
+import { JwtPayload } from 'jsonwebtoken'
 
 // type JwtPayload = {
 //   email: string
 //   role: string
 // }
 interface IRegister
-  extends Omit<
-    IUser,
-    'userStatus' | 'role' | 'password' | 'passwordChangedAt'
-  > {
+  extends Omit<IUser, 'userStatus' | 'role' | 'passwordChangedAt'> {
   myName: string
   yourName: string
 }
 
 const register = async (payload: IRegister) => {
+  // const password = payload.password
+  // const hashedPassword = await bcrypt.hash(password, 21)
+  // console.log(hashedPassword)
   const result = await User.create({
     ...payload,
     userStatus: 'active',
+    // password: hashedPassword,
     role: 'user',
   })
 
@@ -47,9 +49,10 @@ const login = async (payload: ILogin) => {
   }
   // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
   //token creation
-  const token = jwt.sign(jwtPayload, 'jwt-secret', {
-    expiresIn: '1hr',
-  })
+  // const token = jwt.sign(jwtPayload, 'jwt-secret', {
+  //   expiresIn: '1hr',
+  // })
+  const token = createToken(jwtPayload, 'jwt-secret', { expiresIn: '1D' })
   return { token }
 }
 

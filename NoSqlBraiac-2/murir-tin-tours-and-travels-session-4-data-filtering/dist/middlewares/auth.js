@@ -14,7 +14,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.checkAuth = void 0;
 const catchAsync_1 = __importDefault(require("../utils/catchAsync"));
-const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const user_model_1 = __importDefault(require("../models/user.model"));
+const jwtHelpers_1 = require("../helpers/jwtHelpers");
 const checkAuth = (...roles) => {
     //   console.log('Roles in Check Route', roles)
     return (0, catchAsync_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
@@ -28,20 +29,24 @@ const checkAuth = (...roles) => {
         if (!token) {
             throw new Error('Inavalid Token');
         }
-        const decodedToken = jsonwebtoken_1.default.verify(token, 'jwt-secret');
+        // const decodedToken = jwt.verify(token, 'jwt-secret')
+        const decodedToken = (0, jwtHelpers_1.verifyToken)(token, 'jwt-secret');
         console.log(decodedToken);
         const { email, role } = decodedToken;
         console.log(email, role);
-        //   const user = await User.findOne({ email, password })
+        const user = yield user_model_1.default.findOne({ email });
         //   const user = await User.findOne({ email })
         //   console.log(user)
-        //   if (!user) {
-        //     throw new Error('Invalid Email and Password')
-        //   }
-        //   const checkAuthorization = roles.includes(user.role)
+        if (!user) {
+            throw new Error('Invalid Email and Password');
+        }
+        const checkAuthorization = roles.includes(user.role);
         //   if (!checkAuthorization) {
         //     throw new Error('You are not Authorizes Password')
         //   }
+        if (!checkAuthorization) {
+            throw new Error('You are not Authorizes Password');
+        }
         next();
     }));
 };

@@ -6,6 +6,7 @@ import { USER_ROLE } from '../constants/users.constants'
 import User from '../models/user.model'
 import jwt, { JwtPayload } from 'jsonwebtoken'
 import { verify } from './../../node_modules/@types/jsonwebtoken/index.d'
+import { verifyToken } from '../helpers/jwtHelpers'
 
 export const checkAuth = (...roles: Array<keyof typeof USER_ROLE>) => {
   //   console.log('Roles in Check Route', roles)
@@ -23,22 +24,26 @@ export const checkAuth = (...roles: Array<keyof typeof USER_ROLE>) => {
       if (!token) {
         throw new Error('Inavalid Token')
       }
-      const decodedToken = jwt.verify(token, 'jwt-secret')
+      // const decodedToken = jwt.verify(token, 'jwt-secret')
+      const decodedToken = verifyToken(token, 'jwt-secret')
       console.log(decodedToken)
 
       const { email, role } = decodedToken as JwtPayload
       console.log(email, role)
-      //   const user = await User.findOne({ email, password })
+      const user = await User.findOne({ email })
       //   const user = await User.findOne({ email })
       //   console.log(user)
-      //   if (!user) {
-      //     throw new Error('Invalid Email and Password')
-      //   }
+      if (!user) {
+        throw new Error('Invalid Email and Password')
+      }
 
-      //   const checkAuthorization = roles.includes(user.role)
+      const checkAuthorization = roles.includes(user.role)
       //   if (!checkAuthorization) {
       //     throw new Error('You are not Authorizes Password')
       //   }
+      if (!checkAuthorization) {
+        throw new Error('You are not Authorizes Password')
+      }
       next()
     },
   )
