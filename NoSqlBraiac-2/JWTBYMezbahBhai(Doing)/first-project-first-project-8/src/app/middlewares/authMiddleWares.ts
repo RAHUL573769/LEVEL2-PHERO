@@ -8,7 +8,7 @@ import jwt from 'jsonwebtoken';
 
 export const auth = () => {
   return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    console.log(req.headers.authorization);
+    console.log('Headers from Auth Middle Ware', req.headers.authorization);
 
     const token = req.headers.authorization;
     if (!token) {
@@ -19,7 +19,8 @@ export const auth = () => {
       if (err) {
         throw new AppError(httpStatus.UNAUTHORIZED, 'You are Not Authorizes');
       }
-      console.log(decoded);
+      console.log('Decoded', decoded);
     });
+    next();
   });
 };

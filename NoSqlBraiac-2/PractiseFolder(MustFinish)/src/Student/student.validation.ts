@@ -32,3 +32,5 @@ const createStudentValidation = z.object({
     })
   })
 });
+
+export const StudentValidation = { createStudentValidation };

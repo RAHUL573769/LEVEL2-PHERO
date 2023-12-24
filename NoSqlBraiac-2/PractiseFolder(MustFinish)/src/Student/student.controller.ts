@@ -23,8 +23,9 @@ const createStudentIntoDb = catchAsync(
         message: "Student Data is Created Successfully"
       });
     } catch (error) {
-      console.log(error);
+      // console.log("26", error);
       console.log("Dta Creation Failed");
+      next(error);
     }
   }
 );

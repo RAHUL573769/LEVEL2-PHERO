@@ -38,7 +38,7 @@ const loginUser = async (payload: TLogin) => {
   const accessToken = jwt.sign(jwtPayload, 'secret', {
     expiresIn: '1d',
   });
-  console.log(accessToken);
+  console.log('From Auth Services', accessToken);
   return {
     accessToken,
     needsPasswordChange: user.needsPasswordChange,
