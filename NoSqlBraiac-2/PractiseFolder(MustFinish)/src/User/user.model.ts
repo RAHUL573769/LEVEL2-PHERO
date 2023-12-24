@@ -1,11 +1,6 @@
 import { Schema, model } from "mongoose";
 import { IUser, UserStaticMethods } from "./user.interface";
-import {
-  IUserRole,
-  IUserStatus,
-  UserRole,
-  UserStatus
-} from "../constants/userConstants";
+import { IUserRole, IUserStatus, UserRole, UserStatus } from "./userConstants";
 
 const userSchema = new Schema<IUser, UserStaticMethods>(
   {

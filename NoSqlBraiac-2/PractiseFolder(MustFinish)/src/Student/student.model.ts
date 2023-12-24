@@ -3,6 +3,7 @@ import { IStudent } from "./student.interface";
 import {
   StudentBloodGroup,
   StudentGender,
+  USER_GENDER,
   guardianName,
   localGuardianName,
   studentBloodGroup,
@@ -11,7 +12,7 @@ import {
   studentLocalGuardian,
   studentName,
   studentNameSchema
-} from "../constants/student.constants";
+} from "./student.constants";
 
 const studentSchema = new Schema<IStudent>({
   id: {
@@ -43,7 +44,7 @@ const studentSchema = new Schema<IStudent>({
   gender: {
     type: String,
     enum: {
-      values: StudentGender
+      values: Object.values(USER_GENDER)
     }
   },
   dateOfBirth: {
@@ -100,7 +101,7 @@ const studentSchema = new Schema<IStudent>({
   },
 
   profileImage: {
-    type: [Object]
+    type: String
   },
   academicDepartment: {
     type: Schema.Types.ObjectId

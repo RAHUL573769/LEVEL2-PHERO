@@ -5,7 +5,7 @@ import {
   studentGuardian,
   studentLocalGuardian,
   studentName
-} from "../constants/student.constants";
+} from "./student.constants";
 
 export interface IStudent {
   id: string;
@@ -22,7 +22,7 @@ export interface IStudent {
   permanentAddress: string;
   guardianName: studentGuardian;
   localGuardianName: studentLocalGuardian;
-  profileImage: Object[];
+  profileImage: string;
   academicSemester: mongoose.Types.ObjectId;
   academicDepartment: mongoose.Types.ObjectId;
   isDeleted: boolean;

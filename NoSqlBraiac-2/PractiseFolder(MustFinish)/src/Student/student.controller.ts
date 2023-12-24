@@ -1,6 +1,8 @@
 import { NextFunction, Request, RequestHandler, Response } from "express";
 import { StudentServices } from "./student.services";
 import { catchAsync } from "../helperFunctions/catchAsyncFunction";
+import { successResponse } from "../helperFunctions/successRespose";
+import httpStatus from "http-status";
 
 const createStudentIntoDb = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -9,10 +11,16 @@ const createStudentIntoDb = catchAsync(
       const result = await StudentServices.createStudent(data);
 
       console.log(typeof result);
-      res.status(200).json({
-        message: "Student Data Send Successfully",
-        status: "Success",
-        data: result
+      // res.status(200).json({
+      //   message: "Student Data Send Successfully",
+      //   status: "Success",
+      //   data: result
+      // });
+
+      successResponse(res, {
+        statusCode: httpStatus.OK,
+        data: result,
+        message: "Student Data is Created Successfully"
       });
     } catch (error) {
       console.log(error);

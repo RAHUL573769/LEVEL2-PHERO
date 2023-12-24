@@ -1,5 +1,5 @@
 import { Model } from "mongoose";
-import { IUserRole, IUserStatus } from "../constants/userConstants";
+import { IUserRole, IUserStatus } from "./userConstants";
 
 export type IUser = {
   id: string;

@@ -1,4 +1,5 @@
 import { Schema } from "mongoose";
+import { z } from "zod";
 
 export type studentGender = "male" | "female" | "others";
 export type studentBloodGroup = "A+" | "A-" | "B+";
@@ -63,3 +64,47 @@ export const guardianName = new Schema<studentGuardian>({
 
 export const StudentBloodGroup: studentBloodGroup[] = ["A+", "A-", "B+"];
 export const StudentGender: studentGender[] = ["female", "male", "others"];
+
+//---------------------------Settings constants as key vale pairs
+
+export const USER_GENDER = {
+  male: "male",
+  female: "female,"
+} as const;
+
+// ----------------------------------From Student Validation-----------
+export const createUserNameValidation = z.object({
+  firstName: z
+    .string()
+    .min(1)
+    .max(20)
+    .refine((value) => /^[A-Z]/.test(value), {
+      message: "Student's First Name Must be Capitalized"
+    }),
+  middleName: z.string(),
+  lastName: z.string()
+});
+
+export const createLocalGuardian = z.object({
+  firstName: z
+    .string()
+    .min(1)
+    .max(20)
+    .refine((value) => /^[A-Z]/.test(value), {
+      message: "Local Guardian's First Name Must be Capitalized"
+    }),
+  middleName: z.string(),
+  lastName: z.string()
+});
+
+export const createGuardianSchema = z.object({
+  firstName: z
+    .string()
+    .min(1)
+    .max(20)
+    .refine((value) => /^[A-Z]/.test(value), {
+      message: "Guardian 's Name Must be Capitalized"
+    }),
+  middleName: z.string(),
+  lastName: z.string()
+});
