@@ -9,7 +9,7 @@ const loginUser = async (payload: TLogin) => {
 
   //checking if user exists
   const user = await User.isUserExists(payload.id);
-  console.log('11', user);
+  // console.log('11', user);
   if (!user) {
     throw new AppError(httpStatus.NOT_FOUND, 'This user not Found');
   }
@@ -31,9 +31,11 @@ const loginUser = async (payload: TLogin) => {
   //   );
   //   console.log(isPaaswordMatched);
   const jwtPayload = {
-    userId: user,
+    // userId: user,
+    userId: user.id,
     role: user.role,
   };
+  // console.log('Value of JwtPayload', jwtPayload);
 
   const accessToken = jwt.sign(jwtPayload, 'secret', {
     expiresIn: '1d',
