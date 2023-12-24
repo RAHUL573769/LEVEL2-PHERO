@@ -1,3 +1,4 @@
+import { TAcademicSemester } from "../AcademicSemester/academicSemester.interface.";
 import { IStudent } from "../Student/student.interface";
 import { Student } from "../Student/student.model";
 import { IUser } from "./user.interface";
@@ -8,7 +9,9 @@ const createStudent = async (password: string, studentData: IStudent) => {
 
   const userData: Partial<IUser> = {};
   userData.role = "student";
+const generateStudentId=(payload:TAcademicSemester)=>{
 
+}
   if (!password) {
     userData.password = "Default Password";
   } else {
