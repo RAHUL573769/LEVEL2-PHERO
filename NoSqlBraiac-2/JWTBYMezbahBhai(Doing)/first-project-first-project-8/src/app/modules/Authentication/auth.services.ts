@@ -2,6 +2,7 @@ import httpStatus from 'http-status';
 import AppError from '../../errors/AppError';
 import { User } from '../user/user.model';
 import { TLogin } from './auth.interface';
+import jwt from 'jsonwebtoken';
 // import bcrypt from 'bcrypt';
 const loginUser = async (payload: TLogin) => {
   console.log(payload);
@@ -29,7 +30,19 @@ const loginUser = async (payload: TLogin) => {
   //     user?.password,
   //   );
   //   console.log(isPaaswordMatched);
+  const jwtPayload = {
+    userId: user,
+    role: user.role,
+  };
 
+  const accessToken = jwt.sign(jwtPayload, 'secret', {
+    expiresIn: '1d',
+  });
+  console.log(accessToken);
+  return {
+    accessToken,
+    needsPasswordChange: user.needsPasswordChange,
+  };
   //Aceess Granted
 };
 
