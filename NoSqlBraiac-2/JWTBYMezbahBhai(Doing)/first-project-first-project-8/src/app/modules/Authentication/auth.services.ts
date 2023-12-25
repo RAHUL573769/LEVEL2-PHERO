@@ -2,7 +2,7 @@ import httpStatus from 'http-status';
 import AppError from '../../errors/AppError';
 import { User } from '../user/user.model';
 import { TLogin } from './auth.interface';
-import jwt from 'jsonwebtoken';
+import jwt, { JwtPayload } from 'jsonwebtoken';
 // import bcrypt from 'bcrypt';
 const loginUser = async (payload: TLogin) => {
   console.log(payload);
@@ -49,7 +49,8 @@ const loginUser = async (payload: TLogin) => {
 };
 
 const changedPassword = async (
-  user: { userId: string; role: string },
+  // user: { userId: string; role: string },
+  user: JwtPayload,
   payload,
 ) => {
   const result = await User.findByIdAndUpdate({
