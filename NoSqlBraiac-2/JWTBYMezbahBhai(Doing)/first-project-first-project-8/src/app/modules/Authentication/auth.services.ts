@@ -9,7 +9,7 @@ const loginUser = async (payload: TLogin) => {
 
   //checking if user exists
   const user = await User.isUserExists(payload.id);
-  // console.log('11', user);
+  console.log('User from Auth Services 11th Line', user);
   if (!user) {
     throw new AppError(httpStatus.NOT_FOUND, 'This user not Found');
   }
@@ -48,4 +48,13 @@ const loginUser = async (payload: TLogin) => {
   //Aceess Granted
 };
 
-export const AuthServices = { loginUser };
+const changedPassword = async (
+  user: { userId: string; role: string },
+  payload,
+) => {
+  const result = await User.findByIdAndUpdate({
+    id: user.userId,
+    role: user.role,
+  });
+};
+export const AuthServices = { loginUser, changedPassword };
