@@ -46,11 +46,31 @@ const createTour = (tourData) => __awaiter(void 0, void 0, void 0, function* () 
 //   return query
 // }
 const getAllTours = (query) => __awaiter(void 0, void 0, void 0, function* () {
-    const queryObj = Object.assign({}, query);
-    console.log('Before Excluding', queryObj);
+    // const queryObj = { ...query }
+    // console.log('Before Excluding', queryObj)
     // const result = await filter(Tour.find(), queryObj)
-    const result = yield (0, filter_1.filter)(tour_model_1.default.find(), query);
-    console.log('After Excluding', queryObj);
+    //await dibo na
+    const modelQuery = (0, filter_1.filter)(tour_model_1.default.find(), query);
+    // console.log('After Excluding', queryObj)
+    // if (query.searchTerm) {
+    //   modelQuery.find({ name: { $regex: query.searchTerm, $options: 'i' } })
+    // } //not working
+    if (query.searchTerm) {
+        const fieldValues = Object.values(modelQuery.model.schema.paths);
+        // console.log(fieldValues)
+        console.log(modelQuery.model.schema.path('name'), 'path function');
+        console.log(modelQuery.model.schema.paths, 'path Array');
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const searchableFields = fieldValues.filter((fieldObj) => {
+            if (modelQuery.model.schema.path(fieldObj.path).instance === 'String')
+                return {
+                    [fieldObj.path]: { $regex: query.searchTerm, $options: 'i' },
+                };
+        });
+        const searchTerm = new RegExp(query.searchTerm, 'i');
+        modelQuery.find({ name: searchTerm });
+    }
+    const result = yield modelQuery;
     return result;
 });
 const getSingleTour = (id) => __awaiter(void 0, void 0, void 0, function* () {
