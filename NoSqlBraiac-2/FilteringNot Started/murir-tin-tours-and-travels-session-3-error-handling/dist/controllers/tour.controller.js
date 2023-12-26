@@ -61,7 +61,7 @@ const createTour = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, voi
 }));
 // app vitore next call -> router -> controller -> response -> but error hoise -> next(error) ->
 const getAllTours = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield tour_service_1.tourServices.getAllTours();
+    const result = yield tour_service_1.tourServices.getAllTours(req.query);
     // throw new Error('Something went wrong')
     (0, sendResponse_1.default)(res, {
         statusCode: 200,

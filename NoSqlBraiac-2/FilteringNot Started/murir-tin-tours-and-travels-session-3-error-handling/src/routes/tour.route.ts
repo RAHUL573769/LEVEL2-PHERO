@@ -2,8 +2,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import express, { NextFunction, Request, Response } from 'express'
 import { tourController } from '../controllers/tour.controller'
-import { createTourZodSchema } from '../validations/tour.validation'
-import { validateSchema } from '../middlewares/validate.middleware'
+// import { createTourZodSchema } from '../validations/tour.validation'
+// import { validateSchema } from '../middlewares/validate.middleware'
 // import { createTourZodSchema } from '../validations/tour.validation'
 
 const router = express.Router()
@@ -18,7 +18,7 @@ const router = express.Router()
 router.post(
   '/create-tour',
 
-  validateSchema(createTourZodSchema),
+  // validateSchema(createTourZodSchema),
   tourController.createTour,
 )
 router.get('/', tourController.getAllTours)

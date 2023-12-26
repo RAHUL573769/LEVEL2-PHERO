@@ -1,4 +1,7 @@
+/* eslint-disable prefer-const */
+/* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { filter } from '../Filtering/filter'
 import { ITour } from '../interfaces/tour.interface'
 import Tour from '../models/tour.model'
 
@@ -7,9 +10,40 @@ const createTour = async (tourData: any): Promise<ITour> => {
 
   return result
 }
+// type TQueryObj = {
+//   [key: string]: unknown
+//   page?: string
+//   limit?: string
+//   searchTerm?: string
+//   fields?: string
+//   sortBy?: string
+// }
 
-const getAllTours = async (): Promise<ITour[]> => {
-  const result = await Tour.find()
+//Query T[]=ITour[]
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+// const filter = <T>(model: Query<T[], T>, queryObj: TQueryObj) => {
+//   const excludedFields = [
+//     'page',
+//     'searchTearm',
+//     'sortBy',
+//     'sortOrder',
+//     'fields',
+//   ]
+//   excludedFields.forEach((keyword) => delete queryObj[keyword])
+
+//   // eslint-disable-next-line @typescript-eslint/no-unused-vars
+//   let query = model.find(queryObj)
+//   return query
+// }
+
+const getAllTours = async (query: any): Promise<ITour[]> => {
+  const queryObj = { ...query }
+  console.log('Before Excluding', queryObj)
+
+  // const result = await filter(Tour.find(), queryObj)
+  const result = await filter(Tour.find(), query)
+  console.log('After Excluding', queryObj)
+
   return result
 }
 
