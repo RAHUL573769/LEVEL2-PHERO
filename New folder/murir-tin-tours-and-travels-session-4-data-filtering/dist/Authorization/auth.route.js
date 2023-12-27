@@ -14,6 +14,9 @@ const router = express_1.default.Router();
 router.post('/register', 
 // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
 auth_controller_1.authController.register);
+router.post('/login', 
+// eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
+auth_controller_1.authController.login);
 // router.post(
 //   '/login',
 //   // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars

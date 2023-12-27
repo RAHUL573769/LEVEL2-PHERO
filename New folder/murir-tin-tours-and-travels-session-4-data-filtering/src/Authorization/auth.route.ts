@@ -13,6 +13,12 @@ router.post(
 
   authController.register,
 )
+router.post(
+  '/login',
+  // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
+
+  authController.login,
+)
 // router.post(
 //   '/login',
 //   // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
