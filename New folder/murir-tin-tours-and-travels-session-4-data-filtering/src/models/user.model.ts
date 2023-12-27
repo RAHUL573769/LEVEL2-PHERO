@@ -1,6 +1,6 @@
 import { Schema, model } from 'mongoose'
 import { IUser } from '../interfaces/user.interface'
-import { USER_ROLE } from '../constants/user.constants'
+import { USER_ROLE, USER_STATUS } from '../constants/user.constants'
 
 const userSchema = new Schema<IUser>({
   name: {
@@ -22,6 +22,7 @@ const userSchema = new Schema<IUser>({
   password: {
     type: String,
     required: [true, 'Password is Needed'],
+    select: 0,
   },
   passwordChangedAt: {
     type: Date,
@@ -34,7 +35,7 @@ const userSchema = new Schema<IUser>({
   },
   userStatus: {
     type: String,
-    enum: ['active', 'inactive'],
+    enum: Object.values(USER_STATUS),
     default: 'active',
   },
 })

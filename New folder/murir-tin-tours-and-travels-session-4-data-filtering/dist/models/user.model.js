@@ -22,6 +22,7 @@ const userSchema = new mongoose_1.Schema({
     password: {
         type: String,
         required: [true, 'Password is Needed'],
+        select: 0,
     },
     passwordChangedAt: {
         type: Date,
@@ -34,7 +35,7 @@ const userSchema = new mongoose_1.Schema({
     },
     userStatus: {
         type: String,
-        enum: ['active', 'inactive'],
+        enum: Object.values(user_constants_1.USER_STATUS),
         default: 'active',
     },
 });
