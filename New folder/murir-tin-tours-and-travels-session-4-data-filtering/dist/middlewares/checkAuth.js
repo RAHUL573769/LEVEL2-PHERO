@@ -15,29 +15,35 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.checkAuth = void 0;
 const catchAsync_1 = __importDefault(require("../utils/catchAsync"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const user_model_1 = __importDefault(require("../models/user.model"));
 const checkAuth = (...roles) => {
     //   console.log(roles)
     return (0, catchAsync_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-        console.log(roles);
+        // console.log(roles)
         //   console.log(req.headers.authorization)
         const token = req.headers.authorization;
         if (!token) {
             throw new Error('Invalid Token');
         }
         const decodedToken = jsonwebtoken_1.default.verify(token, 'tour-secret');
-        console.log(decodedToken);
+        const { email, role } = decodedToken;
+        console.log(decodedToken, email, role);
+        if (!email) {
+            throw new Error('Invalid Email in Decoded Email');
+        }
         //   const email = req.body.email
         //   const password = req.body.password
         //   const user = await User.findOne({ email, password })
-        //   if (!user) {
-        //     throw new Error('Invalid User')
-        //   }
+        const user = yield user_model_1.default.findOne({ email });
+        if (!user) {
+            throw new Error('Invalid User');
+        }
         //   //   if (result?.role !== 'admin') {
         //   //     throw new Error('Invalid User Privilages')
         //   //   }
-        //   if (!roles.includes(user?.role)) {
-        //     throw new Error('Invalid User Privilages')
-        //   }
+        if (!roles.includes(user === null || user === void 0 ? void 0 : user.role)) {
+            throw new Error('Invalid User Privilages');
+        }
         next();
     }));
 };

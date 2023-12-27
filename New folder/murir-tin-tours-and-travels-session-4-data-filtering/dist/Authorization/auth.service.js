@@ -13,17 +13,29 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.authServices = void 0;
+/* eslint-disable no-unused-vars */
+const hashPassword_1 = require("../HelpingFoldder/hashPassword");
 const user_model_1 = __importDefault(require("../models/user.model"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const login = (payload) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield user_model_1.default.findOne(payload);
+    // const user = await User.findOne(payload)
+    //After adding argon3 changed to email:password.emil
+    const user = yield user_model_1.default.findOne({ email: payload.email }).select('+password');
     if (!user) {
         throw new Error('Invalid Creddentials');
     }
+    console.log(user);
     const jwtPayLoad = {
         email: user.email,
         role: user.role,
     };
+    const password = payload.password;
+    const hashedPassword = yield (0, hashPassword_1.hashPassord)(password);
+    if (!hashPassword_1.hashPassord) {
+        throw new Error('Caanot ');
+    }
+    const isCorrectPasword = yield (0, hashPassword_1.verifyPassword)(hashedPassword, password);
+    console.log(isCorrectPasword);
     const token = jsonwebtoken_1.default.sign(jwtPayLoad, 'tour-secret', {
         expiresIn: '10d',
     });
@@ -31,7 +43,10 @@ const login = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     return { token };
 });
 const register = (payload) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield user_model_1.default.create(Object.assign(Object.assign({}, payload), { role: 'user', userStatus: 'active' }));
+    const password = payload.password;
+    const hashedPassword = yield (0, hashPassword_1.hashPassord)(password);
+    // console.log('Hashed ', hashedPassword)
+    const result = yield user_model_1.default.create(Object.assign(Object.assign({}, payload), { password: hashedPassword, role: 'user', userStatus: 'active' }));
     return result;
 });
 exports.authServices = {
