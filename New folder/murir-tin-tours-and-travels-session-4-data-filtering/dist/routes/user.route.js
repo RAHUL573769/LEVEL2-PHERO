@@ -15,7 +15,7 @@ router.post('/create-user',
 (0, checkAuth_1.checkAuth)('admin'), user_controller_1.userController.createUser);
 router.get('/', 
 // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
-(0, checkAuth_1.checkAuth)('admin', 'user'), user_controller_1.userController.getAllUsers);
+(0, checkAuth_1.checkAuth)('user'), user_controller_1.userController.getAllUsers);
 router.get('/:id', user_controller_1.userController.getSingleUser);
 router.patch('/:id', user_controller_1.userController.updateUser);
 router.delete('/:id', user_controller_1.userController.deleteUser);

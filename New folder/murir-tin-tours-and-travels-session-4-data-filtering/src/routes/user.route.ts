@@ -15,7 +15,7 @@ router.post(
 router.get(
   '/',
   // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
-  checkAuth('admin', 'user'),
+  checkAuth('user'),
   userController.getAllUsers,
 )
 router.get('/:id', userController.getSingleUser)
