@@ -37,7 +37,18 @@ const login = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, 
         message: 'User Logged In Succesfullly',
     });
 }));
+const changePassword = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const decoded = req.user;
+    console.log(req.body);
+    const result = auth_service_1.authServices.changePassword(decoded, req.body);
+    (0, sendResponse_1.default)(res, {
+        statusCode: 200,
+        data: result,
+        message: 'User Password Changed In Succesfullly',
+    });
+}));
 exports.authController = {
     register,
     login,
+    changePassword,
 };

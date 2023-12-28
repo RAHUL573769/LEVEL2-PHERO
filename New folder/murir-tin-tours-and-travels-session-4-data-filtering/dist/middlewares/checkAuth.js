@@ -26,6 +26,7 @@ const checkAuth = (...roles) => {
             throw new Error('Invalid Token');
         }
         const decodedToken = jsonwebtoken_1.default.verify(token, 'tour-secret');
+        req.user = decodedToken;
         const { email, role } = decodedToken;
         console.log(decodedToken, email, role);
         if (!email) {

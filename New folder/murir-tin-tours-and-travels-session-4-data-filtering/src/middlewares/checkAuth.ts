@@ -18,7 +18,7 @@ export const checkAuth = (...roles: Array<keyof typeof USER_ROLE>) => {
         throw new Error('Invalid Token')
       }
       const decodedToken = jwt.verify(token, 'tour-secret')
-
+      req.user = decodedToken as JwtPayload
       const { email, role } = decodedToken as JwtPayload
       console.log(decodedToken, email, role)
 

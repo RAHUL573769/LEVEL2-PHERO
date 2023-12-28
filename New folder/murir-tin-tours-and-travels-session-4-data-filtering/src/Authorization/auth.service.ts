@@ -57,7 +57,25 @@ const register = async (payload: IRegister) => {
   return result
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const changePassword = (
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  decodedToken: JwtPayload,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  payload: {
+    oldPassword: string
+    newPassword: string
+  },
+) => {
+  console.log(decodedToken)
+
+  const { iat, exp } = decodedToken
+}
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+// const forgetPassword = () => {}
+
 export const authServices = {
   login,
   register,
+  changePassword,
 }

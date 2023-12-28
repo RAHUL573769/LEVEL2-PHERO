@@ -49,7 +49,19 @@ const register = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield user_model_1.default.create(Object.assign(Object.assign({}, payload), { password: hashedPassword, role: 'user', userStatus: 'active' }));
     return result;
 });
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const changePassword = (
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+decodedToken, 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+payload) => {
+    console.log(decodedToken);
+    const { iat, exp } = decodedToken;
+};
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+// const forgetPassword = () => {}
 exports.authServices = {
     login,
     register,
+    changePassword,
 };

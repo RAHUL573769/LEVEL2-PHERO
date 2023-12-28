@@ -1,5 +1,7 @@
 import express from 'express'
 import { authController } from './auth.controller'
+import { checkAuth } from '../middlewares/checkAuth'
+import { USER_ROLE } from '../constants/user.constants'
 // import { userController } from '../controllers/user.controller'
 // import { checkAuth } from '../middlewares/checkAuth'
 // import User from '../models/user.model'
@@ -18,6 +20,13 @@ router.post(
   // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
 
   authController.login,
+)
+router.post(
+  '/change-password',
+  checkAuth(USER_ROLE.admin, USER_ROLE.user),
+  // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
+
+  authController.changePassword,
 )
 // router.post(
 //   '/login',
