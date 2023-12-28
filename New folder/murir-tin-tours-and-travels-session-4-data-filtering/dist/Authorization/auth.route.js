@@ -19,7 +19,7 @@ auth_controller_1.authController.register);
 router.post('/login', 
 // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
 auth_controller_1.authController.login);
-router.post('/change-password', (0, checkAuth_1.checkAuth)(user_constants_1.USER_ROLE.admin, user_constants_1.USER_ROLE.user), 
+router.patch('/change-password', (0, checkAuth_1.checkAuth)(user_constants_1.USER_ROLE.admin, user_constants_1.USER_ROLE.user), 
 // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
 auth_controller_1.authController.changePassword);
 // router.post(

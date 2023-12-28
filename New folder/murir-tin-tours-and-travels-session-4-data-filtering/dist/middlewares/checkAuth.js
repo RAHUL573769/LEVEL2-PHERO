@@ -14,8 +14,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.checkAuth = void 0;
 const catchAsync_1 = __importDefault(require("../utils/catchAsync"));
-const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const user_model_1 = __importDefault(require("../models/user.model"));
+const jwt_helpers_1 = require("../helpers/jwt.helpers");
+// import { createToken } from '../helpers/jwt.helpers'
 const checkAuth = (...roles) => {
     //   console.log(roles)
     return (0, catchAsync_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
@@ -25,7 +26,8 @@ const checkAuth = (...roles) => {
         if (!token) {
             throw new Error('Invalid Token');
         }
-        const decodedToken = jsonwebtoken_1.default.verify(token, 'tour-secret');
+        // const decodedToken = jwt.verify(token, 'tour-secret')
+        const decodedToken = (0, jwt_helpers_1.verifyToken)(token, 'tour-secret');
         req.user = decodedToken;
         const { email, role } = decodedToken;
         console.log(decodedToken, email, role);
@@ -35,7 +37,7 @@ const checkAuth = (...roles) => {
         //   const email = req.body.email
         //   const password = req.body.password
         //   const user = await User.findOne({ email, password })
-        const user = yield user_model_1.default.findOne({ email });
+        const user = yield user_model_1.default.findOne({ email }).select('+password');
         if (!user) {
             throw new Error('Invalid User');
         }

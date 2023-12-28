@@ -1,8 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-unused-vars */
 import { hashPassord, verifyPassword } from '../HelpingFoldder/hashPassword'
+import { createToken } from '../helpers/jwt.helpers'
 import { IUser } from '../interfaces/user.interface'
 import User from '../models/user.model'
-import jwt, { JwtPayload } from 'jsonwebtoken'
+import { JwtPayload } from 'jsonwebtoken'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 interface IRegister
   extends Omit<IUser, 'userStatus' | 'role' | 'passwordChangedAt'> {}
@@ -18,7 +20,7 @@ const login = async (payload: ILogin) => {
   if (!user) {
     throw new Error('Invalid Creddentials')
   }
-  console.log(user)
+  console.log('User FindOne From Login', user)
   const jwtPayLoad: JwtPayload = {
     email: user.email,
     role: user.role,
@@ -34,11 +36,15 @@ const login = async (payload: ILogin) => {
     hashedPassword as string,
     password,
   )
-  console.log(isCorrectPasword)
-  const token = jwt.sign(jwtPayLoad, 'tour-secret', {
+  console.log('Is corrected', isCorrectPasword)
+  // const token = jwt.sign(jwtPayLoad, 'tour-secret', {
+  //   expiresIn: '10d',
+  // })
+
+  const token = createToken(jwtPayLoad, 'tour-secret', {
     expiresIn: '10d',
   })
-
+  console.log('Token From Auth Services', token)
   //   return null
   return { token }
 }
@@ -58,7 +64,7 @@ const register = async (payload: IRegister) => {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const changePassword = (
+const changePassword = async (
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   decodedToken: JwtPayload,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -67,10 +73,41 @@ const changePassword = (
     newPassword: string
   },
 ) => {
-  console.log(decodedToken)
+  console.log('Decoded Token From Changed Password', decodedToken)
 
-  const { iat, exp } = decodedToken
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { email, iat, exp } = decodedToken
+
+  const user = await User.findOne({ email })
+  if (!user) {
+    throw new Error('User Not Found')
+  }
+  if (!iat) {
+    throw new Error('Invalid Token')
+  }
+  if (user.passwordChangedAt && iat > user.passwordChangedAt.getTime() / 1000) {
+    throw new Error('Old Token')
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const isCorrectPassword = await verifyPassword(
+    payload.oldPassword,
+    user.password,
+  )
+  console.log('Is Password Correct', isCorrectPassword)
+  const updatedUser = await User.findByIdAndUpdate(
+    user._id,
+    {
+      password: isCorrectPassword,
+      passwordChangedAt: new Date(),
+    },
+    {
+      new: true,
+    },
+  )
+  return updatedUser
 }
+
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 // const forgetPassword = () => {}
 

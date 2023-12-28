@@ -13,10 +13,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.authServices = void 0;
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-unused-vars */
 const hashPassword_1 = require("../HelpingFoldder/hashPassword");
+const jwt_helpers_1 = require("../helpers/jwt.helpers");
 const user_model_1 = __importDefault(require("../models/user.model"));
-const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const login = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     // const user = await User.findOne(payload)
     //After adding argon3 changed to email:password.emil
@@ -24,7 +25,7 @@ const login = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     if (!user) {
         throw new Error('Invalid Creddentials');
     }
-    console.log(user);
+    console.log('User FindOne From Login', user);
     const jwtPayLoad = {
         email: user.email,
         role: user.role,
@@ -35,10 +36,14 @@ const login = (payload) => __awaiter(void 0, void 0, void 0, function* () {
         throw new Error('Caanot ');
     }
     const isCorrectPasword = yield (0, hashPassword_1.verifyPassword)(hashedPassword, password);
-    console.log(isCorrectPasword);
-    const token = jsonwebtoken_1.default.sign(jwtPayLoad, 'tour-secret', {
+    console.log('Is corrected', isCorrectPasword);
+    // const token = jwt.sign(jwtPayLoad, 'tour-secret', {
+    //   expiresIn: '10d',
+    // })
+    const token = (0, jwt_helpers_1.createToken)(jwtPayLoad, 'tour-secret', {
         expiresIn: '10d',
     });
+    console.log('Token From Auth Services', token);
     //   return null
     return { token };
 });
@@ -54,10 +59,31 @@ const changePassword = (
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 decodedToken, 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-payload) => {
-    console.log(decodedToken);
-    const { iat, exp } = decodedToken;
-};
+payload) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log('Decoded Token From Changed Password', decodedToken);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { email, iat, exp } = decodedToken;
+    const user = yield user_model_1.default.findOne({ email });
+    if (!user) {
+        throw new Error('User Not Found');
+    }
+    if (!iat) {
+        throw new Error('Invalid Token');
+    }
+    if (user.passwordChangedAt && iat > user.passwordChangedAt.getTime() / 1000) {
+        throw new Error('Old Token');
+    }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const isCorrectPassword = yield (0, hashPassword_1.verifyPassword)(payload.oldPassword, user.password);
+    console.log('Is Password Correct', isCorrectPassword);
+    const updatedUser = yield user_model_1.default.findByIdAndUpdate(user._id, {
+        password: isCorrectPassword,
+        passwordChangedAt: new Date(),
+    }, {
+        new: true,
+    });
+    return updatedUser;
+});
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 // const forgetPassword = () => {}
 exports.authServices = {

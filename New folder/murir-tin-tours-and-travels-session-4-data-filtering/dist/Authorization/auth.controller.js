@@ -39,12 +39,12 @@ const login = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, 
 }));
 const changePassword = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const decoded = req.user;
-    console.log(req.body);
+    console.log('Decoded From Changed Password', req.body);
     const result = auth_service_1.authServices.changePassword(decoded, req.body);
     (0, sendResponse_1.default)(res, {
         statusCode: 200,
         data: result,
-        message: 'User Password Changed In Succesfullly',
+        message: 'User Password Changed  Succesfullly',
     });
 }));
 exports.authController = {

@@ -1,9 +1,16 @@
-// import jwt, { JwtPayload } from 'jsonwebtoken'
+import jwt, { JwtPayload } from 'jsonwebtoken'
 
-// const createToken=()=>{
+// eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
+export const createToken = (
+  jwtPayload: JwtPayload,
+  secret: string,
+  options: {
+    expiresIn: string
+  },
+) => {
+  return jwt.sign(jwtPayload, secret, options)
+}
 
-//     jwt.sign(JwtPayload, 'tour-secret', {
-//         expiresIn: '10d',
-//       })
-
-// }
+export const verifyToken = (token: string, secret: string) => {
+  return jwt.verify(token, secret)
+}
