@@ -30,7 +30,7 @@ const changePassword = catchAsyncFunction(
   async (req: Request, res: Response) => {
     const decoded = req.user
     console.log('Decoded From Changed Password', req.body)
-    const result = authServices.changePassword(decoded, req.body)
+    const result = await authServices.changePassword(decoded, req.body)
     sendSuccessResponse(res, {
       statusCode: 200,
       data: result,

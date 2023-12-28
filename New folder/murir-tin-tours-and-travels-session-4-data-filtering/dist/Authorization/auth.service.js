@@ -25,18 +25,19 @@ const login = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     if (!user) {
         throw new Error('Invalid Creddentials');
     }
-    console.log('User FindOne From Login', user);
+    // console.log('User FindOne From Login', user)
     const jwtPayLoad = {
         email: user.email,
         role: user.role,
     };
     const password = payload.password;
     const hashedPassword = yield (0, hashPassword_1.hashPassord)(password);
+    console.log('Hasd pawword from 31 number line', hashPassword_1.hashPassord);
     if (!hashPassword_1.hashPassord) {
         throw new Error('Caanot ');
     }
-    const isCorrectPasword = yield (0, hashPassword_1.verifyPassword)(hashedPassword, password);
-    console.log('Is corrected', isCorrectPasword);
+    const isCorrectPassword = yield (0, hashPassword_1.verifyPassword)(hashedPassword, password);
+    console.log('Is corrected', isCorrectPassword);
     // const token = jwt.sign(jwtPayLoad, 'tour-secret', {
     //   expiresIn: '10d',
     // })
@@ -60,7 +61,7 @@ const changePassword = (
 decodedToken, 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 payload) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log('Decoded Token From Changed Password', decodedToken);
+    // console.log('Decoded Token From Changed Password', decodedToken)
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { email, iat, exp } = decodedToken;
     const user = yield user_model_1.default.findOne({ email });
@@ -73,8 +74,12 @@ payload) => __awaiter(void 0, void 0, void 0, function* () {
     if (user.passwordChangedAt && iat > user.passwordChangedAt.getTime() / 1000) {
         throw new Error('Old Token');
     }
+    const userInputHashedPassword = yield (0, hashPassword_1.hashPassord)(payload.newPassword);
+    const userOldHashedPassword = yield (0, hashPassword_1.hashPassord)(payload.oldPassword);
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const isCorrectPassword = yield (0, hashPassword_1.verifyPassword)(payload.oldPassword, user.password);
+    console.log('94 line', userInputHashedPassword);
+    console.log('95 line', userOldHashedPassword);
+    const isCorrectPassword = yield (0, hashPassword_1.verifyPassword)(userOldHashedPassword, userInputHashedPassword);
     console.log('Is Password Correct', isCorrectPassword);
     const updatedUser = yield user_model_1.default.findByIdAndUpdate(user._id, {
         password: isCorrectPassword,

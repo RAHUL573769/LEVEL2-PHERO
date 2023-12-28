@@ -20,7 +20,7 @@ const login = async (payload: ILogin) => {
   if (!user) {
     throw new Error('Invalid Creddentials')
   }
-  console.log('User FindOne From Login', user)
+  // console.log('User FindOne From Login', user)
   const jwtPayLoad: JwtPayload = {
     email: user.email,
     role: user.role,
@@ -28,15 +28,16 @@ const login = async (payload: ILogin) => {
   const password = payload.password
 
   const hashedPassword = await hashPassord(password)
+  console.log('Hasd pawword from 31 number line', hashPassord)
   if (!hashPassord) {
     throw new Error('Caanot ')
   }
 
-  const isCorrectPasword = await verifyPassword(
+  const isCorrectPassword = await verifyPassword(
     hashedPassword as string,
     password,
   )
-  console.log('Is corrected', isCorrectPasword)
+  console.log('Is corrected', isCorrectPassword)
   // const token = jwt.sign(jwtPayLoad, 'tour-secret', {
   //   expiresIn: '10d',
   // })
@@ -73,7 +74,7 @@ const changePassword = async (
     newPassword: string
   },
 ) => {
-  console.log('Decoded Token From Changed Password', decodedToken)
+  // console.log('Decoded Token From Changed Password', decodedToken)
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { email, iat, exp } = decodedToken
@@ -88,11 +89,15 @@ const changePassword = async (
   if (user.passwordChangedAt && iat > user.passwordChangedAt.getTime() / 1000) {
     throw new Error('Old Token')
   }
+  const userInputHashedPassword = await hashPassord(payload.newPassword)
+  const userOldHashedPassword = await hashPassord(payload.oldPassword)
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  console.log('94 line', userInputHashedPassword)
+  console.log('95 line', userOldHashedPassword)
   const isCorrectPassword = await verifyPassword(
-    payload.oldPassword,
-    user.password,
+    userOldHashedPassword as string,
+    userInputHashedPassword as string,
   )
   console.log('Is Password Correct', isCorrectPassword)
   const updatedUser = await User.findByIdAndUpdate(
