@@ -10,13 +10,13 @@ interface IRegister
   extends Omit<IUser, 'userStatus' | 'role' | 'passwordChangedAt'> {}
 
 interface ILogin {
-  email: string
+  name: string
   password: string
 }
 const login = async (payload: ILogin) => {
   // const user = await User.findOne(payload)
   //After adding argon3 changed to email:password.emil
-  const user = await User.findOne({ email: payload.email }).select('+password')
+  const user = await User.findOne({ name: payload.name }).select('+password')
   if (!user) {
     throw new Error('Invalid Creddentials')
   }
@@ -37,7 +37,7 @@ const login = async (payload: ILogin) => {
     hashedPassword as string,
     password,
   )
-  console.log('Is corrected', isCorrectPassword)
+  // console.log('Is corrected', isCorrectPassword)
   // const token = jwt.sign(jwtPayLoad, 'tour-secret', {
   //   expiresIn: '10d',
   // })
@@ -45,9 +45,14 @@ const login = async (payload: ILogin) => {
   const token = createToken(jwtPayLoad, 'tour-secret', {
     expiresIn: '10d',
   })
-  console.log('Token From Auth Services', token)
+  // console.log('Token From Auth Services', token)
+
+  const refreshToken = createToken(jwtPayLoad, 'refresh-secret', {
+    expiresIn: '30d',
+  })
+  console.log('Token From Auth Services', refreshToken)
   //   return null
-  return { token }
+  return { token, refreshToken }
 }
 
 const register = async (payload: IRegister) => {
@@ -112,6 +117,8 @@ const changePassword = async (
   )
   return updatedUser
 }
+
+const refreshToken = async () => {}
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 // const forgetPassword = () => {}

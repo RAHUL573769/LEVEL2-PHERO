@@ -3,7 +3,9 @@ import { NextFunction, Request, Response } from 'express'
 import { authServices } from './auth.service'
 import catchAsyncFunction from '../utils/catchAsync'
 import sendSuccessResponse from '../utils/sendResponse'
+import config from '../config'
 // import catchAsyncFunction from '../utils/catchAsync'
+// import { *asargon2 } from 'argon2';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 // const login = catchAsyncFunction(
@@ -18,10 +20,15 @@ const register = async (req: Request, res: Response, next: NextFunction) => {
   })
 }
 const login = catchAsyncFunction(async (req: Request, res: Response) => {
-  const result = await authServices.login(req.body)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { token, refreshToken } = await authServices.login(req.body)
+  res.cookie('refreshToken', refreshToken, {
+    httpOnly: true,
+    secure: config.node_env === 'production',
+  })
   sendSuccessResponse(res, {
     statusCode: 200,
-    data: result,
+    data: token,
     message: 'User Logged In Succesfullly',
   })
 })
@@ -39,6 +46,20 @@ const changePassword = catchAsyncFunction(
   },
 )
 
+// const refreshToken=()=>{
+//   catchAsyncFunction(async (req:Request,res:Response,next:NextFunction) => {
+
+//     const refreshToken=req.cookies.refreshToken,
+//     if(!refreshToken){
+//       throw new Error("Invalid Refresh Token")
+//     }
+
+//     // const result=await authServices.refreshToken(refreshToken)
+//     // console.log("Result From Refresh Token",result)
+
+//   })
+
+// }
 export const authController = {
   register,
   login,

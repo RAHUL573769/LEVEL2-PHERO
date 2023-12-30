@@ -16,7 +16,9 @@ exports.authController = void 0;
 const auth_service_1 = require("./auth.service");
 const catchAsync_1 = __importDefault(require("../utils/catchAsync"));
 const sendResponse_1 = __importDefault(require("../utils/sendResponse"));
-// import catchAsyncFunction from '../utils/catchAsync'
+const config_1 = __importDefault(require("../config"));
+from;
+'argon2';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 // const login = catchAsyncFunction(
 //   async (req: Request, res: Response, next: NextFunction) => {},
@@ -30,10 +32,15 @@ const register = (req, res, next) => __awaiter(void 0, void 0, void 0, function*
     });
 });
 const login = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield auth_service_1.authServices.login(req.body);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { token, refreshToken } = yield auth_service_1.authServices.login(req.body);
+    res.cookie('refreshToken', refreshToken, {
+        httpOnly: true,
+        secure: config_1.default.node_env === 'production',
+    });
     (0, sendResponse_1.default)(res, {
         statusCode: 200,
-        data: result,
+        data: token,
         message: 'User Logged In Succesfullly',
     });
 }));
@@ -47,8 +54,18 @@ const changePassword = (0, catchAsync_1.default)((req, res) => __awaiter(void 0,
         message: 'User Password Changed  Succesfullly',
     });
 }));
+const refreshToken = () => {
+    (0, catchAsync_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+        const refreshToken = req.cookies.refreshToken;
+        if (!refreshToken) {
+            throw new Error("Invalid Refresh Token");
+        }
+        const result = yield auth_service_1.authServices.refreshToken(refreshToken);
+        console.log("Result From Refresh Token", result);
+    }));
+};
 exports.authController = {
     register,
     login,
-    changePassword,
+    changePassword, refreshToken
 };

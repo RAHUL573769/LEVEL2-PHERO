@@ -15,6 +15,7 @@ router.post(
 
   authController.register,
 )
+
 router.post(
   '/login',
   // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
@@ -23,7 +24,7 @@ router.post(
 )
 router.patch(
   '/change-password',
-  checkAuth(USER_ROLE.admin, USER_ROLE.user),
+  checkAuth(USER_ROLE.user),
   // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
 
   authController.changePassword,

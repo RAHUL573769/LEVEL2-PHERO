@@ -14,3 +14,5 @@ export const createToken = (
 export const verifyToken = (token: string, secret: string) => {
   return jwt.verify(token, secret)
 }
+
+export const refreshToken = () => {}

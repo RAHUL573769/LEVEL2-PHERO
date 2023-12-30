@@ -39,7 +39,8 @@ export const checkAuth = (...roles: Array<keyof typeof USER_ROLE>) => {
       //   //   if (result?.role !== 'admin') {
       //   //     throw new Error('Invalid User Privilages')
       //   //   }
-      if (!roles.includes(user?.role)) {
+      console.log(roles.includes(user.role))
+      if (roles.includes(user.role)) {
         throw new Error('Invalid User Privilages')
       }
       next()

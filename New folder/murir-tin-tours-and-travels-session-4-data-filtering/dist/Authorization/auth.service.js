@@ -37,16 +37,20 @@ const login = (payload) => __awaiter(void 0, void 0, void 0, function* () {
         throw new Error('Caanot ');
     }
     const isCorrectPassword = yield (0, hashPassword_1.verifyPassword)(hashedPassword, password);
-    console.log('Is corrected', isCorrectPassword);
+    // console.log('Is corrected', isCorrectPassword)
     // const token = jwt.sign(jwtPayLoad, 'tour-secret', {
     //   expiresIn: '10d',
     // })
     const token = (0, jwt_helpers_1.createToken)(jwtPayLoad, 'tour-secret', {
         expiresIn: '10d',
     });
-    console.log('Token From Auth Services', token);
+    // console.log('Token From Auth Services', token)
+    const refreshToken = (0, jwt_helpers_1.createToken)(jwtPayLoad, 'refresh-secret', {
+        expiresIn: '30d',
+    });
+    console.log('Token From Auth Services', refreshToken);
     //   return null
-    return { token };
+    return { token, refreshToken };
 });
 const register = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     const password = payload.password;
@@ -89,6 +93,7 @@ payload) => __awaiter(void 0, void 0, void 0, function* () {
     });
     return updatedUser;
 });
+// const refreshToken = async (payload: {}) => {}
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 // const forgetPassword = () => {}
 exports.authServices = {
