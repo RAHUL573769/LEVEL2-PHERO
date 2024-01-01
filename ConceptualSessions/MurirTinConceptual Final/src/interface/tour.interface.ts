@@ -1,4 +1,4 @@
-interface ITour {
+export interface ITour {
   name: string;
   durationHours: number;
   ratingAverage: number;

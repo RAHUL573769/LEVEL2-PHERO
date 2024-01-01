@@ -2,7 +2,8 @@ import { IUser } from "../interface/user.interface";
 import { User } from "../models/user.model";
 
 const createUser = async (userData: IUser): Promise<IUser> => {
-  const result = await User.create(userData);
+  const result = await User.create(userData); //instance created
+
   return result;
 };
 

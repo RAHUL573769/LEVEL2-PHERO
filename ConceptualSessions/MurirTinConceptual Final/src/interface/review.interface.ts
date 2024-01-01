@@ -1,8 +1,9 @@
 import { Schema } from "mongoose";
 
-interface IReview {
+export interface IReview {
   review: string;
   rating: number;
   createdAt: Date;
+  user: Schema.Types.ObjectId;
   tour: Schema.Types.ObjectId;
 }

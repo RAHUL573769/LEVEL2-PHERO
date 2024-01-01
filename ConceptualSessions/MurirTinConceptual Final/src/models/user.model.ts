@@ -31,5 +31,11 @@ const userSchema = new Schema<IUser>({
     enum: Object.values(USER_STATUS)
   }
 });
+//pre hook for query middleware
+// userSchema.pre("find", function (next) {
+//   this.find({ userStatus: { $eq: "inactive" } });
+
+//   next();
+// });
 
 export const User = model<IUser>("User", userSchema);

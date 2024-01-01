@@ -1,6 +1,7 @@
 import express, { Application, NextFunction, Request, Response } from "express";
 import cors from "cors";
 import { UserRoutes } from "./routes/user.routes";
+import { TourRoutes } from "./routes/tour.route";
 const app: Application = express();
 
 app.use(express.json());
@@ -30,7 +31,7 @@ const userRouter = express.Router();
 //   next();
 // });
 app.use("/api/v1/users", UserRoutes);
-
+app.use("/api/v1/tours", TourRoutes);
 app.get("/", (req, res) => {
   res.status(200).json({
     message: "Get Route Done",
