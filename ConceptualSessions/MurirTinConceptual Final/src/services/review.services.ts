@@ -2,7 +2,7 @@ import { IReview } from "../interface/review.interface";
 import { Review } from "../models/review.model";
 
 const createReview = async (reviewData: IReview): Promise<IReview> => {
-  const result = await Review.create(reviewData); //instance created
+  const result = (await Review.create(reviewData)).populate("User"); //instance created
 
   return result;
 };
