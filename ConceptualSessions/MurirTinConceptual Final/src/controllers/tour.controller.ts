@@ -103,7 +103,7 @@ const getNextSchedule = async (
   try {
     const id = req.params.id;
     const result = await TourServices.getNextSchedule(id);
-    console.log("From Tour Controller Next Schedule", result);
+    // console.log("From Tour Controller Next Schedule", result);
 
     res.status(200).json({
       message: "Nearest Date Calculated  Successfully",
