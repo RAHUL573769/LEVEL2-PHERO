@@ -2,16 +2,22 @@ import { IReview } from "../interface/review.interface";
 import { Review } from "../models/review.model";
 
 const createReview = async (reviewData: IReview): Promise<IReview> => {
-  console.log("Review Data", reviewData);
-  const result = (
-    await (await Review.create(reviewData)).populate("tour")
-  ).populate("user"); //instance created
-
+  // console.log("Review Data", reviewData);
+  // const result = (
+  //   await (await Review.create(reviewData)).populate("tour")
+  // ).populate("user");
+  const result = await Review.create(reviewData);
+  if (result) {
+    await Review.calcAverageRatings(result.tour);
+  }
   return result;
 };
 
 const getAllReview = async (): Promise<IReview[]> => {
-  const result = await Review.find();
+  const result = await Review.find().populate({
+    path: "user",
+    select: "name photo"
+  });
   return result;
 };
 

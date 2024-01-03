@@ -52,6 +52,11 @@ const tourSchema = new Schema<ITour, ITourModel, ITourMethods>(
 //   next();
 // });
 
+tourSchema.virtual("reviews", {
+  ref: "Review",
+  foreignField: "tour",
+  localField: "_id"
+});
 tourSchema.virtual("durationDays").get(function () {
   return this.durationHours / 24;
 });

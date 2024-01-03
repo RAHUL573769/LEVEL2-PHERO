@@ -13,7 +13,7 @@ const getAllTour = async (): Promise<ITour[]> => {
 };
 
 const getSingleTour = async (tourId: string): Promise<ITour | null> => {
-  const result = await Tour.findById(tourId);
+  const result = await Tour.findById(tourId).populate("reviews");
   return result;
 };
 

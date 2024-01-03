@@ -1,4 +1,4 @@
-import { Schema } from "mongoose";
+import mongoose, { Model, Schema } from "mongoose";
 
 export interface IReview {
   review: string;
@@ -6,4 +6,9 @@ export interface IReview {
   createdAt: Date;
   user: Schema.Types.ObjectId;
   tour: Schema.Types.ObjectId;
+}
+
+//static methods
+export interface IReviewModel extends Model<IReview> {
+  calcAverageRatings(tourId: Schema.Types.ObjectId): Promise<void>;
 }
