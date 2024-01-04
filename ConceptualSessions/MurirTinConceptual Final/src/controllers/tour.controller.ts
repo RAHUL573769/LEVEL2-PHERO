@@ -1,32 +1,83 @@
-import { NextFunction, Request, Response } from "express";
+import { NextFunction, Request, RequestHandler, Response } from "express";
 import { TourServices } from "../services/tour.service";
+import { successResponse1 } from "../helpers/successResponse";
+import { catchAsyncFunction } from "../helpers/catchAsync";
 
-const createTour = async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const tourData = req.body;
-    const result = await TourServices.createTour(tourData);
+// data={
+//   statausCode:200
+//   message: "Tour Created Successfully",
+//   status: "Success",
+//   data: data
+// }
 
-    console.log(result);
-    res.status(200).json({
-      message: "Tour Created Successfully",
-      status: "Success",
-      data: result
-    });
-  } catch (error: any) {
-    next(error);
-  }
+// const catchAsyncFunction = (fn: RequestHandler) => {
+//   return (req: Request, res: Response, next: NextFunction) => {
+//     Promise.resolve(fn(req, res, next)).catch((err) => {
+//       next(err);
+//     });
+//   };
+// };
+
+type TResponse<T> = {
+  statusCode: number;
+  status: "Success";
+  message: string;
+  data: T | T[] | null;
 };
+const successResponse = <T>(
+  res: Response,
+  req: Request,
+  data: TResponse<T>
+) => {
+  res.status(data.statusCode).json({
+    message: data.message,
+    status: data.data,
+    data: data.data
+  });
+};
+
+const createTour = catchAsyncFunction(
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const tourData = req.body;
+      const result = await TourServices.createTour(tourData);
+
+      console.log(result);
+      // res.status(200).json({
+      //   message: "Tour Created Successfully",
+      //   status: "Success",
+      //   data: result
+      // });
+
+      successResponse(res, req, {
+        statusCode: 201,
+        message: "Tour Created Succesfully",
+        status: "Success",
+        data: result
+      });
+    } catch (error: any) {
+      next(error);
+    }
+  }
+);
 const getAllTour = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const result = await TourServices.getAllTour();
 
     console.log(result);
     // throw new Error("Error From Get All Tour");
-    res.status(200).json({
+
+    successResponse1(res, req, {
+      statusCode: 201,
       message: "All Tour Fetched Successfully",
       status: "Success",
+
       data: result
     });
+    // res.status(200).json({
+    //   status: "Success",
+    //   data: result
+    // });
   } catch (error: any) {
     next(error);
     // res.status(500).json({

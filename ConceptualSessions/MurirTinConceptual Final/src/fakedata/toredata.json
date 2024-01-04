@@ -1,0 +1,13 @@
+{
+  "name": "Exciting Adventure Tour-9o20",
+  "durationHours": 10,
+  "ratingAverage": 4.7,
+  "ratingQuality": 8,
+  "price": 500,
+  "imageCover": "tour-cover-image.jpg",
+  "images": ["image1.jpg", "image2.jpg", "image3.jpg"],
+  "location": ["Mountain Range", "Riverside", "Caves"],
+  "startDate": ["2024-05-15T09:00:00Z", "2024-04-14T09:00:00Z"],
+  "startLocation": "Adventure Hub",
+  "slug": "exciting-adventure-tour"
+}
