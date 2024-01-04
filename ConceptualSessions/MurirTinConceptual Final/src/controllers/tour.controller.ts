@@ -13,10 +13,7 @@ const createTour = async (req: Request, res: Response, next: NextFunction) => {
       data: result
     });
   } catch (error: any) {
-    res.status(500).json({
-      message: error.message || "Something Went Wrong",
-      status: "Fail"
-    });
+    next(error);
   }
 };
 const getAllTour = async (req: Request, res: Response, next: NextFunction) => {
@@ -24,16 +21,18 @@ const getAllTour = async (req: Request, res: Response, next: NextFunction) => {
     const result = await TourServices.getAllTour();
 
     console.log(result);
+    // throw new Error("Error From Get All Tour");
     res.status(200).json({
       message: "All Tour Fetched Successfully",
       status: "Success",
       data: result
     });
   } catch (error: any) {
-    res.status(500).json({
-      message: error.message || "Something Went Wrong",
-      status: "Fail"
-    });
+    next(error);
+    // res.status(500).json({
+    //   message: error.message || "Something Went Wrong",
+    //   status: "Fail"
+    // });
   }
 };
 const getSingleTour = async (
@@ -52,10 +51,7 @@ const getSingleTour = async (
       data: result
     });
   } catch (error: any) {
-    res.status(500).json({
-      message: error.message || "Something Went Wrong",
-      status: "Fail"
-    });
+    next(error);
   }
 };
 const updateTour = async (req: Request, res: Response, next: NextFunction) => {
