@@ -4,13 +4,13 @@ import { IIssue, TErrorResponse } from "./erroraType";
 export const handleValidationError = (
   err: mongoose.Error.ValidationError
 ): TErrorResponse => {
-  let errorResponse: TErrorResponse;
+  // let errorResponse: TErrorResponse;
 
-  const issues: IIssue[] = [];
+  const issues1: IIssue[] = [];
   const errorValues = Object.values(err.errors);
 
   errorValues.map((errorObj) => {
-    issues.push({
+    issues1.push({
       path: errorObj.path,
       message: errorObj.message
     });
@@ -20,6 +20,6 @@ export const handleValidationError = (
     statusCode: 400,
     message: "Validation Error Handled",
     status: "Fail",
-    issues
+    issues1
   };
 };

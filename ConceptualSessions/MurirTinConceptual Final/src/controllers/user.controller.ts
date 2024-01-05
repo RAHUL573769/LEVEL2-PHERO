@@ -16,10 +16,7 @@ const createUser = catchAsyncFunction(
         data: result
       });
     } catch (error: any) {
-      res.status(500).json({
-        message: error.message || "Something Went Wrong",
-        status: "Fail"
-      });
+      next(error);
     }
   }
 );
@@ -34,10 +31,12 @@ const getAllUser = async (req: Request, res: Response, next: NextFunction) => {
       data: result
     });
   } catch (error: any) {
-    res.status(500).json({
-      message: error.message || "Something Went Wrong",
-      status: "Fail"
-    });
+    // res.status(500).json({
+    //   message: error.message || "Something Went Wrong",
+    //   status: "Fail"
+    // });
+
+    next(error);
   }
 };
 const getSingleUser = async (
@@ -56,10 +55,11 @@ const getSingleUser = async (
       data: result
     });
   } catch (error: any) {
-    res.status(500).json({
-      message: error.message || "Something Went Wrong",
-      status: "Fail"
-    });
+    next(error);
+    // res.status(500).json({
+    //   message: error.message || "Something Went Wrong",
+    //   status: "Fail"
+    // });
   }
 };
 const updateUser = async (req: Request, res: Response, next: NextFunction) => {
@@ -75,10 +75,11 @@ const updateUser = async (req: Request, res: Response, next: NextFunction) => {
       data: result
     });
   } catch (error: any) {
-    res.status(500).json({
-      message: error.message || "Something Went Wrong",
-      status: "Fail"
-    });
+    next(error);
+    // res.status(500).json({
+    //   message: error.message || "Something Went Wrong",
+    //   status: "Fail"
+    // });
   }
 };
 const deleteUser = async (req: Request, res: Response, next: NextFunction) => {
@@ -93,10 +94,12 @@ const deleteUser = async (req: Request, res: Response, next: NextFunction) => {
       data: result
     });
   } catch (error: any) {
-    res.status(500).json({
-      message: error.message || "Something Went Wrong",
-      status: "Fail"
-    });
+    // res.status(500).json({
+    //   message: error.message || "Something Went Wrong",
+    //   status: "Fail"
+    // });
+
+    next(error);
   }
 };
 export const UserController = {

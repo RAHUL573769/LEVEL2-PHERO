@@ -17,10 +17,7 @@ const createReview = async (
       data: result
     });
   } catch (error: any) {
-    res.status(500).json({
-      message: error.message || "Something Went Wrong",
-      status: "Fail"
-    });
+    next(error);
   }
 };
 const getAllReview = async (
@@ -38,10 +35,7 @@ const getAllReview = async (
       data: result
     });
   } catch (error: any) {
-    res.status(500).json({
-      message: error.message || "Something Went Wrong",
-      status: "Fail"
-    });
+    next(error);
   }
 };
 const getSingleReview = async (
@@ -60,10 +54,7 @@ const getSingleReview = async (
       data: result
     });
   } catch (error: any) {
-    res.status(500).json({
-      message: error.message || "Something Went Wrong",
-      status: "Fail"
-    });
+    next(error);
   }
 };
 const updateReview = async (
@@ -83,10 +74,11 @@ const updateReview = async (
       data: result
     });
   } catch (error: any) {
-    res.status(500).json({
-      message: error.message || "Something Went Wrong",
-      status: "Fail"
-    });
+    // res.status(500).json({
+    //   message: error.message || "Something Went Wrong",
+    //   status: "Fail"
+    // });
+    next(error);
   }
 };
 const deleteReview = async (
@@ -105,10 +97,11 @@ const deleteReview = async (
       data: result
     });
   } catch (error: any) {
-    res.status(500).json({
-      message: error.message || "Something Went Wrong",
-      status: "Fail"
-    });
+    // res.status(500).json({
+    //   message: error.message || "Something Went Wrong",
+    //   status: "Fail"
+    // });
+    next(error);
   }
 };
 export const ReviewController = {
