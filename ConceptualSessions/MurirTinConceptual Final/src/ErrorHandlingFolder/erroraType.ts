@@ -2,6 +2,6 @@ export type TErrorResponse = {
   statusCode: number;
   status: string;
   message: string;
-  issues: IIssue[];
+  issues1: IIssue[];
 };
 export type IIssue = { path: string; message: string };

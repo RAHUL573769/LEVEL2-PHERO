@@ -22,7 +22,7 @@ export const globalErrorHandler = (
     statusCode: err.statusCode || 500,
     message: err.message || "Error",
     status: "Fail",
-    issues: err.issues || []
+    issues1: err.issues || []
   };
   if (err && err instanceof mongoose.Error.ValidationError) {
     console.log("Ami Validation Error");
@@ -54,6 +54,6 @@ export const globalErrorHandler = (
     message: errorResponse.message,
     status: errorResponse.status,
     // error,
-    issues: errorResponse.issues
+    issues: errorResponse.issues1
   });
 };
