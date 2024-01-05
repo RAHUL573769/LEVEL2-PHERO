@@ -21,21 +21,36 @@ export const globalErrorHandler = (
     statusCode: err.statusCode || 500,
     message: err.message || "Error",
     status: "Fail",
-    issues: []
+    issues: err.issues || []
   };
   if (err && err instanceof mongoose.Error.ValidationError) {
     console.log("Ami Validation Error");
 
-    errorResponse.statusCode = 400;
-    errorResponse.message = "Validation Error";
-    errorResponse.status = "Fail";
-    errorResponse.issues = [];
+    // errorResponse.statusCode = 400;
+    // errorResponse.message = "Validation Error";
+    // errorResponse.status = "Fail";
+    // errorResponse.issues = [];
+    statusCode = 401;
+    message: err.message;
+    status: "Error";
+    err: err;
+
+    const errorValues = Object.values(err.errors);
+
+    errorValues.map(
+      (errorObj: mongoose.Error.ValidatorError | mongoose.Error.CastError) => {
+        errorResponse.issues.push({
+          path: errorObj.path,
+          message: errorObj.message
+        });
+      }
+    );
   }
 
   res.status(errorResponse.statusCode).json({
     message: errorResponse.message,
     status: errorResponse.status,
-    error,
+    // error,
     issues: errorResponse.issues
   });
 };
