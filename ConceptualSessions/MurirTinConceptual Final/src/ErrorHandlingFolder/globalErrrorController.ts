@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import mongoose from "mongoose";
 import { TErrorResponse } from "./erroraType";
+import { handleValidationError } from "./handleValidationError";
 
 export const globalErrorHandler = (
   err: any,
@@ -17,7 +18,7 @@ export const globalErrorHandler = (
   //   console.log("Ami Validation Error");
   // } //There is a better way
 
-  const errorResponse: TErrorResponse = {
+  let errorResponse: TErrorResponse = {
     statusCode: err.statusCode || 500,
     message: err.message || "Error",
     status: "Fail",
@@ -34,17 +35,19 @@ export const globalErrorHandler = (
     message: err.message;
     status: "Error";
     err: err;
+    // console.log(message);
+    // const errorValues = Object.values(err.errors);
 
-    const errorValues = Object.values(err.errors);
+    // errorValues.map(
+    //   (errorObj: mongoose.Error.ValidatorError | mongoose.Error.CastError) => {
+    //     errorResponse.issues.push({
+    //       path: errorObj.path,
+    //       message: errorObj.message
+    //     });
+    //   }
+    // );
 
-    errorValues.map(
-      (errorObj: mongoose.Error.ValidatorError | mongoose.Error.CastError) => {
-        errorResponse.issues.push({
-          path: errorObj.path,
-          message: errorObj.message
-        });
-      }
-    );
+    errorResponse = handleValidationError(err);
   }
 
   res.status(errorResponse.statusCode).json({
