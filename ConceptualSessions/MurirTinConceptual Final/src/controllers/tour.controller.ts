@@ -56,6 +56,7 @@ const createTour = catchAsyncFunction(
         data: result
       });
     } catch (error: any) {
+      console.log("Error from ouside async");
       next(error);
     }
   }

@@ -5,7 +5,8 @@ const tourSchema = new Schema<ITour, ITourModel, ITourMethods>(
   {
     name: {
       type: String,
-      required: [true, "Please Provide Name"]
+      required: [true, "Please Provide Name"],
+      unique: true
     },
     durationHours: {
       type: Number,
@@ -60,6 +61,8 @@ tourSchema.virtual("reviews", {
 tourSchema.virtual("durationDays").get(function () {
   return this.durationHours / 24;
 });
+
+tourSchema.index({ name: 1 }, { unique: true });
 tourSchema.methods.getNearestStartDate = function (): {
   nextNearestDate: Date;
   estimatedEndDate: Date;
