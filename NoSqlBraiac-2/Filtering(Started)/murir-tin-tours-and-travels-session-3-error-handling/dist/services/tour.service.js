@@ -1,4 +1,7 @@
 "use strict";
+/* eslint-disable prefer-const */
+/* eslint-disable no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -13,10 +16,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.tourServices = void 0;
-/* eslint-disable prefer-const */
-/* eslint-disable no-unused-vars */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-const filter_1 = require("../Filtering/filter");
 const tour_model_1 = __importDefault(require("../models/tour.model"));
 const createTour = (tourData) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield tour_model_1.default.create(tourData);
@@ -45,34 +44,6 @@ const createTour = (tourData) => __awaiter(void 0, void 0, void 0, function* () 
 //   let query = model.find(queryObj)
 //   return query
 // }
-const getAllTours = (query) => __awaiter(void 0, void 0, void 0, function* () {
-    // const queryObj = { ...query }
-    // console.log('Before Excluding', queryObj)
-    // const result = await filter(Tour.find(), queryObj)
-    //await dibo na
-    const modelQuery = (0, filter_1.filter)(tour_model_1.default.find(), query);
-    // console.log('After Excluding', queryObj)
-    // if (query.searchTerm) {
-    //   modelQuery.find({ name: { $regex: query.searchTerm, $options: 'i' } })
-    // } //not working
-    if (query.searchTerm) {
-        const fieldValues = Object.values(modelQuery.model.schema.paths);
-        // console.log(fieldValues)
-        console.log(modelQuery.model.schema.path('name'), 'path function');
-        console.log(modelQuery.model.schema.paths, 'path Array');
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const searchableFields = fieldValues.filter((fieldObj) => {
-            if (modelQuery.model.schema.path(fieldObj.path).instance === 'String')
-                return {
-                    [fieldObj.path]: { $regex: query.searchTerm, $options: 'i' },
-                };
-        });
-        const searchTerm = new RegExp(query.searchTerm, 'i');
-        modelQuery.find({ name: searchTerm });
-    }
-    const result = yield modelQuery;
-    return result;
-});
 const getSingleTour = (id) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield tour_model_1.default.findById(id).populate('reviews');
     return result;
@@ -96,11 +67,15 @@ const getNextSchedule = (id) => __awaiter(void 0, void 0, void 0, function* () {
         nextSchedule,
     };
 });
+const getAllTour = () => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield tour_model_1.default.find();
+    return result;
+});
 exports.tourServices = {
     createTour,
-    getAllTours,
     getSingleTour,
     updateTour,
     deleteTour,
+    getAllTour,
     getNextSchedule,
 };
