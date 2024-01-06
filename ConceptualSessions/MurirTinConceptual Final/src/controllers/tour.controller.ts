@@ -2,6 +2,8 @@ import { NextFunction, Request, RequestHandler, Response } from "express";
 import { TourServices } from "../services/tour.service";
 import { successResponse1 } from "../helpers/successResponse";
 import { catchAsyncFunction } from "../helpers/catchAsync";
+import { AppError } from "../ErrorHandlingFolder/Classes/AppError";
+import { createTourZodSchema } from "../ZodSchema/zod.schema";
 
 // data={
 //   statausCode:200
@@ -40,9 +42,16 @@ const createTour = catchAsyncFunction(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const tourData = req.body;
+      // console.log("Give Tour Data", tourData);
+      const validatedData = createTourZodSchema.parse(tourData);
+      console.log("Validated Data", validatedData);
+
+      if (!validatedData) {
+        throw new Error("Zod Error");
+      }
       const result = await TourServices.createTour(tourData);
-      throw new Error("Errror");
-      console.log(result);
+      // throw new AppError("Error", 404);
+      console.log("Result is", result);
       // res.status(200).json({
       //   message: "Tour Created Successfully",
       //   status: "Success",
@@ -56,8 +65,14 @@ const createTour = catchAsyncFunction(
         data: result
       });
     } catch (error: any) {
-      console.log("Error from ouside async");
+      // console.log("Error from Tour Controller");
       next(error);
+
+      res.status(500).json({
+        message: error.message || "Something Went Wrong",
+        status: "Fail",
+        error: error
+      });
     }
   }
 );

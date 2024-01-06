@@ -1,7 +1,8 @@
 import mongoose from "mongoose";
 import { IIssue, TErrorResponse } from "./erroraType";
+import { AppError } from "./Classes/AppError";
 
-export const handleGenericError = (err: Error): TErrorResponse => {
+export const handleGenericError = (err: AppError): TErrorResponse => {
   // let errorResponse: TErrorResponse;
 
   const issues1: IIssue[] = [
@@ -23,8 +24,8 @@ export const handleGenericError = (err: Error): TErrorResponse => {
   //   });
 
   return {
-    statusCode: 400,
-    message: "Unknown Error ",
+    statusCode: err.statusCode,
+    message: "App Error ",
     status: "Fail",
     issues1
   };
