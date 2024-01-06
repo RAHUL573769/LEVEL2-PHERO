@@ -4,6 +4,8 @@ import { TErrorResponse } from "./erroraType";
 import { handleValidationError } from "./handleValidationError";
 import { handleDuplicateError } from "./handleDuplicateError";
 import { handleCastError } from "./handleCastError";
+import { handleGenericError } from "./handleGenericError";
+import config from "../config";
 
 export const globalErrorHandler = (
   err: any,
@@ -73,12 +75,17 @@ export const globalErrorHandler = (
     //     message: `Duplicate value for `
     //   }
     // ];
+  } else if (err && err instanceof Error) {
+    errorResponse = handleGenericError(err);
   }
-  console.log(err);
+
+  // console.log(err.keyValue);
   res.status(errorResponse.statusCode).json({
-    message: errorResponse.message,
-    status: errorResponse.status,
+    message: errorResponse.message || message,
+    status: errorResponse.status || "Fail",
     // error,
+
+    stack: config.node_env === "developement" ? err.stack : "undefined",
     issues: errorResponse.issues1
   });
 };

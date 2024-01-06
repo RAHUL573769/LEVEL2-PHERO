@@ -5,5 +5,6 @@ dotenv.config({
 });
 export default {
   port: process.env.PORT,
-  database_url_cloud: process.env.DATABASE_URL_Cloud
+  database_url_cloud: process.env.DATABASE_URL_Cloud,
+  node_env: process.env.NODE_ENV
 };

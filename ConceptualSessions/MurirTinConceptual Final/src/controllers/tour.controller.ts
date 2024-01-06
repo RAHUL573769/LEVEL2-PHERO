@@ -41,7 +41,7 @@ const createTour = catchAsyncFunction(
     try {
       const tourData = req.body;
       const result = await TourServices.createTour(tourData);
-
+      throw new Error("Errror");
       console.log(result);
       // res.status(200).json({
       //   message: "Tour Created Successfully",

@@ -3,5 +3,6 @@ declare namespace NodeJS {
     PORT: number;
     DATABASE_URL_Cloud: string;
     DATABASE_URL: string;
+    NODE_ENV: string;
   };
 }

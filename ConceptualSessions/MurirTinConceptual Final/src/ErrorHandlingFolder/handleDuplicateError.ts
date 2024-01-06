@@ -7,7 +7,8 @@ export const handleDuplicateError = (
   // let errorResponse: TErrorResponse;
   const regex = /"([^"]*)"/;
   const match = err.message.match(regex);
-  console.log("Value For Regex");
+
+  // console.log("Value For Regex");
 
   const issues1: IIssue[] = [
     {
