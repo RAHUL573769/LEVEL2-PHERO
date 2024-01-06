@@ -16,7 +16,6 @@ exports.tourController = void 0;
 const tour_service_1 = require("../services/tour.service");
 const catchAsync_1 = __importDefault(require("../utils/catchAsync"));
 const sendResponse_1 = __importDefault(require("../utils/sendResponse"));
-const tour_validation_1 = require("../validations/tour.validation");
 // const fn = async () => {
 //   const anotherFn = async () => {}
 //   return anotherFn
@@ -48,11 +47,11 @@ const tour_validation_1 = require("../validations/tour.validation");
 // }
 const createTour = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const tourData = req.body;
-    const validatedData = tour_validation_1.createTourZodSchema.parse(tourData);
-    if (!validatedData) {
-        throw new Error('Validation failed');
-    }
-    const result = yield tour_service_1.tourServices.createTour(validatedData);
+    // const validatedData = createTourZodSchema.parse(tourData)
+    // if (!validatedData) {
+    //   throw new Error('Validation failed')
+    // }
+    const result = yield tour_service_1.tourServices.createTour(tourData);
     (0, sendResponse_1.default)(res, {
         statusCode: 201,
         message: 'Tour created successfully',
@@ -61,7 +60,8 @@ const createTour = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, voi
 }));
 // app vitore next call -> router -> controller -> response -> but error hoise -> next(error) ->
 const getAllTours = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield tour_service_1.tourServices.getAllTours(req.query);
+    const query = req.query;
+    const result = yield tour_service_1.tourServices.getAllTour(query);
     // throw new Error('Something went wrong')
     (0, sendResponse_1.default)(res, {
         statusCode: 200,

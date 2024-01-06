@@ -29,11 +29,7 @@ router.get('/', tour_controller_1.tourController.getAllTours);
 //tourController.getAllTours(req, res, next)
 router.get('/:id', 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-(req, res, next) => {
-    const id = req.params.id;
-    console.log(id);
-    next();
-}, tour_controller_1.tourController.getSingleTour);
+tour_controller_1.tourController.getSingleTour);
 router.patch('/:id', tour_controller_1.tourController.updateTour);
 router.delete('/:id', tour_controller_1.tourController.deleteTour);
 router.get('/:id/next-schedule', tour_controller_1.tourController.getNextSchedule);

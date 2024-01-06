@@ -2,9 +2,41 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+// import { Query } from 'mongoose'
+import { filter } from '../Filtering/filter'
 import { ITour } from '../interfaces/tour.interface'
 import Tour from '../models/tour.model'
+// import { TQueryObj } from '../types/queryType'
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+
+// type TQueryObj = {
+//   [key: string]: unknown
+//   page?: string
+//   limit?: string
+//   searchTerm?: string
+//   fields?: string
+//   sortBy?: string
+//   sortOrder?: string
+// }
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+// const filter = <T>(model: Query<T[], T>, queryObj: TQueryObj) => {
+//   console.log('Before Excluding', queryObj)
+//   const excludeField = [
+//     'page',
+//     'searchTerm',
+//     'limit',
+//     'sortBy',
+//     'sortOrder',
+//     'fields',
+//   ]
+
+//   excludeField.forEach((keyword) => delete queryObj[keyword])
+
+//   console.log('After Excluding', queryObj)
+//   const query = model.find(queryObj)
+//   return query
+// }
 const createTour = async (tourData: any): Promise<ITour> => {
   const result = await Tour.create(tourData)
 
@@ -68,8 +100,21 @@ const getNextSchedule = async (id: string): Promise<any> => {
   }
 }
 
-const getAllTour = async (): Promise<ITour[]> => {
-  const result = await Tour.find()
+const getAllTour = async (query: any): Promise<ITour[]> => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  // const queryObj = { ...query }
+  //reserved keywords for filtering
+  // const excludeField = [
+  //   'page',
+  //   'searchTerm',
+  //   'limit',
+  //   'sortBy',
+  //   'sortOrder',
+  //   'fields',
+  // ]
+
+  // excludeField.forEach((keyword) => delete queryObj[keyword])
+  const result = await filter(Tour.find({ price: { $gt: 20 } }), query)
   return result
 }
 

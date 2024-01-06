@@ -16,7 +16,36 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.tourServices = void 0;
+// import { Query } from 'mongoose'
+const filter_1 = require("../Filtering/filter");
 const tour_model_1 = __importDefault(require("../models/tour.model"));
+// import { TQueryObj } from '../types/queryType'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+// type TQueryObj = {
+//   [key: string]: unknown
+//   page?: string
+//   limit?: string
+//   searchTerm?: string
+//   fields?: string
+//   sortBy?: string
+//   sortOrder?: string
+// }
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+// const filter = <T>(model: Query<T[], T>, queryObj: TQueryObj) => {
+//   console.log('Before Excluding', queryObj)
+//   const excludeField = [
+//     'page',
+//     'searchTerm',
+//     'limit',
+//     'sortBy',
+//     'sortOrder',
+//     'fields',
+//   ]
+//   excludeField.forEach((keyword) => delete queryObj[keyword])
+//   console.log('After Excluding', queryObj)
+//   const query = model.find(queryObj)
+//   return query
+// }
 const createTour = (tourData) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield tour_model_1.default.create(tourData);
     return result;
@@ -67,8 +96,20 @@ const getNextSchedule = (id) => __awaiter(void 0, void 0, void 0, function* () {
         nextSchedule,
     };
 });
-const getAllTour = () => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield tour_model_1.default.find();
+const getAllTour = (query) => __awaiter(void 0, void 0, void 0, function* () {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    // const queryObj = { ...query }
+    //reserved keywords for filtering
+    // const excludeField = [
+    //   'page',
+    //   'searchTerm',
+    //   'limit',
+    //   'sortBy',
+    //   'sortOrder',
+    //   'fields',
+    // ]
+    // excludeField.forEach((keyword) => delete queryObj[keyword])
+    const result = yield (0, filter_1.filter)(tour_model_1.default.find({ price: { $gt: 20 } }), query);
     return result;
 });
 exports.tourServices = {

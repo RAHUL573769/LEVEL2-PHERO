@@ -1,7 +1,8 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import express, { NextFunction, Request, Response } from 'express'
+import express from 'express'
 import { tourController } from '../controllers/tour.controller'
+
 // import { createTourZodSchema } from '../validations/tour.validation'
 // import { validateSchema } from '../middlewares/validate.middleware'
 // import { createTourZodSchema } from '../validations/tour.validation'
@@ -30,11 +31,7 @@ router.get('/', tourController.getAllTours)
 router.get(
   '/:id',
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  (req: Request, res: Response, next: NextFunction) => {
-    const id = req.params.id
-    console.log(id)
-    next()
-  },
+
   tourController.getSingleTour,
 )
 router.patch('/:id', tourController.updateTour)
