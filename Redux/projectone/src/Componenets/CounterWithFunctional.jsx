@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-type TProps = {
-  count: number,
-  setCount: React.Dispatch<React.SetStateAction<number>>
-};
+// type TProps = {
+//   count: number,
+//   setCount: React.Dispatch<React.SetStateAction<number>>
+// };
 
-export const CounterWithFunctional = ({ count, setCount }: TProps) => {
+export const CounterWithFunctional = ({ count, setCount }) => {
   //   console.log("From Functional Component", props);
 
   return (

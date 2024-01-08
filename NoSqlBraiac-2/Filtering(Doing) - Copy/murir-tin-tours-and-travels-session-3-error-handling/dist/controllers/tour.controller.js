@@ -61,8 +61,10 @@ const createTour = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, voi
 }));
 // app vitore next call -> router -> controller -> response -> but error hoise -> next(error) ->
 const getAllTours = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield tour_service_1.tourServices.getAllTours(req.query);
+    // problem--->const result = await tourServices.getAllTour() all users will come and cause bandwith problem
     // throw new Error('Something went wrong')
+    const query = req.query;
+    const result = yield tour_service_1.tourServices.getAllTour(qu);
     (0, sendResponse_1.default)(res, {
         statusCode: 200,
         message: 'Tour fetched successfully',

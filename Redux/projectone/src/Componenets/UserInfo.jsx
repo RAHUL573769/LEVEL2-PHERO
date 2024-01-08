@@ -1,7 +1,11 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
 export const UserInfowithUseState = () => {
-  const [user, setUser] = useState({ name: "", age: 0, hobbies: [] });
+  const [user, setUser] = useState({
+    name: "",
+    age: "0",
+    hobbies: []
+  });
   console.log(user);
   return (
     <div>
