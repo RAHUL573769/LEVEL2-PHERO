@@ -1,4 +1,5 @@
 "use strict";
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable prefer-const */
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -17,6 +18,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.tourServices = void 0;
 const tour_model_1 = __importDefault(require("../models/tour.model"));
+const filterHelpers_1 = require("../helpers/errorHelpers/filterHelpers");
 const createTour = (tourData) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield tour_model_1.default.create(tourData);
     return result;
@@ -67,9 +69,62 @@ const getNextSchedule = (id) => __awaiter(void 0, void 0, void 0, function* () {
         nextSchedule,
     };
 });
-const getAllTour = (payload) => __awaiter(void 0, void 0, void 0, function* () {
+// type TQuery = {
+//   [key: string]: unknown
+//   page?: string
+//   limit?: string
+//   fields?: string
+//   sortBy?: string
+//   sortOrder?: string
+// }
+// const filter = <T>(modelQuery: Query<T[], T>, queryObj: TQueryObj) => {
+//   const excludedFields = ['page', 'searchTerm', 'limit', 'sortBy', 'sortOrder']
+//   // console.log('Before Excluding', queryObj)
+//   excludedFields.forEach((keyword) => {
+//     delete queryObj[keyword]
+//   })
+//   const modelquery = modelQuery.find(queryObj)
+//   return modelquery
+//   // console.log('After Excluding', queryObj)
+// }
+const getAllTour = (query) => __awaiter(void 0, void 0, void 0, function* () {
     // console.log(payload)
-    const result = yield tour_model_1.default.find(payload);
+    const queryObj = Object.assign({}, query);
+    // const excludedFields = ['page', 'searchTerm', 'limit', 'sortBy', 'sortOrder']
+    // console.log('Before Excluding', queryObj)
+    // excludedFields.forEach((keyword) => {
+    //   delete queryObj[keyword]
+    // })
+    // console.log('After Excluding', queryObj)
+    // console.log(queryObj)
+    //reserved words
+    // const result = await Tour.find(queryObj)
+    // const result = await filter(Tour.find(), query)
+    // from video 5---
+    // for partial searching
+    const modelQuery = (0, filterHelpers_1.filter)(tour_model_1.default.find(), query);
+    // console.log(query.searchTerm)
+    if (query.searchTerm) {
+        // console.log('Model Query Single', modelQuery.model.schema.path('name'))
+        // console.log(
+        //   '----------Model Query Mingle-----',
+        //   modelQuery.model.schema.paths,//array
+        // )
+        const fieldValues = Object.values(modelQuery.model.schema.paths);
+        const searchableFields = fieldValues.filter((fieldObj) => {
+            // console.log(fieldObj);
+            // Here fieldobj=modelQuery.model.schema.path(fieldObj.path)
+            if (fieldObj.instance === 'String') {
+                return true;
+                // modelQuery.find({ name: { $regex: query.searchTerm, $options: 'i' } })
+                // [fieldObj.path]: { $regex: query.searchTerm, $options: 'i' },
+                // "name":"Historic"
+            }
+        }); //start from 35 minute
+        console.log(searchableFields);
+        modelQuery.find({ name: { $regex: query.searchTerm, $options: 'i' } });
+    }
+    const result = yield modelQuery;
     return result;
 });
 exports.tourServices = {
