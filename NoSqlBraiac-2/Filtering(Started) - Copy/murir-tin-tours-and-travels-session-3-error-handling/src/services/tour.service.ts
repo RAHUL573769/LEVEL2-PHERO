@@ -41,6 +41,8 @@ const createTour = async (tourData: any): Promise<ITour> => {
 
 const getSingleTour = async (id: string): Promise<ITour | null> => {
   const result = await Tour.findById(id).populate('reviews')
+
+  // console.log(Tour.findById(id))
   return result
 }
 
@@ -109,8 +111,9 @@ const getAllTour = async (query: TQueryObj): Promise<ITour[]> => {
   // const result = await filter(Tour.find(), query)
   // from video 5---
   // for partial searching
-  const modelQuery = filter(Tour.find(), query)
 
+  const modelQuery = filter(Tour.find(), query) //await korbo na ..karon search term rakte
+  // console.log(query.searchTerm)
   // console.log(query.searchTerm)
   if (query.searchTerm) {
     // console.log('Model Query Single', modelQuery.model.schema.path('name'))
@@ -120,18 +123,24 @@ const getAllTour = async (query: TQueryObj): Promise<ITour[]> => {
     // )
     const fieldValues = Object.values(modelQuery.model.schema.paths)
 
-    const searchableFields = fieldValues.filter((fieldObj) => {
-      // console.log(fieldObj);
-      // Here fieldobj=modelQuery.model.schema.path(fieldObj.path)
-      if (fieldObj.instance === 'String') {
-        return true
-        // modelQuery.find({ name: { $regex: query.searchTerm, $options: 'i' } })
+    const searchableFields = fieldValues
+      .filter((fieldObj) => {
+        // console.log(fieldObj);
+        // Here fieldobj=modelQuery.model.schema.path(fieldObj.path)
+        if (fieldObj.instance === 'String') {
+          return true //
+          // modelQuery.find({ name: { $regex: query.searchTerm, $options: 'i' } })
+          //name:"Historic"
+        //  return [fieldObj.path]: { $regex: query.searchTerm, $options: 'i' },
+          // Output of above name":"Historic"
+        }
+      }).map((fieldObj)=>{
 
-        // [fieldObj.path]: { $regex: query.searchTerm, $options: 'i' },
-        // "name":"Historic"
-      }
-    }) //start from 35 minute
-    console.log(searchableFields)
+[fieldObj.path]:{$regex:query.searchTerm,$options:"i"},
+
+      })
+   //start from 35 minute
+    console.log('Searchable Fields', searchableFields)
     modelQuery.find({ name: { $regex: query.searchTerm, $options: 'i' } })
   }
 

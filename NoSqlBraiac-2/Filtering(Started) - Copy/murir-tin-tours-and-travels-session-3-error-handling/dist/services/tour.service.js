@@ -48,6 +48,7 @@ const createTour = (tourData) => __awaiter(void 0, void 0, void 0, function* () 
 // }
 const getSingleTour = (id) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield tour_model_1.default.findById(id).populate('reviews');
+    // console.log(Tour.findById(id))
     return result;
 });
 const updateTour = (id, tourData) => __awaiter(void 0, void 0, void 0, function* () {
@@ -102,7 +103,8 @@ const getAllTour = (query) => __awaiter(void 0, void 0, void 0, function* () {
     // const result = await filter(Tour.find(), query)
     // from video 5---
     // for partial searching
-    const modelQuery = (0, filterHelpers_1.filter)(tour_model_1.default.find(), query);
+    const modelQuery = (0, filterHelpers_1.filter)(tour_model_1.default.find(), query); //await korbo na ..karon search term rakte
+    // console.log(query.searchTerm)
     // console.log(query.searchTerm)
     if (query.searchTerm) {
         // console.log('Model Query Single', modelQuery.model.schema.path('name'))
@@ -111,17 +113,26 @@ const getAllTour = (query) => __awaiter(void 0, void 0, void 0, function* () {
         //   modelQuery.model.schema.paths,//array
         // )
         const fieldValues = Object.values(modelQuery.model.schema.paths);
-        const searchableFields = fieldValues.filter((fieldObj) => {
+        const searchableFields = fieldValues
+            .filter((fieldObj) => {
             // console.log(fieldObj);
             // Here fieldobj=modelQuery.model.schema.path(fieldObj.path)
             if (fieldObj.instance === 'String') {
-                return true;
+                return true; //
                 // modelQuery.find({ name: { $regex: query.searchTerm, $options: 'i' } })
-                // [fieldObj.path]: { $regex: query.searchTerm, $options: 'i' },
-                // "name":"Historic"
+                //name:"Historic"
+                //  return [fieldObj.path]: { $regex: query.searchTerm, $options: 'i' },
+                // Output of above name":"Historic"
             }
-        }); //start from 35 minute
-        console.log(searchableFields);
+        }).map((fieldObj) => {
+            [fieldObj.path];
+            {
+                $regex: query.searchTerm, $options;
+                "i";
+            }
+        });
+        //start from 35 minute
+        console.log('Searchable Fields', searchableFields);
         modelQuery.find({ name: { $regex: query.searchTerm, $options: 'i' } });
     }
     const result = yield modelQuery;
