@@ -71,6 +71,10 @@ export const theme = {
       "accordion-down": "accordion-down 0.2s ease-out",
       "accordion-up": "accordion-up 0.2s ease-out"
     }
+
+    // backgroundImage: {
+    //   "primary-gradient": linear-gradient(30deg,purple,#5C53FE)
+    // }
   }
 };
 export const plugins = [require("tailwindcss-animate")];
