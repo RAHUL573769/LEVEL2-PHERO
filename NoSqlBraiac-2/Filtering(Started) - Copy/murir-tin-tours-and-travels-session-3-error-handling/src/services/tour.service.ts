@@ -131,15 +131,15 @@ const getAllTour = async (query: TQueryObj): Promise<ITour[]> => {
           return true //
           // modelQuery.find({ name: { $regex: query.searchTerm, $options: 'i' } })
           //name:"Historic"
-        //  return [fieldObj.path]: { $regex: query.searchTerm, $options: 'i' },
+          //  return [fieldObj.path]: { $regex: query.searchTerm, $options: 'i' },
           // Output of above name":"Historic"
         }
-      }).map((fieldObj)=>{
-
-[fieldObj.path]:{$regex:query.searchTerm,$options:"i"},
-
       })
-   //start from 35 minute
+      .map((fieldObj) => ({
+        [fieldObj.path]: { $regex: query.searchTerm, $options: 'i' },
+      }))
+
+    //start from 35 minute
     console.log('Searchable Fields', searchableFields)
     modelQuery.find({ name: { $regex: query.searchTerm, $options: 'i' } })
   }

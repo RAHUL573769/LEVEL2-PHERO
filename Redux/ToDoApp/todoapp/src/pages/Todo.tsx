@@ -1,10 +1,13 @@
 import React from "react";
+import TodoContainer from "./../components/Todo/TodoContainer";
+import Container from "@/components/ui/Container";
 
 const Todo = () => {
   return (
-    <div>
-      <h1>To Do ages</h1>
-    </div>
+    <Container>
+      <h1 className="text-center font-semibold text-3xl ">My Todos</h1>
+      <TodoContainer></TodoContainer>
+    </Container>
   );
 };
 
