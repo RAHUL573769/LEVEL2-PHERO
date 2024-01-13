@@ -163,6 +163,17 @@ const getAllTour = async (query: TQueryObj): Promise<ITour[]> => {
   // }
 
   const searchQuery = search(filteredQuery, query)
+
+  if (query.sortBy && query.sortOrder) {
+    const sortBy = query.sortBy
+    const sortOrder = query.sortOrder
+    const sortStr = `${sortOrder === 'desc' ? '-' : ''} ${sortBy}`
+    searchQuery.sort(sortStr)
+    // const sortObj = {}
+    // Tour.find().sort('-name')
+
+    // Tour.find().sort('-name')
+  }
   const result = await searchQuery
   return result
 }

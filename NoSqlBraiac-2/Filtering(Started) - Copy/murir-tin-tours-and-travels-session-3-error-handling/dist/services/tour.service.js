@@ -147,6 +147,15 @@ const getAllTour = (query) => __awaiter(void 0, void 0, void 0, function* () {
     //   })
     // }
     const searchQuery = (0, searchHelpers_1.search)(filteredQuery, query);
+    if (query.sortBy && query.sortOrder) {
+        const sortBy = query.sortBy;
+        const sortOrder = query.sortOrder;
+        const sortStr = `${sortOrder === 'desc' ? '-' : ''} ${sortBy}`;
+        searchQuery.sort(sortStr);
+        // const sortObj = {}
+        // Tour.find().sort('-name')
+        // Tour.find().sort('-name')
+    }
     const result = yield searchQuery;
     return result;
 });

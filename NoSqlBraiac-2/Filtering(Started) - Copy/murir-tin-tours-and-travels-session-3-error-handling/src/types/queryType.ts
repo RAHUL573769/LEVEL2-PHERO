@@ -5,4 +5,5 @@ export type TQueryObj = {
   searchTerm?: string
   fields?: string
   sortBy?: string
+  sortOrder?: string
 }
