@@ -7,6 +7,8 @@ import { ITour } from '../interfaces/tour.interface'
 import Tour from '../models/tour.model'
 import { TQueryObj } from '../types/queryType'
 import { filter } from '../helpers/errorHelpers/filterHelpers'
+import { Query } from 'mongoose'
+import { search } from '../helpers/errorHelpers/searchHelpers'
 
 const createTour = async (tourData: any): Promise<ITour> => {
   const result = await Tour.create(tourData)
@@ -112,39 +114,56 @@ const getAllTour = async (query: TQueryObj): Promise<ITour[]> => {
   // from video 5---
   // for partial searching
 
-  const modelQuery = filter(Tour.find(), query) //await korbo na ..karon search term rakte
+  // let modelQuery:Query<>;
+  const filteredQuery = filter(Tour.find(), query) //await korbo na ..karon search term rakte
   // console.log(query.searchTerm)
   // console.log(query.searchTerm)
-  if (query.searchTerm) {
-    // console.log('Model Query Single', modelQuery.model.schema.path('name'))
-    // console.log(
-    //   '----------Model Query Mingle-----',
-    //   modelQuery.model.schema.paths,//array
-    // )
-    const fieldValues = Object.values(modelQuery.model.schema.paths)
+  // if (query.searchTerm) {
+  //   console.log('Model Query Single', modelQuery.model.schema.path('name'))
+  //   console.log(
+  //     '----------Model Query Mingle-----',
+  //     modelQuery.model.schema.paths,//array
+  //   )
+  //   const fieldValues = Object.values(modelQuery.model.schema.paths)
 
-    const searchableFields = fieldValues
-      .filter((fieldObj) => {
-        // console.log(fieldObj);
-        // Here fieldobj=modelQuery.model.schema.path(fieldObj.path)
-        if (fieldObj.instance === 'String') {
-          return true //
-          // modelQuery.find({ name: { $regex: query.searchTerm, $options: 'i' } })
-          //name:"Historic"
-          //  return [fieldObj.path]: { $regex: query.searchTerm, $options: 'i' },
-          // Output of above name":"Historic"
-        }
-      })
-      .map((fieldObj) => ({
-        [fieldObj.path]: { $regex: query.searchTerm, $options: 'i' },
-      }))
+  //   const searchableFields = fieldValues
+  //     .filter((fieldObj) => {
+  //       console.log(fieldObj);
+  //       Here fieldobj=modelQuery.model.schema.path(fieldObj.path)
+  //       if (fieldObj.instance === 'String') {
+  //         return true //
+  //         modelQuery.find({ name: { $regex: query.searchTerm, $options: 'i' } })
+  //         name:"Historic"
+  //          return [fieldObj.path]: { $regex: query.searchTerm, $options: 'i' },
+  //         Output of above name":"Historic"
+  //       }
+  //     })
+  //     .map((fieldObj) => ({
+  //       [fieldObj.path]: { $regex: query.searchTerm, $options: 'i' },
+  //     }))
 
-    //start from 35 minute
-    console.log('Searchable Fields', searchableFields)
-    modelQuery.find({ name: { $regex: query.searchTerm, $options: 'i' } })
-  }
+  //   start from 35 minute
+  //   console.log('Searchable Fields', searchableFields)
+  //     modelQuery.find({ name: { $regex: query.searchTerm, $options: 'i' }
+  //   })
 
-  const result = await modelQuery
+  //   modelQuery.find({
+  //     $or: [
+  //       {
+  //         name: { $regex: query.searchTerm, $options: 'i' },
+  //       },
+
+  //       {
+  //         startLocation: { $regex: query.searchTerm, $options: 'i' },
+  //       },
+  //     ],
+
+  //     $or: searchableFields,
+  //   })
+  // }
+
+  const searchQuery = search(filteredQuery, query)
+  const result = await searchQuery
   return result
 }
 

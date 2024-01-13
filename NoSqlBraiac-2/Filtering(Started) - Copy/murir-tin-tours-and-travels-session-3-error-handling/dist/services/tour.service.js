@@ -19,6 +19,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.tourServices = void 0;
 const tour_model_1 = __importDefault(require("../models/tour.model"));
 const filterHelpers_1 = require("../helpers/errorHelpers/filterHelpers");
+const searchHelpers_1 = require("../helpers/errorHelpers/searchHelpers");
 const createTour = (tourData) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield tour_model_1.default.create(tourData);
     return result;
@@ -103,36 +104,50 @@ const getAllTour = (query) => __awaiter(void 0, void 0, void 0, function* () {
     // const result = await filter(Tour.find(), query)
     // from video 5---
     // for partial searching
-    const modelQuery = (0, filterHelpers_1.filter)(tour_model_1.default.find(), query); //await korbo na ..karon search term rakte
+    // let modelQuery:Query<>;
+    const filteredQuery = (0, filterHelpers_1.filter)(tour_model_1.default.find(), query); //await korbo na ..karon search term rakte
     // console.log(query.searchTerm)
     // console.log(query.searchTerm)
-    if (query.searchTerm) {
-        // console.log('Model Query Single', modelQuery.model.schema.path('name'))
-        // console.log(
-        //   '----------Model Query Mingle-----',
-        //   modelQuery.model.schema.paths,//array
-        // )
-        const fieldValues = Object.values(modelQuery.model.schema.paths);
-        const searchableFields = fieldValues
-            .filter((fieldObj) => {
-            // console.log(fieldObj);
-            // Here fieldobj=modelQuery.model.schema.path(fieldObj.path)
-            if (fieldObj.instance === 'String') {
-                return true; //
-                // modelQuery.find({ name: { $regex: query.searchTerm, $options: 'i' } })
-                //name:"Historic"
-                //  return [fieldObj.path]: { $regex: query.searchTerm, $options: 'i' },
-                // Output of above name":"Historic"
-            }
-        })
-            .map((fieldObj) => ({
-            [fieldObj.path]: { $regex: query.searchTerm, $options: 'i' },
-        }));
-        //start from 35 minute
-        console.log('Searchable Fields', searchableFields);
-        modelQuery.find({ name: { $regex: query.searchTerm, $options: 'i' } });
-    }
-    const result = yield modelQuery;
+    // if (query.searchTerm) {
+    //   console.log('Model Query Single', modelQuery.model.schema.path('name'))
+    //   console.log(
+    //     '----------Model Query Mingle-----',
+    //     modelQuery.model.schema.paths,//array
+    //   )
+    //   const fieldValues = Object.values(modelQuery.model.schema.paths)
+    //   const searchableFields = fieldValues
+    //     .filter((fieldObj) => {
+    //       console.log(fieldObj);
+    //       Here fieldobj=modelQuery.model.schema.path(fieldObj.path)
+    //       if (fieldObj.instance === 'String') {
+    //         return true //
+    //         modelQuery.find({ name: { $regex: query.searchTerm, $options: 'i' } })
+    //         name:"Historic"
+    //          return [fieldObj.path]: { $regex: query.searchTerm, $options: 'i' },
+    //         Output of above name":"Historic"
+    //       }
+    //     })
+    //     .map((fieldObj) => ({
+    //       [fieldObj.path]: { $regex: query.searchTerm, $options: 'i' },
+    //     }))
+    //   start from 35 minute
+    //   console.log('Searchable Fields', searchableFields)
+    //     modelQuery.find({ name: { $regex: query.searchTerm, $options: 'i' }
+    //   })
+    //   modelQuery.find({
+    //     $or: [
+    //       {
+    //         name: { $regex: query.searchTerm, $options: 'i' },
+    //       },
+    //       {
+    //         startLocation: { $regex: query.searchTerm, $options: 'i' },
+    //       },
+    //     ],
+    //     $or: searchableFields,
+    //   })
+    // }
+    const searchQuery = (0, searchHelpers_1.search)(filteredQuery, query);
+    const result = yield searchQuery;
     return result;
 });
 exports.tourServices = {
