@@ -1,25 +1,48 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { addToDo } from "@/features/toDoSlice";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { FormEvent, useState } from "react";
 
 export function DialogDemo() {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [task, setTak] = useState("");
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [description, setDescription] = useState("");
 
+  const dispatch = useAppDispatch();
+
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  // const state = useAppSelector((state) => state.todos.todos); //we are getting todos from store // todos.todos  -->from todoslice
+
+  // const { todos } = useAppSelector((state) => {
+  //   state.todos;
+  // });
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
-    console.log(task, description);
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const randomString = Math.random().toString(36).substring(2, 7);
+    const taskDescription = {
+      id: randomString,
+      title: task,
+      description: description
+    };
+
+    dispatch(addToDo(taskDescription));
+    // console.log(task, description);
   };
   return (
     <Dialog>
