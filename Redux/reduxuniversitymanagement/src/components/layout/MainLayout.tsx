@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Layout, Menu, MenuProps, theme } from "antd";
-import { Outlet } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -18,24 +18,24 @@ const { Header, Content, Footer, Sider } = Layout;
 
 const items: MenuProps["items"] = [
   {
-    key: "rahul",
-    label: "Dashboard"
+    key: "Dashboard",
+    label: <NavLink to="/admin/dashboard">Dashboard</NavLink>
   },
   {
-    key: "rahul1",
+    key: "Profile",
     label: "Profile"
   },
   {
-    key: "rahul3",
+    key: "User Management",
     label: "User Management",
     children: [
       {
         key: "1",
-        label: "create admin"
+        label: <NavLink to="/admin/create-admin">create admin</NavLink>
       },
       {
         key: "2",
-        label: "create student"
+        label: <NavLink to="/admin/create-student">create student</NavLink>
       }
     ]
   }
