@@ -1,23 +1,45 @@
 import React from "react";
-import {
-  UploadOutlined,
-  UserOutlined,
-  VideoCameraOutlined
-} from "@ant-design/icons";
-import { Layout, Menu, theme } from "antd";
+
+import { Layout, Menu, MenuProps, theme } from "antd";
+import { Outlet } from "react-router-dom";
 
 const { Header, Content, Footer, Sider } = Layout;
 
-const items = [
-  UserOutlined,
-  VideoCameraOutlined,
-  UploadOutlined,
-  UserOutlined
-].map((icon, index) => ({
-  key: String(index + 1),
-  icon: React.createElement(icon),
-  label: `nav ${index + 1}`
-}));
+// const items = [
+//   UserOutlined,
+//   VideoCameraOutlined,
+//   UploadOutlined,
+//   UserOutlined
+// ].map((icon, index) => ({
+//   key: String(index + 1),
+//   icon: React.createElement(icon),
+//   label: `nav ${index + 1}`
+// }));
+
+const items: MenuProps["items"] = [
+  {
+    key: "rahul",
+    label: "Dashboard"
+  },
+  {
+    key: "rahul1",
+    label: "Profile"
+  },
+  {
+    key: "rahul3",
+    label: "User Management",
+    children: [
+      {
+        key: "1",
+        label: "create admin"
+      },
+      {
+        key: "2",
+        label: "create student"
+      }
+    ]
+  }
+];
 
 const MainLayout: React.FC = () => {
   const {
@@ -25,7 +47,7 @@ const MainLayout: React.FC = () => {
   } = theme.useToken();
 
   return (
-    <Layout>
+    <Layout style={{ height: "100vh" }}>
       <Sider
         breakpoint="lg"
         collapsedWidth="0"
@@ -36,7 +58,17 @@ const MainLayout: React.FC = () => {
           console.log(collapsed, type);
         }}
       >
-        <div className="demo-logo-vertical" />
+        <div />
+
+        <div
+          style={{
+            color: "white",
+            textAlign: "center",
+            height: "4rem"
+          }}
+        >
+          <h1>P-hero University Management</h1>
+        </div>
         <Menu
           theme="dark"
           mode="inline"
@@ -55,7 +87,7 @@ const MainLayout: React.FC = () => {
               borderRadius: borderRadiusLG
             }}
           >
-            content
+            <Outlet></Outlet>
           </div>
         </Content>
         <Footer style={{ textAlign: "center" }}>
