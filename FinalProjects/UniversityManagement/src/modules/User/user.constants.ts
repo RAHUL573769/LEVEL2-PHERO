@@ -11,3 +11,10 @@ export const USER_ROLE = {
   student: "student",
   faculty: "faculty"
 } as const;
+export const strongPassword = {
+  uppercase: /(?=.*[A-Z])/,
+  lowercase: /(?=.*[a-z])/,
+  digit: /(?=.*\d)/,
+  special: /(?=.*[!@#$%^&*()_+{}[\]:;<>,.?~\\-])/,
+  length: /.{6,}/
+};

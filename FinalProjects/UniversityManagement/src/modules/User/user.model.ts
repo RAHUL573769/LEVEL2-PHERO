@@ -22,7 +22,8 @@ const userSchema = new Schema<TUser>(
     },
     status: {
       type: String,
-      enum: Object.values(USER_STATUS)
+      enum: Object.values(USER_STATUS),
+      default: "inprogress"
     },
     isDeleted: {
       type: Boolean,

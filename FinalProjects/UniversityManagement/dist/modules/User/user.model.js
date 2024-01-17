@@ -22,7 +22,8 @@ const userSchema = new mongoose_1.Schema({
     },
     status: {
         type: String,
-        enum: Object.values(user_constants_1.USER_STATUS)
+        enum: Object.values(user_constants_1.USER_STATUS),
+        default: "inprogress"
     },
     isDeleted: {
         type: Boolean,
