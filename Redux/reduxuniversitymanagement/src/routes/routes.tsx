@@ -3,8 +3,9 @@ import App from "../App";
 import About from "../pages/About";
 import Contact from "../pages/Contact";
 import Login from "../pages/Login";
-
 import { adminRoutes } from "./admin.routes";
+
+// import { adminRoutes } from "./admin.routes";
 
 export const router = createBrowserRouter([
   {

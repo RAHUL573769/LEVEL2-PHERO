@@ -17,7 +17,7 @@ export const adminPaths = [
 export const adminPaths2 = [
   {
     name: "Dashboard",
-    path: "/admin/dashboard",
+    path: "dashboard",
     element: <AdminDashBoard></AdminDashBoard>
   },
   {
@@ -25,17 +25,17 @@ export const adminPaths2 = [
     children: [
       {
         name: "Create Admin",
-        path: "/admin/create-admin",
+        path: "create-admin",
         element: <CreateAdmin></CreateAdmin>
       },
       {
         name: " Create Faculty",
-        path: "/admin/create-faculty",
+        path: "create-faculty",
         element: <CreateFaculty></CreateFaculty>
       },
       {
         name: " Create Student",
-        path: "/admin/create-faculty",
+        path: "create-faculty",
         element: <CreateStudent></CreateStudent>
       }
     ]
@@ -50,12 +50,12 @@ export const adminRoutes = adminPaths2.reduce((acc, item) => {
       });
     });
   }
-  if (item.path && item.element) {
-    acc.push({
-      path: item.path,
-      element: item.element
-    });
-  }
+  // if (item.path && item.element) {
+  //   acc.push({
+  //     path: item.path,
+  //     element: item.element
+  //   });
+  // }
   // console.log("Item", item);
 
   return acc;
