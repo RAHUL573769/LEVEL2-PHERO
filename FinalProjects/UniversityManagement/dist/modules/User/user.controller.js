@@ -12,7 +12,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserController = void 0;
 const user_services_1 = require("./user.services");
 const successResponse_1 = require("../../utils/successResponse");
-const createStudentController = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+const catchAsyncFunction_1 = require("../../utils/catchAsyncFunction");
+const createStudentController = (0, catchAsyncFunction_1.catchAsyncFunction)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const data = req.body;
         // throw Error("Error From User Controllers");
@@ -32,6 +33,6 @@ const createStudentController = (req, res, next) => __awaiter(void 0, void 0, vo
     catch (error) {
         next(error);
     }
-});
+}));
 /////////////////optional task doing below
 exports.UserController = { createStudentController };
