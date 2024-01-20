@@ -2,6 +2,7 @@ import React from "react";
 
 import { Layout, Menu, MenuProps, theme } from "antd";
 import { NavLink, Outlet } from "react-router-dom";
+import { adminSideBarItems } from "../../routes/admin.routes";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -16,6 +17,7 @@ const { Header, Content, Footer, Sider } = Layout;
 //   label: `nav ${index + 1}`
 // }));
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const items: MenuProps["items"] = [
   {
     key: "Dashboard",
@@ -73,7 +75,7 @@ const MainLayout: React.FC = () => {
           theme="dark"
           mode="inline"
           defaultSelectedKeys={["4"]}
-          items={items}
+          items={adminSideBarItems}
         />
       </Sider>
       <Layout>
