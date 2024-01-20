@@ -37,6 +37,7 @@ export const adminPaths2 = [
   }
 ];
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const newArray = adminPaths2.reduce((acc, item) => {
   if (item.children) {
     item.children.forEach((children) => {
@@ -57,4 +58,57 @@ const newArray = adminPaths2.reduce((acc, item) => {
   return acc;
 }, []);
 
-console.log(newArray);
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const items = [
+  {
+    key: "Dashboard",
+    label: "This is a Nlink"
+  },
+  {
+    key: "Profile",
+    label: "Profile"
+  },
+  {
+    key: "User Management",
+    label: "User Management",
+    children: [
+      {
+        key: "1",
+        label: "This is a Nlink"
+      },
+      {
+        key: "2",
+        label: "This is a Nlink"
+      }
+    ]
+  }
+];
+const newArray1 = items.reduce((acc, item) => {
+  if (item.children) {
+    acc.push({
+      key: item.name,
+      label: item.name,
+      children: item.children.map((child) => ({
+        key: child.name,
+        label: "NAV-LINK"
+      }))
+    });
+    // item.children.forEach((children) => {
+    //   acc.push({
+    //     path: children.path,
+    //     element: children.element
+    //   });
+    // });
+  }
+  if (item.path && item.name) {
+    acc.push({
+      path: item.name,
+      label: "This should be a NavLink"
+    });
+  }
+  // console.log("Item", item);
+
+  return acc;
+}, []);
+
+console.log(newArray1);

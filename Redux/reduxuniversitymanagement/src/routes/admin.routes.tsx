@@ -2,7 +2,12 @@ import AdminDashBoard from "../pages/admin/AdminDashBoard";
 import CreateStudent from "../pages/admin/CreateStudent";
 import CreateAdmin from "../pages/admin/CreateAdmin";
 import CreateFaculty from "../pages/admin/CreateFaculty";
+import { ReactNode } from "react";
 
+type TRoute = {
+  path: string;
+  element: ReactNode;
+};
 export const adminPaths = [
   {
     path: "dashboard",
@@ -13,7 +18,7 @@ export const adminPaths = [
     element: <CreateStudent></CreateStudent>
   }
 ];
-// merging admin routes and main layout below
+// merging admin routes and main layout--- below
 export const adminPaths2 = [
   {
     name: "Dashboard",
@@ -41,7 +46,8 @@ export const adminPaths2 = [
     ]
   }
 ];
-export const adminRoutes = adminPaths2.reduce((acc, item) => {
+export const adminRoutes = adminPaths2.reduce((acc: TRoute[], item) => {
+  console.log(item);
   if (item.children) {
     item.children.forEach((children) => {
       acc.push({
@@ -50,12 +56,12 @@ export const adminRoutes = adminPaths2.reduce((acc, item) => {
       });
     });
   }
-  // if (item.path && item.element) {
-  //   acc.push({
-  //     path: item.path,
-  //     element: item.element
-  //   });
-  // }
+  if (item.path && item.element) {
+    acc.push({
+      path: item.path,
+      element: item.element
+    });
+  }
   // console.log("Item", item);
 
   return acc;
