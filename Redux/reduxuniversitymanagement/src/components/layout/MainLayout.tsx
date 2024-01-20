@@ -1,10 +1,12 @@
 import React from "react";
 
-import { Layout, Menu, MenuProps, theme } from "antd";
+import { Layout, MenuProps, theme } from "antd";
 import { NavLink, Outlet } from "react-router-dom";
-import { adminSideBarItems } from "../../routes/admin.routes";
+// import { adminPaths2 } from "../../routes/admin.routes";
+// import { sideBarItemsGenerator } from "../../utils/sideBarItemsGenerator";
+import SideBar from "./SideBar";
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Header, Content, Footer} = Layout;
 
 // const items = [
 //   UserOutlined,
@@ -50,34 +52,7 @@ const MainLayout: React.FC = () => {
 
   return (
     <Layout style={{ height: "100vh" }}>
-      <Sider
-        breakpoint="lg"
-        collapsedWidth="0"
-        onBreakpoint={(broken) => {
-          console.log(broken);
-        }}
-        onCollapse={(collapsed, type) => {
-          console.log(collapsed, type);
-        }}
-      >
-        <div />
-
-        <div
-          style={{
-            color: "white",
-            textAlign: "center",
-            height: "4rem"
-          }}
-        >
-          <h1>P-hero University Management</h1>
-        </div>
-        <Menu
-          theme="dark"
-          mode="inline"
-          defaultSelectedKeys={["4"]}
-          items={adminSideBarItems}
-        />
-      </Sider>
+      <SideBar></SideBar>
       <Layout>
         <Header style={{ padding: 0, background: colorBgContainer }} />
         <Content style={{ margin: "24px 16px 0" }}>

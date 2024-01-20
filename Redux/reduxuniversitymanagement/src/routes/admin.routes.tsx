@@ -2,7 +2,7 @@ import AdminDashBoard from "../pages/admin/AdminDashBoard";
 import CreateStudent from "../pages/admin/CreateStudent";
 import CreateAdmin from "../pages/admin/CreateAdmin";
 import CreateFaculty from "../pages/admin/CreateFaculty";
-import { TRoute, TSideBarItems } from "../types/TRouteLayout";
+import { TSideBarItems } from "../types/TRouteLayout";
 import { NavLink } from "react-router-dom";
 // import { ReactNode } from "react";
 
@@ -44,26 +44,26 @@ export const adminPaths2 = [
     ]
   }
 ];
-export const adminRoutes = adminPaths2.reduce((acc: TRoute[], item) => {
-  console.log(item);
-  if (item.children) {
-    item.children.forEach((children) => {
-      acc.push({
-        path: children.path,
-        element: children.element
-      });
-    });
-  }
-  if (item.path && item.element) {
-    acc.push({
-      path: item.path,
-      element: item.element
-    });
-  }
-  // console.log("Item", item);
+// export const adminRoutes = adminPaths2.reduce((acc: TRoute[], item) => {
+//   console.log(item);
+//   if (item.children) {
+//     item.children.forEach((children) => {
+//       acc.push({
+//         path: children.path,
+//         element: children.element
+//       });
+//     });
+//   }
+//   if (item.path && item.element) {
+//     acc.push({
+//       path: item.path,
+//       element: item.element
+//     });
+//   }
+//   // console.log("Item", item);
 
-  return acc;
-}, []);
+//   return acc;
+// }, []);
 
 export const adminSideBarItems = adminPaths2.reduce(
   (acc: TSideBarItems[], item) => {
