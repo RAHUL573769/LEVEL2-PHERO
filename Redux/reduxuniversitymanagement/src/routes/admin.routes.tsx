@@ -2,12 +2,8 @@ import AdminDashBoard from "../pages/admin/AdminDashBoard";
 import CreateStudent from "../pages/admin/CreateStudent";
 import CreateAdmin from "../pages/admin/CreateAdmin";
 import CreateFaculty from "../pages/admin/CreateFaculty";
-import { ReactNode } from "react";
+import { TRoute } from "../types/TRouteLayout";
 
-type TRoute = {
-  path: string;
-  element: ReactNode;
-};
 export const adminPaths = [
   {
     path: "dashboard",

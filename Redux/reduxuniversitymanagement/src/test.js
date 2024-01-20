@@ -14,49 +14,49 @@ export const adminPaths2 = [
     name: "Dashboard",
     path: "dashboard",
     element: "ADMIN_DASHBOARD"
-  },
-  {
-    name: "User Management",
-    children: [
-      {
-        name: "Create Admin",
-        path: "create-admin",
-        element: "CREATE_ADMIN"
-      },
-      {
-        name: " Create Faculty",
-        path: "create-faculty",
-        element: "CREATE_FACULTY"
-      },
-      {
-        name: " Create Student",
-        path: "create-faculty",
-        element: "CREATE_STUDENT"
-      }
-    ]
   }
+  // {
+  //   name: "User Management",
+  //   children: [
+  //     {
+  //       name: "Create Admin",
+  //       path: "create-admin",
+  //       element: "CREATE_ADMIN"
+  //     },
+  //     {
+  //       name: " Create Faculty",
+  //       path: "create-faculty",
+  //       element: "CREATE_FACULTY"
+  //     },
+  //     {
+  //       name: " Create Student",
+  //       path: "create-faculty",
+  //       element: "CREATE_STUDENT"
+  //     }
+  //   ]
+  // }
 ];
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const newArray = adminPaths2.reduce((acc, item) => {
-  if (item.children) {
-    item.children.forEach((children) => {
-      acc.push({
-        path: children.path,
-        element: children.element
-      });
-    });
-  }
-  if (item.path && item.element) {
-    acc.push({
-      path: item.path,
-      element: item.element
-    });
-  }
-  // console.log("Item", item);
+// const newArray = adminPaths2.reduce((acc, item) => {
+//   if (item.children) {
+//     item.children.forEach((children) => {
+//       acc.push({
+//         path: children.path,
+//         element: children.element
+//       });
+//     });
+//   }
+//   if (item.path && item.element) {
+//     acc.push({
+//       path: item.path,
+//       element: item.element
+//     });
+//   }
+//   // console.log("Item", item);
 
-  return acc;
-}, []);
+//   return acc;
+// }, []);
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const items = [
@@ -83,6 +83,7 @@ const items = [
     ]
   }
 ];
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const newArray1 = items.reduce((acc, item) => {
   if (item.children) {
     acc.push({
@@ -111,4 +112,30 @@ const newArray1 = items.reduce((acc, item) => {
   return acc;
 }, []);
 
-console.log(newArray1);
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const uiArray = [
+  {
+    path: "about",
+    element: "This is About"
+  },
+  {
+    path: "contact",
+    element: "This is Contact"
+  }
+];
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const uiRoute = adminPaths2.reduce((acc, item) => {
+  // console.log("Acc", acc);
+  // console.log("Item", item);
+  console.log("Item", item);
+  if (item.path && item.name) {
+    acc.push({
+      key: item.path,
+      label: "This is A label"
+    });
+    return acc;
+  }
+}, []);
+
+console.log(uiRoute);
