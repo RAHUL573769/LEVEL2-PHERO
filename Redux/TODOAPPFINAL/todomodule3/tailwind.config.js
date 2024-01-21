@@ -70,6 +70,9 @@ export const theme = {
     animation: {
       "accordion-down": "accordion-down 0.2s ease-out",
       "accordion-up": "accordion-up 0.2s ease-out"
+    },
+    backgroundImage: {
+      "primary-gradient": "linear-gradient(30deg,#e01bc9,#5C53FE)"
     }
   }
 };

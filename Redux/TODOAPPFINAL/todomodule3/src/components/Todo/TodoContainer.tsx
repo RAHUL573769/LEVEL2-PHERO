@@ -1,14 +1,11 @@
 import TodoCard from "./TodoCard";
+import TodoOperations from "./TodoOperations";
 
 const TodoContainer = () => {
   return (
     <div>
-      <div>
-        <button>Add ToDo</button>
-        <button>Filter</button>
-      </div>
-
-      <div className="bg-red-500 w-full rounded-xl h-[500px] p-5 space-y-3">
+      <TodoOperations></TodoOperations>
+      <div className="bg-primary-gradient w-full h-full rounded-xl space-y-7 p-[5px]">
         <TodoCard></TodoCard>
         <TodoCard></TodoCard>
         <TodoCard></TodoCard>
