@@ -5,7 +5,7 @@ const TodoContainer = () => {
   return (
     <div>
       <TodoOperations></TodoOperations>
-      <div className="bg-primary-gradient w-full h-full rounded-xl space-y-7 p-[5px]">
+      <div className=" border border-blue-500 bg-primary-gradient w-full h-full rounded-xl space-y-10 p-[5px]">
         <TodoCard></TodoCard>
         <TodoCard></TodoCard>
         <TodoCard></TodoCard>
