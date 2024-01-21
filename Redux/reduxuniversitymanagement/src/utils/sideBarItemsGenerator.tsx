@@ -1,7 +1,6 @@
 import { NavLink } from "react-router-dom";
-import { TSideBarItems } from "../types/TRouteLayout";
+import { TSideBarItems, TUserPath } from "../types/TRouteLayout";
 // import { ReactNode } from "react";
-import { TUserPath } from "./rourtesGenerator";
 
 export const sideBarItemsGenerator = (items: TUserPath[], role) => {
   const adminSideBarItems = items.reduce((acc: TSideBarItems[], item) => {
