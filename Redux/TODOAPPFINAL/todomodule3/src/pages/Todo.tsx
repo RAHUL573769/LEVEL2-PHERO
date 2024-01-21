@@ -1,10 +1,8 @@
 import TodoContainer from "@/components/Todo/TodoContainer";
-import Container from "@/components/ui/container";
+import Container from "@/components/ui/Container";
 const Todo = () => {
   return (
     <Container>
-      <h1>Hello From Todo</h1>
-
       <TodoContainer></TodoContainer>
     </Container>
   );

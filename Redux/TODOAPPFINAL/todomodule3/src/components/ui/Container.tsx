@@ -1,14 +1,7 @@
-import { ReactNode } from "react";
+import { TContainerProps } from "@/types/AllTypes";
 
-type TContainerProps = {
-  children: ReactNode;
-};
 const Container = ({ children }: TContainerProps) => {
-  return (
-    <div className="bg-red-500 h-screen w-full max-w-7xl mx-auto">
-      {children}
-    </div>
-  );
+  return <div className=" h-screen w-full max-w-7xl mx-auto">{children}</div>;
 };
 
 export default Container;
