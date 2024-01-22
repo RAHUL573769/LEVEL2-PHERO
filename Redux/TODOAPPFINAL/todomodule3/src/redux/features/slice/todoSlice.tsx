@@ -15,7 +15,7 @@ const initialState: TInitialState = {
 
 const todoSlice = createSlice({
   name: "todo",
-  initialState,
+  initialState: initialState,
   reducers: {
     addTodo: (state, action: PayloadAction<TTodo>) => {
       console.log("State From addTodoReducer", state);
