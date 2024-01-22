@@ -1,6 +1,17 @@
-// import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query";
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query";
 
-// const baseApi = createApi({
-//   reducerPath: "baseApi",
-//   baseQuery:fetchBaseQuery({baseUrl:})
-// });
+export const baseApi = createApi({
+  reducerPath: "baseApi",
+  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5000" }),
+  endpoints: (builder) => ({
+    getTodos: builder.query({
+      query: () => ({
+        url: "/tasks",
+        method: "GET"
+      })
+    })
+  }) //returns an object
+});
+// export const { useGetTodosQuery: useGetTodoQuery}=baseApi
+
+//Data get---->Query

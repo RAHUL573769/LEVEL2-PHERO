@@ -8,7 +8,7 @@ const cors = require("cors");
 
 app.use(cors());
 app.use(express.json());
-
+// mongodb://localhost:27017
 const uri = `mongodb://localhost:27017/todoServer`;
 
 const client = new MongoClient(uri, {
