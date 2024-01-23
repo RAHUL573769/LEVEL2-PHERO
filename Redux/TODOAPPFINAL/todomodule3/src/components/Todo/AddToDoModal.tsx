@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Button } from "../ui/button";
 import {
   Dialog,
@@ -10,7 +11,8 @@ import {
 import { Label } from "@/components/ui/label";
 import { Input } from "../ui/input";
 import { FormEvent, useState } from "react";
-import { useAppDispatch } from "@/redux/features/hook";
+import { useAddTodosMutation } from "@/redux/features/api/api";
+// import { useAppDispatch } from "@/redux/features/hook";
 import { addTodo } from "@/redux/features/slice/todoSlice";
 const AddToDoModal = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -18,7 +20,12 @@ const AddToDoModal = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [description, setDescription] = useState("");
 
-  const dispatch = useAppDispatch();
+  // For Local StateManagement
+  // const dispatch = useAppDispatch();
+
+  //For Server
+  // [actual,FunctionForPost,{data,isLOading}]
+  const [addTodo, { data, isLoading, isSuccess }] = useAddTodosMutation();
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
 
@@ -30,7 +37,10 @@ const AddToDoModal = () => {
       description: description
     };
     console.log(taskDetails);
-    dispatch(addTodo(taskDetails));
+    // dispatch(addTodo(taskDetails));
+
+    //For ServerD
+    addTodo(taskDetails);
   };
   return (
     <div>

@@ -7,8 +7,15 @@ type TTodoCardProps = {
   title: string;
   description: string;
   isCompleted?: boolean;
+  priority?: string;
 };
-const TodoCard = ({ title, description, id, isCompleted }: TTodoCardProps) => {
+const TodoCard = ({
+  title,
+  description,
+  id,
+  isCompleted,
+  priority
+}: TTodoCardProps) => {
   const dispatch = useAppDispatch();
 
   const handleComplete = () => {
@@ -34,6 +41,7 @@ const TodoCard = ({ title, description, id, isCompleted }: TTodoCardProps) => {
         </p>
         <p className="font-semibold">Time</p>
         <p className="font-semibold">{description}</p>
+        <p>{priority}</p>
         <div className="space-x-5">
           <Button
             onClick={() => dispatch(removeTodo(id))}
