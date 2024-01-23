@@ -11,7 +11,9 @@ import {
   UserCircleIcon,
   Cog6ToothIcon
 } from "@heroicons/react/24/solid";
-import { SimpleCard } from "./Card";
+// import { SimpleCard } from "./Card";
+import { AddQuizForm } from "./AddQuizForm";
+import { DefaultStepper } from "./Stepper";
 
 export function TabsWithIcon() {
   const data = [
@@ -19,18 +21,13 @@ export function TabsWithIcon() {
       label: "Quiz List",
       value: "quiz-list",
       icon: Square3Stack3DIcon,
-      desc: (
-        <SimpleCard>
-          <h1>Hello World</h1>
-        </SimpleCard>
-      )
+      desc: <AddQuizForm></AddQuizForm>
     },
     {
       label: "Add Quiz",
       value: "add-quiz",
       icon: UserCircleIcon,
-      desc: `Because it's about motivating the doers. Because I'm here
-      to follow my dreams and inspire other people to follow their dreams, too.`
+      desc: <DefaultStepper></DefaultStepper>
     },
     {
       label: "Settings",

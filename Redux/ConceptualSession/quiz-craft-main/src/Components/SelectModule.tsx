@@ -1,6 +1,6 @@
 import { Select, Option } from "@material-tailwind/react";
 
-export function SelectDefault() {
+export function SelectModule() {
   return (
     <div className="w-72">
       <Select placeholder={""} label="Select Module">
