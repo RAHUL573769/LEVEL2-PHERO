@@ -1,39 +1,50 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React from "react";
 import { Stepper, Step, Button } from "@material-tailwind/react";
+import { useAppDispatch, useAppSelector } from "../redux/hooks/hooks";
+import { setActiveStepper } from "../redux/features/stteper/stepperSlice";
 
-export function DefaultStepper() {
-  const [activeStep, setActiveStep] = React.useState(0);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [isLastStep, setIsLastStep] = React.useState(false);
-  const [isFirstStep, setIsFirstStep] = React.useState(false);
+type TSteeperProps = {
+  steps: {
+    value: number;
+    name: string;
+
+    component: React.ReactNode;
+  }[];
+};
+export function DefaultStepper({ steps }: TSteeperProps) {
+  const { activeStep } = useAppSelector((state) => state.stepper);
+
+  const dispatch = useAppDispatch();
 
   return (
     <div className="w-full py-4 px-8">
-      <Stepper
-        placeholder={""}
-        activeStep={activeStep}
-        isLastStep={(value) => setIsLastStep(value)}
-        isFirstStep={(value) => setIsFirstStep(value)}
-      >
-        <Step
+      <Stepper placeholder={""} activeStep={activeStep}>
+        {steps.map((step) => (
+          <Step
+            className="px-8 w-fit"
+            placeholder={""}
+            onClick={() => dispatch(setActiveStepper(step.value))}
+          >
+            {step.name}
+          </Step>
+        ))}
+        {/* <Step
           className="px-8 w-fit"
           placeholder={""}
-          onClick={() => setActiveStep(0)}
+          onClick={() => dispatch(setActiveStepper(0))}
         >
           Quiz List
-        </Step>
-        <Step
+        </Step> */}
+        {/* <Step
           className="px-8 w-fit"
           placeholder={""}
-          onClick={() => setActiveStep(1)}
+          onClick={() => dispatch(setActiveStepper(1))}
         >
           Add Quiz
-        </Step>
-        <Step placeholder={""} onClick={() => setActiveStep(2)}>
-          3
-        </Step>
+        </Step> */}
       </Stepper>
+      <div>{steps[activeStep].component}</div>
     </div>
   );
 }

@@ -1,9 +1,4 @@
-import {
-  Card,
-  CardBody,
-  CardFooter,
-  Typography
-} from "@material-tailwind/react";
+import { Card, CardFooter } from "@material-tailwind/react";
 
 type TChildren = {
   children: React.ReactNode;
@@ -11,7 +6,7 @@ type TChildren = {
 export function SimpleCard({ children }: TChildren) {
   return (
     <Card placeholder={""} className="mt-6 w-96">
-      <CardBody placeholder={""}>
+      {/* <CardBody placeholder={""}>
         <Typography
           placeholder={""}
           variant="h5"
@@ -25,7 +20,7 @@ export function SimpleCard({ children }: TChildren) {
           walk and near to &quot;Naviglio&quot; where you can enjoy the main
           night life in Barcelona.
         </Typography>
-      </CardBody>
+      </CardBody> */}
       <CardFooter placeholder={""} className="pt-0">
         {children}
       </CardFooter>
