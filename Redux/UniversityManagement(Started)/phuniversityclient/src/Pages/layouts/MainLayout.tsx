@@ -1,5 +1,6 @@
 import { Layout, Menu, theme } from "antd";
 import { items } from "./SidebarLists/SidebarLists";
+import { Outlet } from "react-router-dom";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -39,7 +40,7 @@ const MainLayout: React.FC = () => {
               borderRadius: borderRadiusLG
             }}
           >
-            content
+            <Outlet></Outlet>
           </div>
         </Content>
         <Footer style={{ textAlign: "center" }}>
