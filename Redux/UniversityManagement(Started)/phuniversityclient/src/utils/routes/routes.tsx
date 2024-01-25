@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../../App";
 import About from "../../Pages/About/About";
+import AdminDashboard from "../../Pages/Admin/adminDashboard";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const router = createBrowserRouter([
@@ -12,6 +13,13 @@ const router = createBrowserRouter([
         path: "about",
         element: <About></About>
       }
+    ]
+  },
+  {
+    path: "/admin",
+    element: <App />,
+    children: [
+      { path: "dashboard", element: <AdminDashboard></AdminDashboard> }
     ]
   }
 ]);
