@@ -63,8 +63,8 @@ const createTour = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, voi
 const getAllTours = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     // problem--->const result = await tourServices.getAllTour() all users will come and cause bandwith problem
     // throw new Error('Something went wrong')
-    const query = req.query;
-    const result = yield tour_service_1.tourServices.getAllTour(qu);
+    // const query = req.query
+    const result = yield tour_service_1.tourServices.getAllTour();
     (0, sendResponse_1.default)(res, {
         statusCode: 200,
         message: 'Tour fetched successfully',
@@ -73,6 +73,8 @@ const getAllTours = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, vo
 }));
 const getSingleTour = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const id = req.params.id;
+    req.body.id = id;
+    // console.log(req.body)
     const result = yield tour_service_1.tourServices.getSingleTour(id);
     (0, sendResponse_1.default)(res, {
         statusCode: 200,

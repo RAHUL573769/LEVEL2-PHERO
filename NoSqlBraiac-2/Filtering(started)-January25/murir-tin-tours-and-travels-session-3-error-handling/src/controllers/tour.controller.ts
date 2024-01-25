@@ -58,8 +58,8 @@ const createTour = catchAsyncFunction(async (req: Request, res: Response) => {
 const getAllTours = catchAsyncFunction(async (req: Request, res: Response) => {
   // problem--->const result = await tourServices.getAllTour() all users will come and cause bandwith problem
   // throw new Error('Something went wrong')
-  const query=req.query
-  const result = await tourServices.getAllTour(qu)
+  // const query = req.query
+  const result = await tourServices.getAllTour()
   sendSuccessResponse(res, {
     statusCode: 200,
     message: 'Tour fetched successfully',
@@ -69,6 +69,9 @@ const getAllTours = catchAsyncFunction(async (req: Request, res: Response) => {
 const getSingleTour = catchAsyncFunction(
   async (req: Request, res: Response) => {
     const id = req.params.id
+
+    req.body.id = id
+    // console.log(req.body)
     const result = await tourServices.getSingleTour(id)
     sendSuccessResponse(res, {
       statusCode: 200,

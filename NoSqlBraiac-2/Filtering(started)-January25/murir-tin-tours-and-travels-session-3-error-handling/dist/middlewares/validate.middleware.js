@@ -11,10 +11,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.validateSchema = void 0;
 const validateSchema = (schema) => {
+    //validate request is a higher-order function
     return (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-        const validatedData = schema.parseAsync(req.body);
+        const validatedData = yield schema.safeParseAsync(req.body);
         if (!validatedData) {
-            next(validatedData);
+            next(validatedData); //error data
         }
         else {
             req.body = validatedData;
