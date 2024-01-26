@@ -19,6 +19,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.tourServices = void 0;
 const tour_model_1 = __importDefault(require("../models/tour.model"));
 const filter_1 = require("../Filtering/filter");
+const searchHelpers_1 = require("../Filtering/searchHelpers");
+const sortHelper_1 = require("../Filtering/sortHelper");
+const pagination_1 = require("../Filtering/pagination");
+const fieldSelectHelper_1 = require("../Filtering/fieldSelectHelper");
 const createTour = (tourData) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield tour_model_1.default.create(tourData);
     return result;
@@ -83,13 +87,61 @@ const getAllTour = (query) => __awaiter(void 0, void 0, void 0, function* () {
     // ]
     // const result = await Tour.find()
     //exact match down here
-    const modelQuery = (0, filter_1.filter)(tour_model_1.default.find(), query);
-    //partial match mane searching
-    if (query.searchTerm) {
-        // console.log('Here')
-        modelQuery.find({ name: { $regex: query.searchTerm, $options: 'i' } });
-    }
-    const result = yield modelQuery;
+    const filteredQuery = (0, filter_1.filter)(tour_model_1.default.find(), query);
+    const searchedQuery = (0, searchHelpers_1.search)(filteredQuery, query);
+    // if (query.sortBy && query.sortOrder) {
+    //   const sortBy = query.sortBy //price
+    //   const sortOrder = query.sortOrder
+    //   const sortStr = `${sortOrder === 'desc' ? '-' : '+'}${sortBy}`
+    //   searchedQuery.sort(sortStr)
+    // }
+    const sortedQuery = (0, sortHelper_1.sort)(searchedQuery, query);
+    const paginatedQuery = (0, pagination_1.pagination)(sortedQuery, query);
+    const selectedFieldQuey = (0, fieldSelectHelper_1.select)(paginatedQuery, query);
+    //2.partial match mane searching
+    // if (query.page || query.limit) {
+    //   const page = Number(query.page)
+    //   const limit = Number(query.limit)
+    //   const skip = (page - 1) * limit
+    //   sortedQuery.skip(skip).limit(100)
+    // } else {
+    //   sortedQuery.skip(0).limit(10)
+    // }
+    // if (query.searchTerm) {
+    //   console.log(modelQuery.model.schema.path('name'))
+    //   console.log(typeof modelQuery.model.schema.path)
+    //   const fieldValues = Object.values(modelQuery.model.schema.paths)
+    //   const searchableFields = fieldValues
+    //     .filter((fieldObj) => {
+    //       // console.log(modelQuery.model.schema.path('name'))
+    //       if (fieldObj.instance === 'String') {
+    //         // return {
+    //         //   ({ name: { $regex: query.searchTerm, $options: 'i' } })
+    //         //   [fieldObj.path]: { $regex: query.searchTerm, $options: 'i' },
+    //         // }
+    //         return true
+    //       }
+    //     })
+    //     .map((fieldObj) => ({
+    //       [fieldObj.path]: { $regex: query.searchTerm, $options: 'i' },
+    //     }))
+    //   console.log('Searchable Fiels', searchableFields)
+    //   modelQuery.find({ name: { $regex: query.searchTerm, $options: 'i' } })
+    //   modelQuery.find({
+    //     $or: [
+    //       { name: { $regex: query.searchTerm, $options: 'i' } },
+    //       { startLocation: { $regex: query.searchTerm, $options: 'i' } },
+    //     ],
+    //     $or: searchableFields,
+    //   })
+    // }
+    // const result = await modelQuery.exec()
+    // const result = await searchedQuery
+    // if (query.fields) {
+    //   const fields = query.fields.split(',').join(' ')
+    //   paginatedQuery.select(fields)
+    // }
+    const result = yield paginatedQuery;
     return result;
 });
 exports.tourServices = {
