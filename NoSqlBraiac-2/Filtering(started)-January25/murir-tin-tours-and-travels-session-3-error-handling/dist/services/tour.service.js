@@ -1,4 +1,5 @@
 "use strict";
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable prefer-const */
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -17,6 +18,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.tourServices = void 0;
 const tour_model_1 = __importDefault(require("../models/tour.model"));
+const filter_1 = require("../Filtering/filter");
 const createTour = (tourData) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield tour_model_1.default.create(tourData);
     return result;
@@ -67,8 +69,27 @@ const getNextSchedule = (id) => __awaiter(void 0, void 0, void 0, function* () {
         nextSchedule,
     };
 });
-const getAllTour = () => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield tour_model_1.default.find();
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const getAllTour = (query) => __awaiter(void 0, void 0, void 0, function* () {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const queryObj = Object.assign({}, query);
+    // const excludedObj = [
+    //   'page',
+    //   'fields',
+    //   'searchTerm',
+    //   'limit',
+    //   'sortBy',
+    //   'sortOrder',
+    // ]
+    // const result = await Tour.find()
+    //exact match
+    const modelQuery = (0, filter_1.filter)(tour_model_1.default.find(), query);
+    //partial match
+    if (query.searchTerm) {
+        console.log('Umdise');
+        modelQuery.find({ $name: { $regex: query.searchTerm, $options: 'i' } });
+    }
+    const result = yield modelQuery;
     return result;
 });
 exports.tourServices = {

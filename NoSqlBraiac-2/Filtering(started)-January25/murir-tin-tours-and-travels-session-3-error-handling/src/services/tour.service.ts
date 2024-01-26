@@ -1,9 +1,13 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable prefer-const */
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import { Query } from 'mongoose'
 import { ITour } from '../interfaces/tour.interface'
 import Tour from '../models/tour.model'
+import { TQueryObj } from '../types/queryType'
+import { filter } from '../Filtering/filter'
 
 const createTour = async (tourData: any): Promise<ITour> => {
   const result = await Tour.create(tourData)
@@ -68,8 +72,30 @@ const getNextSchedule = async (id: string): Promise<any> => {
   }
 }
 
-const getAllTour = async (): Promise<ITour[]> => {
-  const result = await Tour.find()
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+
+const getAllTour = async (query: TQueryObj): Promise<ITour[]> => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const queryObj = { ...query }
+  // const excludedObj = [
+  //   'page',
+  //   'fields',
+  //   'searchTerm',
+  //   'limit',
+  //   'sortBy',
+  //   'sortOrder',
+  // ]
+
+  // const result = await Tour.find()
+  //exact match
+  const modelQuery = filter(Tour.find(), query)
+  //partial match
+  if (query.searchTerm) {
+    console.log('Umdise')
+    modelQuery.find({ $name: { $regex: query.searchTerm, $options: 'i' } })
+  }
+  const result = await modelQuery
+
   return result
 }
 
