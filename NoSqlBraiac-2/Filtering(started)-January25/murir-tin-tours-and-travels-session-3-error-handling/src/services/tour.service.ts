@@ -87,12 +87,12 @@ const getAllTour = async (query: TQueryObj): Promise<ITour[]> => {
   // ]
 
   // const result = await Tour.find()
-  //exact match
+  //exact match down here
   const modelQuery = filter(Tour.find(), query)
-  //partial match
+  //partial match mane searching
   if (query.searchTerm) {
-    console.log('Umdise')
-    modelQuery.find({ $name: { $regex: query.searchTerm, $options: 'i' } })
+    // console.log('Here')
+    modelQuery.find({ name: { $regex: query.searchTerm, $options: 'i' } })
   }
   const result = await modelQuery
 

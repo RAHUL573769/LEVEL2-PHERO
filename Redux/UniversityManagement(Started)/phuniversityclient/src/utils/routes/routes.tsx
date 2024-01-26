@@ -3,7 +3,7 @@ import App from "../../App";
 import About from "../../Pages/About/About";
 import Login from "../../Pages/Login/Login";
 
-import { adminRoutes } from "../../Pages/Admin/Admin.routes";
+import { adminRoutesMain } from "../../Pages/Admin/Admin.routes";
 // import AdminDashboard from "../../Pages/Admin/adminDashboard";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -22,7 +22,9 @@ const router = createBrowserRouter([
   {
     path: "/admin",
     element: <App />,
-    children: adminRoutes
+    // children: adminRoutes2
+
+    children: adminRoutesMain
   },
   {
     path: "/login",
