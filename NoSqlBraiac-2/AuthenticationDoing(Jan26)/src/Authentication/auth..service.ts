@@ -31,7 +31,7 @@ const doLogin = async (data: ILogin) => {
   const token = jwt.sign(payLoad, config.jwt_secret, {
     expiresIn: config.jwt_expires_in,
   })
-  console.log(token)
+  // console.log(token)
   return token
 }
 

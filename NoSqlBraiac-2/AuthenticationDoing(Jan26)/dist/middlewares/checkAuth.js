@@ -40,7 +40,7 @@ const checkAuth = (...roles) => {
         // if (!roles.includes(user?.role)) {
         //   throw new Error('You Are Not authorized')
         // }
-        if (!roles.includes(role)) {
+        if (!roles.includes(user.role)) {
             throw new Error('You Are Not authorized');
         }
         next();

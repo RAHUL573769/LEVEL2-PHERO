@@ -34,7 +34,7 @@ export const checkAuth = (...roles: Array<keyof typeof USER_STATUS>) => {
       //   throw new Error('You Are Not authorized')
       // }
 
-      if (!roles.includes(role)) {
+      if (!roles.includes(user.role)) {
         throw new Error('You Are Not authorized')
       }
       next()

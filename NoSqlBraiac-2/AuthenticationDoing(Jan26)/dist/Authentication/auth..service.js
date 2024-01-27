@@ -36,7 +36,7 @@ const doLogin = (data) => __awaiter(void 0, void 0, void 0, function* () {
     const token = jsonwebtoken_1.default.sign(payLoad, config_1.default.jwt_secret, {
         expiresIn: config_1.default.jwt_expires_in,
     });
-    console.log(token);
+    // console.log(token)
     return token;
 });
 exports.authServices = {
