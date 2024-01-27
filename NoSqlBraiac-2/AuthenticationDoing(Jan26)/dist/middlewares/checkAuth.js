@@ -30,6 +30,8 @@ const checkAuth = (...roles) => {
         const decodedToken = (0, jwtHelpers_1.verifyToken)(token, config_1.default.jwt_secret);
         // const decodedToken = jwt.verify(token as string, config.jwt_secret)
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        req.decoded = decodedToken;
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { email, role } = decodedToken;
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const password = req.body.password;

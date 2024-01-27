@@ -56,7 +56,26 @@ const doLogin = async (data: ILogin) => {
   return token
 }
 
-const doChangePassword = async () => {} //protected system
+const doChangePassword = async (
+  decodedToken: JwtPayload, //decoded token must be kept in ccokies
+  payload: {
+    oldPassword: string
+    newPassword: string
+  },
+) => {
+  const { email, role, iat, exp } = decodedToken as JwtPayload
+
+  const user = await User.findOne({ email }).select('+password')
+  if (!iat) {
+    throw new Error('NoIat')
+  }
+
+  console.log('Issued At', iat)
+  console.log('User Password Changes', user?.passwordChangedAt)
+  // if (iat > user?.passwordChangedAt) {
+  //   throw new Error('old token')
+  // }
+} //protected system
 
 export const authServices = {
   doRegister,

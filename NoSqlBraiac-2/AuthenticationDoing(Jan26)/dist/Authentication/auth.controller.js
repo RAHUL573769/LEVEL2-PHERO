@@ -33,7 +33,19 @@ const login = (0, catchAsync_1.default)((req, res, next) => __awaiter(void 0, vo
         message: 'User Looged In Succsfullly',
     });
 }));
+const changePassword = (0, catchAsync_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log(req.headers);
+    const decodedToken = req.decoded;
+    console.log(decodedToken);
+    const result = yield auth__service_1.authServices.doChangePassword(decodedToken, req.body);
+    (0, sendResponse_1.default)(res, {
+        statusCode: 200,
+        data: result,
+        message: 'User Registered',
+    });
+}));
 exports.authController = {
     register,
     login,
+    changePassword,
 };

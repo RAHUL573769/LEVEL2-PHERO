@@ -24,6 +24,9 @@ export const checkAuth = (...roles: Array<keyof typeof USER_STATUS>) => {
       const decodedToken = verifyToken(token, config.jwt_secret)
       // const decodedToken = jwt.verify(token as string, config.jwt_secret)
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
+      req.decoded = decodedToken as JwtPayload
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { email, role } = decodedToken as JwtPayload
 
       // eslint-disable-next-line @typescript-eslint/no-unused-vars

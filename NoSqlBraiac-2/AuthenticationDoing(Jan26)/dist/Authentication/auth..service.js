@@ -53,7 +53,19 @@ const doLogin = (data) => __awaiter(void 0, void 0, void 0, function* () {
     // console.log(token)
     return token;
 });
-const doChangePassword = () => __awaiter(void 0, void 0, void 0, function* () { }); //protected system
+const doChangePassword = (decodedToken, //decoded token must be kept in ccokies
+payload) => __awaiter(void 0, void 0, void 0, function* () {
+    const { email, role, iat, exp } = decodedToken;
+    const user = yield user_model_1.default.findOne({ email }).select('+password');
+    if (!iat) {
+        throw new Error('NoIat');
+    }
+    console.log('Issued At', iat);
+    console.log('User Password Changes', user === null || user === void 0 ? void 0 : user.passwordChangedAt);
+    // if (iat > user?.passwordChangedAt) {
+    //   throw new Error('old token')
+    // }
+}); //protected system
 exports.authServices = {
     doRegister,
     doLogin,
