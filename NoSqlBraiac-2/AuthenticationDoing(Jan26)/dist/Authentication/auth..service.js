@@ -12,25 +12,23 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.checkAuth = void 0;
-const catchAsync_1 = __importDefault(require("../utils/catchAsync"));
+exports.authServices = void 0;
+/* eslint-disable @typescript-eslint/no-unused-vars */
 const user_model_1 = __importDefault(require("../models/user.model"));
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const checkAuth = (...roles) => {
-    // console.log('Roles from Check Auth', roles)
-    return (0, catchAsync_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-        const email = req.body.email;
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const password = req.body.password;
-        const user = yield user_model_1.default.findOne({ email });
-        // console.log('User ', user)
-        if (!user) {
-            throw new Error('Invalid Email');
-        }
-        if (!roles.includes(user === null || user === void 0 ? void 0 : user.role)) {
-            throw new Error('You Are Not authorized');
-        }
-        next();
-    }));
+const doRegister = (data) => __awaiter(void 0, void 0, void 0, function* () {
+    // eslint-disable-next-line no-unused-vars
+    const result = yield user_model_1.default.create(Object.assign(Object.assign({}, data), { userStatus: 'active', role: 'user' }));
+    return result;
+});
+// eslint-disable-next-line no-unused-vars
+const doLogin = (data) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield user_model_1.default.findOne(data);
+    if (!result) {
+        throw new Error('Invalid Credentials');
+    }
+    return null;
+});
+exports.authServices = {
+    doRegister,
+    doLogin,
 };
-exports.checkAuth = checkAuth;

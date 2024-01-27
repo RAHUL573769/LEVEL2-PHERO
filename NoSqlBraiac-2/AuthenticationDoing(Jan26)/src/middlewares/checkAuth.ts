@@ -6,12 +6,14 @@ import { USER_STATUS } from '../constants/user.constants'
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const checkAuth = (...roles: Array<keyof typeof USER_STATUS>) => {
+  // console.log('Roles from Check Auth', roles)
   return catchAsyncFunction(
     async (req: Request, res: Response, next: NextFunction) => {
       const email = req.body.email
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const password = req.body.password
-      const user = await User.findOne({ email, password })
-
+      const user = await User.findOne({ email })
+      // console.log('User ', user)
       if (!user) {
         throw new Error('Invalid Email')
       }

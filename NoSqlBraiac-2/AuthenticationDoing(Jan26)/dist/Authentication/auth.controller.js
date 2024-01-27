@@ -12,25 +12,28 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.checkAuth = void 0;
+exports.authController = void 0;
+const auth__service_1 = require("./auth..service");
+const sendResponse_1 = __importDefault(require("../utils/sendResponse"));
 const catchAsync_1 = __importDefault(require("../utils/catchAsync"));
-const user_model_1 = __importDefault(require("../models/user.model"));
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const checkAuth = (...roles) => {
-    // console.log('Roles from Check Auth', roles)
-    return (0, catchAsync_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-        const email = req.body.email;
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const password = req.body.password;
-        const user = yield user_model_1.default.findOne({ email });
-        // console.log('User ', user)
-        if (!user) {
-            throw new Error('Invalid Email');
-        }
-        if (!roles.includes(user === null || user === void 0 ? void 0 : user.role)) {
-            throw new Error('You Are Not authorized');
-        }
-        next();
-    }));
+const register = (0, catchAsync_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield auth__service_1.authServices.doRegister(req.body);
+    (0, sendResponse_1.default)(res, {
+        statusCode: 200,
+        data: result,
+        message: 'User Registered',
+    });
+}));
+const login = (0, catchAsync_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield auth__service_1.authServices.doLogin(req.body);
+    (0, sendResponse_1.default)(res, {
+        statusCode: 200,
+        data: result,
+        message: 'User Looged In Succsfullly',
+    });
+}));
+exports.authController = {
+    register,
+    login,
 };
-exports.checkAuth = checkAuth;

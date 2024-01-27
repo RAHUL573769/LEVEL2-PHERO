@@ -9,7 +9,7 @@ import { checkAuth } from '../middlewares/checkAuth'
 const router = express.Router()
 
 router.post('/create-user', checkAuth('admin'), userController.createUser)
-router.get('/', checkAuth('admin', 'user'), userController.getAllUsers)
+router.get('/', userController.getAllUsers)
 router.get('/:id', userController.getSingleUser)
 router.patch('/:id', userController.updateUser)
 router.delete('/:id', userController.deleteUser)
