@@ -8,7 +8,10 @@ import { JwtPayload } from 'jsonwebtoken'
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
 import { createToken } from '../helpers/JWT/jwtHelpers'
-import { hashPassword } from '../helpers/PaswordHashingAbdCompare/passwordHelpers'
+import {
+  comparePassword,
+  hashPassword,
+} from '../helpers/PaswordHashingAbdCompare/passwordHelpers'
 
 const doRegister = async (data: IAuth) => {
   // eslint-disable-next-line no-unused-vars
@@ -34,8 +37,9 @@ const doLogin = async (data: ILogin) => {
   const password = data.password
   const hashedPassword = user.password
 
-  const isCorrectPasword = await bcrypt.compare(password, hashedPassword)
-  console.log('Is paasword matched', isCorrectPasword)
+  const isPasswordCorrect = await comparePassword(password, hashedPassword)
+  // const isCorrectPasword = await bcrypt.compare(password, hashedPassword)
+  // console.log('Is paasword matched', isCorrectPasword)
 
   const payLoad: JwtPayload = {
     email: user.email,
@@ -52,7 +56,10 @@ const doLogin = async (data: ILogin) => {
   return token
 }
 
+const doChangePassword = async () => {} //protected system
+
 export const authServices = {
   doRegister,
   doLogin,
+  doChangePassword,
 }

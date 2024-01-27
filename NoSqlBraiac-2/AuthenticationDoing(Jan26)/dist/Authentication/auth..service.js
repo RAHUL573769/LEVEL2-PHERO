@@ -18,7 +18,6 @@ exports.authServices = void 0;
 /* eslint-disable @typescript-eslint/no-unused-vars */
 const config_1 = __importDefault(require("../config"));
 const user_model_1 = __importDefault(require("../models/user.model"));
-const bcrypt_1 = __importDefault(require("bcrypt"));
 const jwtHelpers_1 = require("../helpers/JWT/jwtHelpers");
 const passwordHelpers_1 = require("../helpers/PaswordHashingAbdCompare/passwordHelpers");
 const doRegister = (data) => __awaiter(void 0, void 0, void 0, function* () {
@@ -38,8 +37,9 @@ const doLogin = (data) => __awaiter(void 0, void 0, void 0, function* () {
     }
     const password = data.password;
     const hashedPassword = user.password;
-    const isCorrectPasword = yield bcrypt_1.default.compare(password, hashedPassword);
-    console.log('Is paasword matched', isCorrectPasword);
+    const isPasswordCorrect = yield (0, passwordHelpers_1.comparePassword)(password, hashedPassword);
+    // const isCorrectPasword = await bcrypt.compare(password, hashedPassword)
+    // console.log('Is paasword matched', isCorrectPasword)
     const payLoad = {
         email: user.email,
         role: user.role,
@@ -53,7 +53,9 @@ const doLogin = (data) => __awaiter(void 0, void 0, void 0, function* () {
     // console.log(token)
     return token;
 });
+const doChangePassword = () => __awaiter(void 0, void 0, void 0, function* () { }); //protected system
 exports.authServices = {
     doRegister,
     doLogin,
+    doChangePassword,
 };

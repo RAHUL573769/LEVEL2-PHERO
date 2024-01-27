@@ -19,5 +19,10 @@ const hashPassword = (password, hashRounds) => __awaiter(void 0, void 0, void 0,
     return passwordHashing;
 });
 exports.hashPassword = hashPassword;
-const comparePassword = () => { };
+const comparePassword = (password, hashedPassword) => __awaiter(void 0, void 0, void 0, function* () {
+    const isCorrectPassword = yield bcrypt_1.default.compare(password, hashedPassword);
+    return isCorrectPassword;
+});
 exports.comparePassword = comparePassword;
+// const isCorrectPasword = await bcrypt.compare(password, hashedPassword)
+// console.log('Is paasword matched', isCorrectPasword)
