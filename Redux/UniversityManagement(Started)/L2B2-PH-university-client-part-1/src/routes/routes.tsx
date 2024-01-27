@@ -1,37 +1,38 @@
-import { createBrowserRouter } from 'react-router-dom';
-import App from '../App';
-import Login from '../pages/Login';
-import Register from '../pages/Register';
-import { adminRoutes } from './admin.routes';
+import { createBrowserRouter } from "react-router-dom";
+import App from "../App";
+import Login from "../pages/Login";
+import Register from "../pages/Register";
+import { routerGenerator } from "./../utils/routeGeneator";
+import { adminPaths } from "./admin.routes";
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
+    element: <App />
+  },
+  {
+    path: "/admin",
     element: <App />,
+    children: routerGenerator(adminPaths)
   },
   {
-    path: '/admin',
+    path: "/faculty",
     element: <App />,
-    children: adminRoutes,
+    children: routerGenerator(adminPaths)
   },
   {
-    path: '/faculty',
+    path: "/student",
     element: <App />,
-    children: adminRoutes,
+    children: routerGenerator(adminPaths)
   },
   {
-    path: '/student',
-    element: <App />,
-    children: adminRoutes,
+    path: "/login",
+    element: <Login />
   },
   {
-    path: '/login',
-    element: <Login />,
-  },
-  {
-    path: '/register',
-    element: <Register />,
-  },
+    path: "/register",
+    element: <Register />
+  }
 ]);
 
 export default router;
