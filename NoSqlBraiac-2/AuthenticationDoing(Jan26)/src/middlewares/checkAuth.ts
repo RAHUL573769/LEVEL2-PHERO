@@ -3,8 +3,9 @@ import { NextFunction, Request, Response } from 'express'
 import catchAsyncFunction from '../utils/catchAsync'
 import User from '../models/user.model'
 import { USER_STATUS } from '../constants/user.constants'
-import jwt, { JwtPayload } from 'jsonwebtoken'
+import { JwtPayload } from 'jsonwebtoken'
 import config from '../config'
+import { verifyToken } from '../helpers/JWT/jwtHelpers'
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const checkAuth = (...roles: Array<keyof typeof USER_STATUS>) => {
@@ -19,7 +20,9 @@ export const checkAuth = (...roles: Array<keyof typeof USER_STATUS>) => {
       if (!token) {
         throw new Error('Invalid Token User')
       }
-      const decodedToken = jwt.verify(token as string, config.jwt_secret)
+
+      const decodedToken = verifyToken(token, config.jwt_secret)
+      // const decodedToken = jwt.verify(token as string, config.jwt_secret)
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { email, role } = decodedToken as JwtPayload
 

@@ -15,8 +15,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.checkAuth = void 0;
 const catchAsync_1 = __importDefault(require("../utils/catchAsync"));
 const user_model_1 = __importDefault(require("../models/user.model"));
-const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const config_1 = __importDefault(require("../config"));
+const jwtHelpers_1 = require("../helpers/JWT/jwtHelpers");
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const checkAuth = (...roles) => {
     // console.log('Roles from Check Auth', roles)
@@ -27,7 +27,8 @@ const checkAuth = (...roles) => {
         if (!token) {
             throw new Error('Invalid Token User');
         }
-        const decodedToken = jsonwebtoken_1.default.verify(token, config_1.default.jwt_secret);
+        const decodedToken = (0, jwtHelpers_1.verifyToken)(token, config_1.default.jwt_secret);
+        // const decodedToken = jwt.verify(token as string, config.jwt_secret)
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { email, role } = decodedToken;
         // eslint-disable-next-line @typescript-eslint/no-unused-vars

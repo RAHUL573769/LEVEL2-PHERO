@@ -13,29 +13,43 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.authServices = void 0;
+/* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 const config_1 = __importDefault(require("../config"));
 const user_model_1 = __importDefault(require("../models/user.model"));
-const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const bcrypt_1 = __importDefault(require("bcrypt"));
+const jwtHelpers_1 = require("../helpers/JWT/jwtHelpers");
+const passwordHelpers_1 = require("../helpers/PaswordHashingAbdCompare/passwordHelpers");
 const doRegister = (data) => __awaiter(void 0, void 0, void 0, function* () {
     // eslint-disable-next-line no-unused-vars
-    const result = yield user_model_1.default.create(Object.assign(Object.assign({}, data), { userStatus: 'active', role: 'user' }));
+    const password = data.password;
+    // const hashedPassword = await bcrypt.hash(password, 9)
+    const hashedPassword = yield (0, passwordHelpers_1.hashPassword)(password, 9);
+    const result = yield user_model_1.default.create(Object.assign(Object.assign({}, data), { password: hashedPassword, userStatus: 'active', role: 'user' }));
     return result;
 });
 // eslint-disable-next-line no-unused-vars
 const doLogin = (data) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield user_model_1.default.findOne(data);
+    // const user = await User.findOne(data)
+    const user = yield user_model_1.default.findOne({ email: data.email }).select('+password'); //After adding bcypt
     if (!user) {
         throw new Error('Invalid Credentials');
     }
+    const password = data.password;
+    const hashedPassword = user.password;
+    const isCorrectPasword = yield bcrypt_1.default.compare(password, hashedPassword);
+    console.log('Is paasword matched', isCorrectPasword);
     const payLoad = {
         email: user.email,
         role: user.role,
     };
-    const token = jsonwebtoken_1.default.sign(payLoad, config_1.default.jwt_secret, {
+    const token = (0, jwtHelpers_1.createToken)(payLoad, config_1.default.jwt_secret, {
         expiresIn: config_1.default.jwt_expires_in,
     });
+    // const token = jwt.sign(payLoad, config.jwt_secret, {
+    //   expiresIn: config.jwt_expires_in,
+    // })
     // console.log(token)
     return token;
 });

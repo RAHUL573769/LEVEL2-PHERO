@@ -6,5 +6,6 @@ declare namespace NodeJS {
     NODE_ENV: string
     JWT_SECRET: string
     JWT_EXPIRES_IN: string
+    BCRYPT_SALT_ROUND: number
   }
 }
