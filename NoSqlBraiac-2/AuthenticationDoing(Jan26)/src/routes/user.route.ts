@@ -4,58 +4,12 @@ import express, { NextFunction, Request, Response } from 'express'
 import { userController } from '../controllers/user.controller'
 import User from '../models/user.model'
 import catchAsyncFunction from '../utils/catchAsync'
+import { checkAuth } from '../middlewares/checkAuth'
 
 const router = express.Router()
 
-router.post(
-  '/create-user',
-  catchAsyncFunction(
-    async (req: Request, res: Response, next: NextFunction) => {
-      const email = req.body.email
-      const password = req.body.password
-      const user = await User.findOne({ email, password })
-
-      if (!user) {
-        res.status(404).json({
-          status: 'Fail',
-          message: 'Invalid Emai',
-        })
-      }
-      if (user?.role !== 'admin') {
-        res.status(404).json({
-          status: 'Fail',
-          message: 'You are not authorized',
-        })
-      }
-      next()
-    },
-  ),
-  userController.createUser,
-)
-router.get(
-  '/',
-  catchAsyncFunction(
-    async (req: Request, res: Response, next: NextFunction) => {
-      const email = req.body.email
-      const password = req.body.password
-      const user = await User.findOne({ email, password })
-
-      if (!user) {
-        // res.status(404).json({
-        //   status: 'Fail',
-        //   message: 'Invalid Emai',
-        // })
-
-        throw new Error('invalid Credentials')
-      }
-      if (user?.role !== 'admin') {
-        throw new Error('u are not admin')
-      }
-      next()
-    },
-  ),
-  userController.getAllUsers,
-)
+router.post('/create-user', checkAuth('admin'), userController.createUser)
+router.get('/', checkAuth('admin', 'user'), userController.getAllUsers)
 router.get('/:id', userController.getSingleUser)
 router.patch('/:id', userController.updateUser)
 router.delete('/:id', userController.deleteUser)
