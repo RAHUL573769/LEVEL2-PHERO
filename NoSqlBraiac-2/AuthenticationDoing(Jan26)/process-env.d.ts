@@ -4,5 +4,7 @@ declare namespace NodeJS {
     DATABASE_URL_LOCAL: string
     DATABASE_URL: string
     NODE_ENV: string
+    JWT_SECRET: string
+    JWT_EXPIRES_IN: string
   }
 }

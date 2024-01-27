@@ -10,7 +10,7 @@ const express_1 = __importDefault(require("express"));
 const user_controller_1 = require("../controllers/user.controller");
 const checkAuth_1 = require("../middlewares/checkAuth");
 const router = express_1.default.Router();
-router.post('/create-user', (0, checkAuth_1.checkAuth)('admin'), user_controller_1.userController.createUser);
+router.post('/create-user', (0, checkAuth_1.checkAuth)('user'), user_controller_1.userController.createUser);
 router.get('/', user_controller_1.userController.getAllUsers);
 router.get('/:id', user_controller_1.userController.getSingleUser);
 router.patch('/:id', user_controller_1.userController.updateUser);
