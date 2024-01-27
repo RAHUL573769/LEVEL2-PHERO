@@ -10,3 +10,9 @@ export type TSidebarItem = {
   label: ReactNode;
   children?: TSidebarItem[];
 };
+export type TUserPaths = {
+  name: string;
+  path?: string;
+  element?: ReactNode;
+  children?: TUserPaths[];
+};
