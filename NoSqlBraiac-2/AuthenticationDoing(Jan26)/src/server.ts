@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import app from './app'
 import mongoose from 'mongoose'
 import config from './config'
@@ -7,8 +8,8 @@ import config from './config'
 async function server() {
   try {
     await mongoose.connect(config.database_url_local)
-    console.log('Connected to MongoDB')
     app.listen(process.env.PORT, () => {
+      // eslint-disable-next-line no-console
       console.log(`Example app listening on port ${config.port}`)
     })
   } catch (error) {
