@@ -8,6 +8,8 @@ import {
 } from "@material-tailwind/react";
 import { Square3Stack3DIcon, Cog6ToothIcon } from "@heroicons/react/24/solid";
 import { CardWithLink } from "../Card/Card";
+import { SimpleRegistrationForm } from "../AddQuizForm/AddQuizFom";
+import { DefaultStepper } from "../Steeper/Steeper";
 
 export function TabsWithIcon() {
   const data = [
@@ -22,9 +24,9 @@ export function TabsWithIcon() {
       label: "Add Quiz",
       value: "settings",
       icon: Cog6ToothIcon,
-      desc: `We're not always in the position that we want to be at.
-      We're constantly growing. We're constantly making mistakes. We're
-      constantly trying to express ourselves and actualize our dreams.`
+      //   desc: <SimpleRegistrationForm></SimpleRegistrationForm>
+
+      desc: <DefaultStepper></DefaultStepper>
     }
   ];
   return (
