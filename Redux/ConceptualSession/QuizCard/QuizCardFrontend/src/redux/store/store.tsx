@@ -1,8 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 import quizReducer from "../features/quiz/quiz.slice";
+import stepperReducer from "../features/Sttepper/stepperSlice";
 export const store = configureStore({
   reducer: {
-    quiz: quizReducer
+    quiz: quizReducer,
+    stepper: stepperReducer
   }
 });
 

@@ -1,15 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { TInitialStepState } from "../../../Types/allTypes";
 
-type TInitialStepState = {
-  activeStep: number;
-};
 const initialState: TInitialStepState = {
   activeStep: 0
 };
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const stepperSlice = createSlice({
   name: "stepper",
   initialState,
   reducers: {
-    setActiveState: (state, action) => {}
+    setActiveStepper: (state, action) => {
+      state.activeStep = action.payload;
+    }
   }
 });
+export default stepperSlice.reducer;
+export const { setActiveStepper } = stepperSlice.actions;

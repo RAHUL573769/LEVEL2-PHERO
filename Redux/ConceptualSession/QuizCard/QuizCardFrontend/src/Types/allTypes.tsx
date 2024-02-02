@@ -12,3 +12,7 @@ export type TInitialState = {
 export type TAction = {
   payload: TQuiz;
 };
+
+export type TInitialStepState = {
+  activeStep: number;
+};

@@ -1,25 +1,43 @@
 import React from "react";
-import { Stepper, Step, Button } from "@material-tailwind/react";
+import { Stepper, Step } from "@material-tailwind/react";
+import { useAppDispatch, useAppSelector } from "../../redux/Hooks/hooks";
+import { setActiveStepper } from "../../redux/features/Sttepper/stepperSlice";
+// import { setActiveState } from "../../redux/features/Sttepper/stepperSlice";
 
-export function DefaultStepper() {
-  const [activeStep, setActiveStep] = React.useState(0);
-  const [isLastStep, setIsLastStep] = React.useState(false);
-  const [isFirstStep, setIsFirstStep] = React.useState(false);
+const mySteps = [
+  {
+    value: 0,
+    name: "Quiz List",
+    component: <div>Quiz List</div>
+  },
+  {
+    value: 1,
+    name: "Add Quiz",
+    component: <div>Add Quiz</div>
+  }
+];
+type TStepperProps = {
+  steps: {
+    value: number;
+    name: string;
+    component: React.ReactNode;
+  }[];
+};
+export function DefaultStepper({ steps }: TStepperProps) {
+  // const [activeStep, setActiveStep] = React.useState(0);
 
-  const handleNext = () => !isLastStep && setActiveStep((cur) => cur + 1);
-  const handlePrev = () => !isFirstStep && setActiveStep((cur) => cur - 1);
+  const { activeStep } = useAppSelector((state) => state.stepper);
+
+  const dispatch = useAppDispatch();
+  // const [isLastStep, setIsLastStep] = React.useState(false);
+  // const [isFirstStep, setIsFirstStep] = React.useState(false);
 
   return (
     <div className="w-full py-4 px-8">
-      <Stepper
-        placeholder={""}
-        activeStep={activeStep}
-        isLastStep={(value) => setIsLastStep(value)}
-        isFirstStep={(value) => setIsFirstStep(value)}
-      >
-        <Step
+      <Stepper placeholder={""} activeStep={activeStep}>
+        {/* <Step
           placeholder={""}
-          onClick={() => setActiveStep(0)}
+          onClick={() => dispatch(setActiveStepper(0))}
           className="px-8 w-fit"
         >
           Quiz List
@@ -27,19 +45,25 @@ export function DefaultStepper() {
         <Step
           className="px-8 w-fit"
           placeholder={""}
-          onClick={() => setActiveStep(1)}
+          onClick={() => dispatch(setActiveStepper(1))}
         >
           Add Quiz
-        </Step>
+
+
+        </Step> */}
+
+        {mySteps.map((step) => (
+          <Step
+            className="px-8 w-fit"
+            placeholder={""}
+            onClick={() => dispatch(setActiveStepper(step.value))}
+          >
+            {step.name}
+          </Step>
+        ))}
       </Stepper>
-      <div className="mt-16 flex justify-between">
-        <Button placeholder={""} onClick={handlePrev} disabled={isFirstStep}>
-          Prev
-        </Button>
-        <Button placeholder={""} onClick={handleNext} disabled={isLastStep}>
-          Next
-        </Button>
-      </div>
+
+      <div>{mySteps[activeStep].component}</div>
     </div>
   );
 }
