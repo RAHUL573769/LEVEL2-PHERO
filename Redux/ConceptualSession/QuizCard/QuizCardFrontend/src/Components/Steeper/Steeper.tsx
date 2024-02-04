@@ -1,8 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from "react";
 import { Stepper, Step } from "@material-tailwind/react";
 import { useAppDispatch, useAppSelector } from "../../redux/Hooks/hooks";
 import { setActiveStepper } from "../../redux/features/Sttepper/stepperSlice";
-// import { setActiveState } from "../../redux/features/Sttepper/stepperSlice";
 
 const mySteps = [
   {
@@ -23,6 +23,7 @@ type TStepperProps = {
     component: React.ReactNode;
   }[];
 };
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function DefaultStepper({ steps }: TStepperProps) {
   // const [activeStep, setActiveStep] = React.useState(0);
 
@@ -52,7 +53,7 @@ export function DefaultStepper({ steps }: TStepperProps) {
 
         </Step> */}
 
-        {mySteps.map((step) => (
+        {steps.map((step) => (
           <Step
             className="px-8 w-fit"
             placeholder={""}
@@ -63,7 +64,7 @@ export function DefaultStepper({ steps }: TStepperProps) {
         ))}
       </Stepper>
 
-      <div>{mySteps[activeStep].component}</div>
+      <div>{steps[activeStep].component}</div>
     </div>
   );
 }

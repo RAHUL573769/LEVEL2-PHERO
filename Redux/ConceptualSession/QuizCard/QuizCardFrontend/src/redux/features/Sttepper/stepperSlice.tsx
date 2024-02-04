@@ -7,9 +7,9 @@ const initialState: TInitialStepState = {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const stepperSlice = createSlice({
   name: "stepper",
-  initialState,
+  initialState: initialState,
   reducers: {
-    setActiveStepper: (state, action) => {
+    setActiveStepper: (state: TInitialStepState, action) => {
       state.activeStep = action.payload;
     }
   }

@@ -7,7 +7,7 @@ const port = 3000;
 
 const connectDatabase = async () => {
   try {
-    await mongoose.connect("mongodb://localhost:27017/QuizDatabase");
+    await mongoose.connect("mongodb://localhost:27017/tea");
     app.get("/", (req, res) => {
       res.send("Hello World!");
     });

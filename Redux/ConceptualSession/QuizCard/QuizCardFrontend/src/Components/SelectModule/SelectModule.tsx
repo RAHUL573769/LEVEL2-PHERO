@@ -2,7 +2,7 @@ import { Select, Option } from "@material-tailwind/react";
 
 export function SelectDefault() {
   return (
-    <div className="w-72">
+    <div className="w-72 px-8">
       <Select label="Select Version" placeholder={undefined}>
         <Option>Material Tailwind HTML</Option>
         <Option>Material Tailwind React</Option>

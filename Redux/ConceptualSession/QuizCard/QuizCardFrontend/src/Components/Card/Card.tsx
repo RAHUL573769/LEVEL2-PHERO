@@ -1,8 +1,8 @@
 import { Card, CardBody, CardFooter, Button } from "@material-tailwind/react";
 
-export function CardWithLink({ children }) {
+export function CardWithLink({ children }: { children: React.ReactNode }) {
   return (
-    <Card className="mt-6 w-96" placeholder={undefined}>
+    <Card className="mt-6 w-100" placeholder={undefined}>
       <CardBody placeholder={undefined}>{children}</CardBody>
       <CardFooter placeholder={undefined} className="pt-0">
         <a href="#" className="inline-block">

@@ -8,10 +8,24 @@ import {
 } from "@material-tailwind/react";
 import { Square3Stack3DIcon, Cog6ToothIcon } from "@heroicons/react/24/solid";
 import { CardWithLink } from "../Card/Card";
-import { SimpleRegistrationForm } from "../AddQuizForm/AddQuizFom";
+// import { SimpleRegistrationForm } from "../AddQuizForm/AddQuizFom";
 import { DefaultStepper } from "../Steeper/Steeper";
+import { SelectDefault } from "../SelectModule/SelectModule";
+import { SimpleRegistrationForm } from "../AddQuizForm/AddQuizFom";
 
 export function TabsWithIcon() {
+  const steps = [
+    {
+      value: 0,
+      name: "Select Module",
+      component: <SelectDefault></SelectDefault>
+    },
+    {
+      value: 1,
+      name: "Add Quiz",
+      component: <SimpleRegistrationForm></SimpleRegistrationForm>
+    }
+  ];
   const data = [
     {
       label: "Quiz List",
@@ -26,7 +40,11 @@ export function TabsWithIcon() {
       icon: Cog6ToothIcon,
       //   desc: <SimpleRegistrationForm></SimpleRegistrationForm>
 
-      desc: <DefaultStepper></DefaultStepper>
+      desc: (
+        <CardWithLink>
+          <DefaultStepper steps={steps}></DefaultStepper>
+        </CardWithLink>
+      )
     }
   ];
   return (
