@@ -10,11 +10,34 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserServices = void 0;
+const student_model_1 = require("../Student/student.model");
 const user_model_1 = require("./user.model");
-const createUserService = (data) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log("Data From createUserService", data);
-    const result = yield user_model_1.User.create(data);
-    return result;
+const createStudentService = (password, studentData) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log("Data From createUserService", studentData);
+    //create a user object
+    const userData = {};
+    //if password not given,use default password
+    if (!password) {
+        userData.password = "Default Password";
+    }
+    else {
+        userData.password = password;
+    }
+    //set student role
+    userData.password = "student";
+    //manually set id
+    userData.id = "203032";
+    //create a user
+    const result = yield user_model_1.User.create(userData);
+    //create a student
+    if (Object.keys(result).length) {
+        //set id,_id as user
+        studentData.id = result.id;
+        studentData.user = result._id;
+        const newStudent = yield student_model_1.Student.create(studentData);
+        return newStudent;
+    }
+    // const result = await User.create(studentData);
 });
 const getAllUserService = () => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield user_model_1.User.find();
@@ -36,7 +59,7 @@ const deleteUserService = (id) => __awaiter(void 0, void 0, void 0, function* ()
     return result;
 });
 exports.UserServices = {
-    createUserService,
+    createStudentService,
     getAllUserService,
     getSingleService,
     updateUserService,

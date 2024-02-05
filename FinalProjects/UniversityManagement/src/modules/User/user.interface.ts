@@ -4,8 +4,14 @@ export type TUser = {
   id: string;
   password: string;
   role: TUserRole;
-  status: TUserStatus;
+  // status: TUserStatus;
   isDeleted: boolean;
   needsPasswordChange: boolean;
   createdAt: Date;
+};
+
+export type NewUser = {
+  role: string;
+  password: string;
+  id: string;
 };

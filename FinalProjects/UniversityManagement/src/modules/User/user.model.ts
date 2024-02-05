@@ -20,11 +20,11 @@ const userSchema = new Schema<TUser>(
       type: String,
       enum: Object.values(USER_ROLE)
     },
-    status: {
-      type: String,
-      enum: Object.values(USER_STATUS),
-      default: "inprogress"
-    },
+    // status: {
+    //   type: String,
+    //   enum: Object.values(USER_STATUS),
+    //   default: "inprogress"
+    // },
     isDeleted: {
       type: Boolean,
       default: false
