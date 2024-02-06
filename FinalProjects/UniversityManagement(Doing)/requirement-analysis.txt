@@ -1,0 +1,12 @@
+mongo-db doesn`t give structured data/collection
+
+{
+    name
+    
+    .}
+
+A step must be taken to give structured data
+
+--->So for this we use mongoose(ODM)
+
+-->
