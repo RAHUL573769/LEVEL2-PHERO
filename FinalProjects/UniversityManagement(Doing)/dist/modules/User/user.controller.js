@@ -15,6 +15,7 @@ const successResponse_1 = require("../../utils/successResponse");
 const catchAsyncFunction_1 = require("../../utils/catchAsyncFunction");
 const createStudentController = (0, catchAsyncFunction_1.catchAsyncFunction)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        console.log("ReqBody", req.body);
         const { password, student: studentData } = req.body;
         // throw Error("Error From User Controllers");
         const result = yield user_services_1.UserServices.createStudentService(password, studentData);

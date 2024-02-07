@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import mongoose from "mongoose";
-import { ErrorResponse } from "../../utils/types/ErrorType";
+import { ErrorResponse } from "../../../utils/types/ErrorType";
 
 export const globalErrorHandler = (
   error: any,

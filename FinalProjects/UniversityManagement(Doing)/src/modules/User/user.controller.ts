@@ -6,6 +6,7 @@ import { catchAsyncFunction } from "../../utils/catchAsyncFunction";
 const createStudentController = catchAsyncFunction(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
+      console.log("ReqBody", req.body);
       const { password, student: studentData } = req.body;
       // throw Error("Error From User Controllers");
       const result = await UserServices.createStudentService(
