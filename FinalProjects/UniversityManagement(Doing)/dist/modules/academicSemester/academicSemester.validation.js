@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AcademicSemester = void 0;
+exports.AcademicSemesterValidation = void 0;
 const zod_1 = __importDefault(require("zod"));
 const academinSemesterContants_1 = require("./academinSemesterContants");
 const createAcademicSemesterValidation = zod_1.default.object({
@@ -22,4 +22,4 @@ const createAcademicSemesterValidation = zod_1.default.object({
     //     .optional(),
     //   isDeleted: z.boolean().optional()
 });
-exports.AcademicSemester = { createAcademicSemesterValidation };
+exports.AcademicSemesterValidation = { createAcademicSemesterValidation };

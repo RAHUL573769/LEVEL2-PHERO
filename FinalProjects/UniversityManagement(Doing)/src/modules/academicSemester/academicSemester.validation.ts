@@ -22,4 +22,4 @@ const createAcademicSemesterValidation = z.object({
   //   isDeleted: z.boolean().optional()
 });
 
-export const AcademicSemester = { createAcademicSemesterValidation };
+export const AcademicSemesterValidation = { createAcademicSemesterValidation };
