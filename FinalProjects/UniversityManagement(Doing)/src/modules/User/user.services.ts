@@ -1,7 +1,10 @@
 import { TStudent } from "../Student/student.interface";
 import { Student } from "../Student/student.model";
+import { TAcademicSemester } from "../academicSemester/academicSemester.interface";
+import { AcademicSemester } from "../academicSemester/academicSemester.model";
 import { NewUser, TUser } from "./user.interface";
 import { User } from "./user.model";
+import { generateStudentId } from "./user.utils";
 
 const createStudentService = async (
   password: string,
@@ -18,9 +21,19 @@ const createStudentService = async (
     userData.password = password;
   }
   //set student role
-  userData.password = "student";
+  userData.role = "student";
+
+  //generate student id
+  //year semestercode 4digit number
+
+  //find academic semester info
+  const admissionSemester = await AcademicSemester.findById(
+    studentData.admissionSemester
+  );
+
   //manually set id
-  userData.id = "203032";
+  // userData.id = "203032";
+  userData.id = generateStudentId(admissionSemester as TAcademicSemester);
   //create a user
   const result = await User.create(userData);
   //create a student

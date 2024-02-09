@@ -1,10 +1,24 @@
-import { TAcademicSemester } from "./academicSemester.interface";
+import {
+  TAcademicSemester,
+  TAcademicSemesterMapper
+} from "./academicSemester.interface";
 import { AcademicSemester } from "./academicSemester.model";
 
 const createAcademicSemester = async (
   data: TAcademicSemester
 ): Promise<TAcademicSemester> => {
   //create a user
+
+  //   AcademicSemester.findOne()
+
+  const academicSemesterCodeMapper: TAcademicSemesterMapper = {
+    Autumn: "01",
+    Summar: "02",
+    Fall: "03"
+  };
+  if (academicSemesterCodeMapper[data.name] !== data.code) {
+    throw new Error("Invalid Semester Code");
+  }
   const result = await AcademicSemester.create(data);
   //create a student
 

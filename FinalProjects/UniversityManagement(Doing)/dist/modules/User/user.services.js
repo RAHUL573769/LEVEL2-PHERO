@@ -11,7 +11,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserServices = void 0;
 const student_model_1 = require("../Student/student.model");
+const academicSemester_model_1 = require("../academicSemester/academicSemester.model");
 const user_model_1 = require("./user.model");
+const user_utils_1 = require("./user.utils");
 const createStudentService = (password, studentData) => __awaiter(void 0, void 0, void 0, function* () {
     console.log("Data From createUserService", studentData);
     //create a user object
@@ -25,8 +27,13 @@ const createStudentService = (password, studentData) => __awaiter(void 0, void 0
     }
     //set student role
     userData.password = "student";
+    //generate student id
+    //year semestercode 4digit number
+    //find academic semester info
+    const admissionSemester = yield academicSemester_model_1.AcademicSemester.findById(studentData.admissionSemester);
     //manually set id
-    userData.id = "203032";
+    // userData.id = "203032";
+    userData.id = (0, user_utils_1.generateStudentId)(admissionSemester);
     //create a user
     const result = yield user_model_1.User.create(userData);
     //create a student

@@ -13,6 +13,15 @@ exports.AcademicSemesterServices = void 0;
 const academicSemester_model_1 = require("./academicSemester.model");
 const createAcademicSemester = (data) => __awaiter(void 0, void 0, void 0, function* () {
     //create a user
+    //   AcademicSemester.findOne()
+    const academicSemesterCodeMapper = {
+        Autumn: "01",
+        Summar: "02",
+        Fall: "03"
+    };
+    if (academicSemesterCodeMapper[data.name] !== data.code) {
+        throw new Error("Invalid Semester Code");
+    }
     const result = yield academicSemester_model_1.AcademicSemester.create(data);
     //create a student
     return result;
