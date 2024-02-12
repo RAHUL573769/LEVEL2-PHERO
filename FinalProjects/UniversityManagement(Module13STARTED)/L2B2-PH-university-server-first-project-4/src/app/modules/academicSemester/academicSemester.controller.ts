@@ -29,6 +29,7 @@ const getAllAcademicSemesters = catchAsync(async (req, res) => {
 
 const getSingleAcademicSemester = catchAsync(async (req, res) => {
   const { semesterId } = req.params;
+  console.log('id', semesterId);
   const result =
     await AcademicSemesterServices.getSingleAcademicSemesterFromDB(semesterId);
 
@@ -50,7 +51,7 @@ const updateAcademicSemester = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Academic semester is retrieved succesfully',
+    message: 'Academic semester is updated succesfully',
     data: result,
   });
 });
