@@ -10,7 +10,8 @@ const userSchema = new mongoose_1.Schema({
         unique: true
     },
     age: {
-        type: Number
+        type: Number,
+        select: 0
     },
     email: {
         type: String,

@@ -15,6 +15,22 @@ const createUserController = async (req: Request, res: Response) => {
   }
 };
 
+const getAllUserController = async (req: Request, res: Response) => {
+  try {
+    const data = await UserServices.getUserServices();
+
+    console.log("Data in User Controller", data);
+    res.status(200).json({
+      message: "All Users Successfully",
+      status: "Success",
+      data
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const UserController = {
-  createUserController
+  createUserController,
+  getAllUserController
 };

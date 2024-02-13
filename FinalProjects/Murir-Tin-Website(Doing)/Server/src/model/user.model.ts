@@ -1,15 +1,16 @@
 import { Schema, model } from "mongoose";
-import { IUser } from "../interface/user.interface";
+import { IUser, UserModel } from "../interface/user.interface";
 import { USER_ROLE, USER_STATUS } from "../constants/user.constanta";
 
-const userSchema = new Schema<IUser>({
+const userSchema = new Schema<IUser, UserModel>({
   name: {
     type: String,
     required: true,
     unique: true
   },
   age: {
-    type: Number
+    type: Number,
+    select: 0
   },
   email: {
     type: String,
@@ -33,4 +34,4 @@ const userSchema = new Schema<IUser>({
   }
 });
 
-export const User = model<IUser>("User", userSchema);
+export const User = model<IUser, UserModel>("User", userSchema);

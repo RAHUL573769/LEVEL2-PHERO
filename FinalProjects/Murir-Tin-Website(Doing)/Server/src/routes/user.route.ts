@@ -14,5 +14,7 @@ userRoute.get("/", (req: Request, res: Response) => {
   });
 });
 
+userRoute.get("/get-all-user", UserController.getAllUserController);
+
 userRoute.post("/create-user", UserController.createUserController);
 export const UserRoute = userRoute;

@@ -25,6 +25,21 @@ const createUserController = (req, res) => __awaiter(void 0, void 0, void 0, fun
         console.log(error.message);
     }
 });
+const getAllUserController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const data = yield user_services_1.UserServices.getUserServices();
+        console.log("Data in User Controller", data);
+        res.status(200).json({
+            message: "All Users Successfully",
+            status: "Success",
+            data
+        });
+    }
+    catch (error) {
+        console.log(error);
+    }
+});
 exports.UserController = {
-    createUserController
+    createUserController,
+    getAllUserController
 };

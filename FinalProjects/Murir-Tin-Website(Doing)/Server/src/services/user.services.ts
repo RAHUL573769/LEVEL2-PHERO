@@ -7,6 +7,26 @@ const createUserIntoDb = async (payload: IUser): Promise<IUser> => {
   return result;
 };
 
+const getUserServices = async () => {
+  const result = await User.find();
+
+  // const result = await User.aggregate([
+  //   {
+  //     $project: {
+  //       _id: 0,
+  //       name: 1,
+  //       age: 1,
+  //       email: 0,
+  //       photo: 1,
+  //       role: 1,
+  //       userStatus: 1
+  //     }
+  //   }
+  // ]);
+  return result;
+};
+
 export const UserServices = {
-  createUserIntoDb
+  createUserIntoDb,
+  getUserServices
 };

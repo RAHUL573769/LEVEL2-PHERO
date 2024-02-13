@@ -15,6 +15,24 @@ const createUserIntoDb = (payload) => __awaiter(void 0, void 0, void 0, function
     const result = yield user_model_1.User.create(payload);
     return result;
 });
+const getUserServices = () => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield user_model_1.User.find();
+    // const result = await User.aggregate([
+    //   {
+    //     $project: {
+    //       _id: 0,
+    //       name: 1,
+    //       age: 1,
+    //       email: 0,
+    //       photo: 1,
+    //       role: 1,
+    //       userStatus: 1
+    //     }
+    //   }
+    // ]);
+    return result;
+});
 exports.UserServices = {
-    createUserIntoDb
+    createUserIntoDb,
+    getUserServices
 };

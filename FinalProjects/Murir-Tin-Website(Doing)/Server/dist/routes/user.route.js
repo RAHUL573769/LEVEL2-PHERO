@@ -19,5 +19,6 @@ userRoute.get("/", (req, res) => {
         ]
     });
 });
+userRoute.get("/get-all-user", user_controller_1.UserController.getAllUserController);
 userRoute.post("/create-user", user_controller_1.UserController.createUserController);
 exports.UserRoute = userRoute;
