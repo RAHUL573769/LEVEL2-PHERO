@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import { UserServices } from "../services/user.services";
-
 const createUserController = async (req: Request, res: Response) => {
   try {
     const userData = req.body;

@@ -8,19 +8,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const app_1 = __importDefault(require("./app"));
-const config_1 = __importDefault(require("./config"));
-const mongoose_1 = __importDefault(require("mongoose"));
-function server() {
-    return __awaiter(this, void 0, void 0, function* () {
-        app_1.default.listen(config_1.default.port, () => {
-            mongoose_1.default.connect(config_1.default.database_url_local);
-            console.log(`Example app listening on port ${config_1.default.port}`);
-        });
-    });
-}
-server().catch((err) => console.log(err));
+exports.CatServices = void 0;
+const cat_model_1 = require("../model/cat.model");
+const createCat = (catData) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield cat_model_1.Cat.create(catData);
+    return result;
+});
+exports.CatServices = { createCat };
