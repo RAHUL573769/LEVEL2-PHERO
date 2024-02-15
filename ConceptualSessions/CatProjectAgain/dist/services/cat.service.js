@@ -15,4 +15,13 @@ const createCat = (catData) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield cat_model_1.Cat.create(catData);
     return result;
 });
-exports.CatServices = { createCat };
+const findCat = () => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield cat_model_1.Cat.find();
+    return result;
+});
+const findSingleCat = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    // console.log(Cat.isCatExists("2"));
+    const result = yield cat_model_1.Cat.findById(id);
+    return result;
+});
+exports.CatServices = { createCat, findCat, findSingleCat };

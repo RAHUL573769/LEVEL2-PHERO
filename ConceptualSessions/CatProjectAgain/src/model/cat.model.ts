@@ -1,7 +1,7 @@
 import { Schema, model } from "mongoose";
-import { ICat } from "../interface/cat.interface";
+import { CatModel, ICat, ICatStaticMethods } from "../interface/cat.interface";
 
-const catSchema = new Schema<ICat>({
+const catSchema = new Schema<ICat, ICatStaticMethods>({
   id: {
     type: Number,
     required: true,
@@ -22,4 +22,11 @@ const catSchema = new Schema<ICat>({
   }
 });
 
-export const Cat = model<ICat>("Cat", catSchema);
+//instance method
+
+catSchema.statics.isCatExists = async function (id: string) {
+  const existingCat = await Cat.findOne({ id });
+  console.log(existingCat);
+  return existingCat;
+};
+export const Cat = model<ICat, ICatStaticMethods>("Cat", catSchema);
