@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-import { CatModel, ICat, ICatStaticMethods } from "../interface/cat.interface";
+import { ICat, ICatStaticMethods } from "../interface/cat.interface";
 
 const catSchema = new Schema<ICat, ICatStaticMethods>({
   id: {

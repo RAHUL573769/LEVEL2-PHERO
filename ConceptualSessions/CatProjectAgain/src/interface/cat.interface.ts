@@ -13,4 +13,8 @@ export interface ICatStaticMethods extends Model<ICat> {
   isCatExists(id: string): Promise<ICat | null | boolean>;
 }
 
-export type CatModel = Model<ICat, ICatStaticMethods>;
+export interface ICatStaticMethodNew extends Model<ICat> {
+  isCatId(id: string): Promise<ICat | null | boolean>;
+}
+
+// export type CatModel = Model<ICat, ICatStaticMethods>;
