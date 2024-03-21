@@ -28,7 +28,7 @@ SELECT * from persons;
 alter TABLE persons 
 add COLUMN newcolum VARCHAR(59) 
 
-SELECT * from persons;
+SELECT * from persons ;
 
 
 alter TABLE persons 
@@ -42,6 +42,10 @@ alter table persons
 
 alter table persons
 add CONSTRAINT 
+
+SELECT upper(name1) as capitalname from persons;
+
+SELECT concat(name1,'  ',profession) as ConcatedName from persons;
 
 
 
