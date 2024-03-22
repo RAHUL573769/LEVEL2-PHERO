@@ -8,7 +8,8 @@
   "license": "ISC",
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
-    "dev1": "ts-node-dev --respawn --transpile-only src/find.ts"
+    "dev1": "ts-node-dev --respawn --transpile-only src/find.ts",
+    "dev2": "ts-node-dev --respawn --transpile-only src/createmany.ts"
   },
   "devDependencies": {
     "@types/node": "^20.11.30",

@@ -12,9 +12,24 @@ const main = async () => {
       id: 2
     }
   });
+
+  const findFastThrow = await prisma.post.findFirstOrThrow({
+    where: {
+      id: 20
+    }
+  });
+
+  const findFastUnique = await prisma.post.findUniqueOrThrow({
+    where: {
+      id: 1
+    }
+  });
   //   console.log(getAllDataFromDb);
 
-  console.log(findFast);
+  //   console.log(findFast);
+  console.log(findFastUnique);
+
+  //   console.log(findFastThrow);
 };
 
 main();
