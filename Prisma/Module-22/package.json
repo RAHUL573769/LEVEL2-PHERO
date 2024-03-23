@@ -9,7 +9,9 @@
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
     "dev1": "ts-node-dev --respawn --transpile-only src/find.ts",
-    "dev2": "ts-node-dev --respawn --transpile-only src/createmany.ts"
+    "dev2": "ts-node-dev --respawn --transpile-only src/createmany.ts",
+    "dev3": "ts-node-dev --respawn --transpile-only src/updates.ts",
+    "dev4": "ts-node-dev --respawn --transpile-only src/delete.ts"
   },
   "devDependencies": {
     "@types/node": "^20.11.30",
