@@ -7,7 +7,7 @@ export const globalErrorHandler = (
   next: NextFunction
 ) => {
   let message = "Error From Global Error Handler";
-  let error = err.message;
+  let error = err.message || "eRROR";
   let statusCode = 404;
   res.status(statusCode).json({
     message: message,

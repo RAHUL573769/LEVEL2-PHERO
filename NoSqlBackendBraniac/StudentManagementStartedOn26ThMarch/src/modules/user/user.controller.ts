@@ -2,13 +2,18 @@ import { NextFunction, Request, Response } from "express";
 import { UserService } from "./user.services";
 import { successResponse1 } from "../../utils/sendRespons";
 import httpStatus from "http-status";
+import { catchAsync } from "../../utils/catchAsync";
 
-const createStudent = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
+// const catchAsync = (fn: any) => {
+//   return (req: Request, res: Response, next: NextFunction) => {
+//     Promise.resolve(fn(req, res, next)).catch((error) => {
+//       next(error);
+//     });
+//   };
+// };
+
+const createStudent = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
     const { password, student: studentData } = req.body;
     const result = await UserService.createIntoDb(password, studentData);
 
@@ -20,10 +25,8 @@ const createStudent = async (
       data: result,
       status: "Success"
     });
-  } catch (error) {
-    next(error);
   }
-};
+);
 
 export const UserControllers = {
   createStudent

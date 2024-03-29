@@ -30,7 +30,7 @@ const createIntoDb = (password, studentData) => __awaiter(void 0, void 0, void 0
     //set student role
     userData.role = "student";
     //manually genertated id
-    userData.id = "2030353";
+    userData.id = "20r30353";
     const result = yield user_model_1.User.create(userData);
     if (Object.keys(result).length) {
         studentData.id = result.id;

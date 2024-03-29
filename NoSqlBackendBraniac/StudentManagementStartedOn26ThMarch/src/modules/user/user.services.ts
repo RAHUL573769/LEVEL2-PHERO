@@ -26,7 +26,7 @@ const createIntoDb = async (password: string, studentData: TStudent) => {
   userData.role = "student";
   //manually genertated id
 
-  userData.id = "2030353";
+  userData.id = "20r30353";
   const result = await User.create(userData);
   if (Object.keys(result).length) {
     studentData.id = result.id;

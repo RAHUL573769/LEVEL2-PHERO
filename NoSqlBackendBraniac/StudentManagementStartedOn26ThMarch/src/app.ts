@@ -3,13 +3,14 @@ import cors from "cors";
 import { UserRoute } from "./modules/user/user.route";
 import { globalErrorHandler } from "./ErrorHandlers/globalErrorHandler";
 import { notFound } from "./middlewares/notFound";
+import globalRouter from "./utils";
 const app: Application = express();
 
 app.use(cors());
 app.use(express.json());
-app.use("/api/v1/users", UserRoute);
+app.use("/api/v1", globalRouter);
 //no Found
-app.use(notFound);
+
 //global error handler
 
 app.use(globalErrorHandler);
@@ -17,5 +18,5 @@ app.use(globalErrorHandler);
 app.get("/", (req: Request, res: Response) => {
   res.send("Hello World!");
 });
-
+app.use(notFound);
 export default app;

@@ -16,22 +16,25 @@ exports.UserControllers = void 0;
 const user_services_1 = require("./user.services");
 const sendRespons_1 = require("../../utils/sendRespons");
 const http_status_1 = __importDefault(require("http-status"));
-const createStudent = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const { password, student: studentData } = req.body;
-        const result = yield user_services_1.UserService.createIntoDb(password, studentData);
-        console.log("From User Controller Line 9", req.body);
-        (0, sendRespons_1.successResponse1)(res, {
-            message: "Student Data Created Succesfully",
-            statusCode: http_status_1.default.CREATED,
-            data: result,
-            status: "Success"
-        });
-    }
-    catch (error) {
-        next(error);
-    }
-});
+const catchAsync_1 = require("../../utils/catchAsync");
+// const catchAsync = (fn: any) => {
+//   return (req: Request, res: Response, next: NextFunction) => {
+//     Promise.resolve(fn(req, res, next)).catch((error) => {
+//       next(error);
+//     });
+//   };
+// };
+const createStudent = (0, catchAsync_1.catchAsync)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const { password, student: studentData } = req.body;
+    const result = yield user_services_1.UserService.createIntoDb(password, studentData);
+    console.log("From User Controller Line 9", req.body);
+    (0, sendRespons_1.successResponse1)(res, {
+        message: "Student Data Created Succesfully",
+        statusCode: http_status_1.default.CREATED,
+        data: result,
+        status: "Success"
+    });
+}));
 exports.UserControllers = {
     createStudent
 };
