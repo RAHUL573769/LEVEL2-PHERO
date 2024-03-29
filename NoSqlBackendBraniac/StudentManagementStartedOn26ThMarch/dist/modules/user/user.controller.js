@@ -9,12 +9,23 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.UserControllers = void 0;
+const user_services_1 = require("./user.services");
 const createStudent = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { student: studentData } = req.body;
-        console.log(req.body);
+        const { password, student: studentData } = req.body;
+        const result = yield user_services_1.UserService.createIntoDb(password, studentData);
+        console.log("From User Controller Line 9", req.body);
+        res.status(200).json({
+            success: true,
+            message: "Student Data is Created",
+            data: result
+        });
     }
     catch (error) {
         console.log(error);
     }
 });
+exports.UserControllers = {
+    createStudent
+};

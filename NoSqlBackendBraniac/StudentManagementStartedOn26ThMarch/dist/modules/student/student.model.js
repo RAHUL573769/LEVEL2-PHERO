@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Student = void 0;
 const mongoose_1 = require("mongoose");
 const student_utils_1 = require("./student.utils");
 const studentSchema = new mongoose_1.Schema({
@@ -50,7 +51,7 @@ const studentSchema = new mongoose_1.Schema({
     },
     permanentAddress: {
         type: String,
-        required: [true, "Permanen,t address is required"]
+        required: [true, "Permanent address is required"]
     },
     guardian: {
         type: student_utils_1.guardianSchema,
@@ -74,3 +75,4 @@ const studentSchema = new mongoose_1.Schema({
         virtuals: true
     }
 });
+exports.Student = (0, mongoose_1.model)("Student", studentSchema);

@@ -1,4 +1,4 @@
-import { Schema } from "mongoose";
+import { model, Schema } from "mongoose";
 import {
   guardianSchema,
   localGuradianSchema,
@@ -58,7 +58,7 @@ const studentSchema = new Schema<TStudent>(
     },
     permanentAddress: {
       type: String,
-      required: [true, "Permanen,t address is required"]
+      required: [true, "Permanent address is required"]
     },
     guardian: {
       type: guardianSchema,
@@ -84,3 +84,5 @@ const studentSchema = new Schema<TStudent>(
     }
   }
 );
+
+export const Student = model<TStudent>("Student", studentSchema);

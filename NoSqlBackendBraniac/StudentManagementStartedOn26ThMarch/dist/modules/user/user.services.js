@@ -10,7 +10,36 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserService = void 0;
-const createIntoDb = () => __awaiter(void 0, void 0, void 0, function* () { });
+const student_model_1 = require("../student/student.model");
+const user_model_1 = require("./user.model");
+const createIntoDb = (password, studentData) => __awaiter(void 0, void 0, void 0, function* () {
+    //create a user object
+    // const userData: NewUser = {
+    //   role: "",
+    //   password: "",
+    //   id: ""
+    // };
+    const userData = {};
+    //if password not given Use default password
+    if (!password) {
+        password = "Default Password";
+    }
+    else {
+        userData.password = password;
+    }
+    //set student role
+    userData.role = "student";
+    //manually genertated id
+    userData.id = "2030353";
+    const result = yield user_model_1.User.create(userData);
+    if (Object.keys(result).length) {
+        studentData.id = result.id;
+        studentData.user = result._id;
+        const newStudent = yield student_model_1.Student.create(studentData);
+        return newStudent;
+    }
+    return result;
+});
 exports.UserService = {
     createIntoDb
 };
