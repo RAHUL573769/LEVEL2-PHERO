@@ -5,7 +5,8 @@ const mongoose_1 = require("mongoose");
 const userSchema = new mongoose_1.Schema({
     id: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     password: {
         type: String,

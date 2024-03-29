@@ -29,7 +29,7 @@ const createStudent = (0, catchAsync_1.catchAsync)((req, res, next) => __awaiter
     const result = yield user_services_1.UserService.createIntoDb(password, studentData);
     console.log("From User Controller Line 9", req.body);
     (0, sendRespons_1.successResponse1)(res, {
-        message: "Student Data Created Succesfully",
+        message: "Student Data Created Successfully",
         statusCode: http_status_1.default.CREATED,
         data: result,
         status: "Success"

@@ -20,7 +20,7 @@ const createStudent = catchAsync(
     console.log("From User Controller Line 9", req.body);
 
     successResponse1(res, {
-      message: "Student Data Created Succesfully",
+      message: "Student Data Created Successfully",
       statusCode: httpStatus.CREATED,
       data: result,
       status: "Success"

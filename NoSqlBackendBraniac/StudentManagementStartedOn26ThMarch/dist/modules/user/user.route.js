@@ -7,5 +7,18 @@ exports.UserRoute = void 0;
 const express_1 = __importDefault(require("express"));
 const user_controller_1 = require("./user.controller");
 const router = express_1.default.Router();
-router.post("/create-student", user_controller_1.UserControllers.createStudent);
+// const validateMiddleWare = (schema: ZodSchema) => {
+//   return async (req: Request, res: Response, next: NextFunction) => {
+//     validations
+//     try {
+//       const zodParsedData = await schema.parseAsync(req.body);
+//     } catch (error) {
+//       next(error);
+//       console.log(error);
+//     }
+//   };
+// };
+router.post("/create-student", 
+//   validateMiddleWare(UserValidation.userSchema),
+user_controller_1.UserControllers.createStudent);
 exports.UserRoute = router;
