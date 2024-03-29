@@ -8,22 +8,28 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserControllers = void 0;
 const user_services_1 = require("./user.services");
-const createStudent = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const sendRespons_1 = require("../../utils/sendRespons");
+const http_status_1 = __importDefault(require("http-status"));
+const createStudent = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { password, student: studentData } = req.body;
         const result = yield user_services_1.UserService.createIntoDb(password, studentData);
         console.log("From User Controller Line 9", req.body);
-        res.status(200).json({
-            success: true,
-            message: "Student Data is Created",
-            data: result
+        (0, sendRespons_1.successResponse1)(res, {
+            message: "Student Data Created Succesfully",
+            statusCode: http_status_1.default.CREATED,
+            data: result,
+            status: "Success"
         });
     }
     catch (error) {
-        console.log(error);
+        next(error);
     }
 });
 exports.UserControllers = {
