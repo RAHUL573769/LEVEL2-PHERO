@@ -10,7 +10,7 @@ const academicSemesterSchema = new mongoose_1.Schema({
         enum: admission_Semester_utils_1.AcademicSemesterName
     },
     year: {
-        type: Date
+        type: String
     },
     code: {
         type: String,

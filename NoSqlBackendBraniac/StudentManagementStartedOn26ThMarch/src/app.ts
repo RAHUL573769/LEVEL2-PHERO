@@ -1,6 +1,5 @@
 import express, { Application, NextFunction, Request, Response } from "express";
 import cors from "cors";
-import { UserRoute } from "./modules/user/user.route";
 import { globalErrorHandler } from "./ErrorHandlers/globalErrorHandler";
 import { notFound } from "./middlewares/notFound";
 import globalRouter from "./utils";

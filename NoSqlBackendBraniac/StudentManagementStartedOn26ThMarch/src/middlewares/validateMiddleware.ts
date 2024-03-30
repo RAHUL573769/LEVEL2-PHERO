@@ -6,7 +6,8 @@ export const validateMiddleWare = (schema: ZodSchema) => {
     //validations
 
     try {
-      const zodParsedData = await schema.parseAsync(req.body);
+      const zodParsedData = await schema.parseAsync({ body: req.body });
+      next();
     } catch (error) {
       next(error);
       console.log(error);

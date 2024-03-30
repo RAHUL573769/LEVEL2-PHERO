@@ -14,7 +14,8 @@ const validateMiddleWare = (schema) => {
     return (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
         //validations
         try {
-            const zodParsedData = yield schema.parseAsync(req.body);
+            const zodParsedData = yield schema.parseAsync({ body: req.body });
+            next();
         }
         catch (error) {
             next(error);

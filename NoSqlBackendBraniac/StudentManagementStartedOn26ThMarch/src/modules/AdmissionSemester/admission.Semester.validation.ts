@@ -1,8 +1,18 @@
 import z from "zod";
-const academicSemesterValidation = z.object({
+import {
+  AcademicSemesterCodes,
+  AcademicSemesterName,
+  Month
+} from "./admission.Semester.utils";
+const createAcademicSemesterValidation = z.object({
   body: z.object({
-    name: z.string()
+    name: z.enum([...AcademicSemesterName] as [string, ...string[]]),
+    year: z.string(),
+
+    code: z.enum([...AcademicSemesterCodes] as [string, ...string[]]),
+    startMonth: z.enum([...Month] as [string, ...string[]]),
+    endMonth: z.enum([...Month] as [string, ...string[]])
   })
 });
 
-export const AcademicSemesterValidation = academicSemesterValidation;
+export const AcademicSemesterValidation = { createAcademicSemesterValidation };
