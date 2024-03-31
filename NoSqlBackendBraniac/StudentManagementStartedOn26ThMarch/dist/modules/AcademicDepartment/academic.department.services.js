@@ -12,11 +12,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AcademicDepartmentServices = void 0;
 const academic_department_model_1 = require("./academic.department.model");
 const createAcademicDepartment = (payload) => __awaiter(void 0, void 0, void 0, function* () {
+    //   const isAcademicDepartmentExists = await AcademicDepartment.findOne({
+    //     name: payload.name
+    //   });
+    //   if (isAcademicDepartmentExists) {
+    //     throw new Error("Academic Ddeaprtment Exists");
+    //   }
     const result = yield academic_department_model_1.AcademicDepartment.create(payload);
     return result;
 });
 const getAcademicDepartment = () => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield academic_department_model_1.AcademicDepartment.find();
+    const result = yield academic_department_model_1.AcademicDepartment.find().populate("academicFaculty");
     return result;
 });
 const getSingleAcademicDepartment = (id) => __awaiter(void 0, void 0, void 0, function* () {

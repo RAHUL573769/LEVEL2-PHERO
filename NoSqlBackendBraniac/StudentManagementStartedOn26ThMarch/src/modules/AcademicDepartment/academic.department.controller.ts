@@ -47,7 +47,8 @@ const getSingleAcademicDepartment = catchAsync(
 
 const updateAcademicDepartment = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const id = req.params.id;
+    const id = req.params.departmentIdId;
+    // console.log("id", req.params);
     const result = await AcademicDepartmentServices.updateAcademicDepartment(
       id,
       req.body

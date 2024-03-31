@@ -2,12 +2,19 @@ import { TAcademicDepartment } from "./academic.department.interface";
 import { AcademicDepartment } from "./academic.department.model";
 
 const createAcademicDepartment = async (payload: TAcademicDepartment) => {
+  //   const isAcademicDepartmentExists = await AcademicDepartment.findOne({
+  //     name: payload.name
+  //   });
+
+  //   if (isAcademicDepartmentExists) {
+  //     throw new Error("Academic Ddeaprtment Exists");
+  //   }
   const result = await AcademicDepartment.create(payload);
   return result;
 };
 
 const getAcademicDepartment = async () => {
-  const result = await AcademicDepartment.find();
+  const result = await AcademicDepartment.find().populate("academicFaculty");
   return result;
 };
 const getSingleAcademicDepartment = async (id: string) => {

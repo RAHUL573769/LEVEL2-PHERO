@@ -46,7 +46,8 @@ const getSingleAcademicDepartment = (0, catchAsync_1.catchAsync)((req, res, next
     });
 }));
 const updateAcademicDepartment = (0, catchAsync_1.catchAsync)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const id = req.params.id;
+    const id = req.params.departmentIdId;
+    // console.log("id", req.params);
     const result = yield academic_department_services_1.AcademicDepartmentServices.updateAcademicDepartment(id, req.body);
     (0, sendRespons_1.successResponse1)(res, {
         message: " Academic Department Updated Successfully",
