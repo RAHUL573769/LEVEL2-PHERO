@@ -23,25 +23,25 @@ const academicDepartmentSchema = new mongoose_1.Schema({
 }, {
     timestamps: true
 });
-class AppError extends Error {
-    constructor(statusCode, message, stack = "") {
-        super(message);
-        this.statusCode = statusCode;
-        if (stack) {
-            this.stack = stack;
-        }
-        else {
-            Error.captureStackTrace(this, this.constructor);
-        }
-    }
-}
+// class AppError extends Error {
+//   public statusCode: number;
+//   constructor(statusCode: number, message: string, stack = "") {
+//     super(message);
+//     this.statusCode = statusCode;
+//     if (stack) {
+//       this.stack = stack;
+//     } else {
+//       Error.captureStackTrace(this, this.constructor);
+//     }
+//   }
+// }
 academicDepartmentSchema.pre("save", function (next) {
     return __awaiter(this, void 0, void 0, function* () {
         const isAcademicDepartmentExists = yield exports.AcademicDepartment.findOne({
             name: this.name
         });
-        if (!isAcademicDepartmentExists) {
-            throw new AppError(204, "Academic Department Exists");
+        if (isAcademicDepartmentExists) {
+            throw new Error("Academic Department Exists");
         }
         next();
     });
@@ -51,7 +51,7 @@ academicDepartmentSchema.pre("findOneAndUpdate", function (next) {
         const query = this.getQuery();
         const isDepartmentExists = yield exports.AcademicDepartment.findOne(query);
         if (!isDepartmentExists) {
-            throw new Error("This Department Not Exists");
+            throw new Error("This Department Does Not Exists");
         }
         next();
         //   console.log(query);

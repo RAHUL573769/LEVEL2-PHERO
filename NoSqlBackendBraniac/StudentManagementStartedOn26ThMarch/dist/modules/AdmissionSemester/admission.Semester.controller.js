@@ -21,7 +21,7 @@ const createAcademicSemester = (0, catchAsync_1.catchAsync)((req, res, next) => 
     const result = yield admission_Semester_services_1.AcademicSemesterServices.createAcademicSemesterintoDb(req.body);
     (0, sendRespons_1.successResponse1)(res, {
         message: "AcademicSemester Created Successfully",
-        statusCode: http_status_1.default.CREATED,
+        statusCode: 202,
         data: result,
         status: "Success"
     });

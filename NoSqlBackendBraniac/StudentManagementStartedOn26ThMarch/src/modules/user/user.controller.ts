@@ -17,11 +17,11 @@ const createStudent = catchAsync(
     const { password, student: studentData } = req.body;
     const result = await UserService.createIntoDb(password, studentData);
 
-    console.log("From User Controller Line 9", req.body);
+    console.log("From User Controller Line 9", result);
 
     successResponse1(res, {
       message: "Student Data Created Successfully",
-      statusCode: httpStatus.CREATED,
+      statusCode: 202,
       data: result,
       status: "Success"
     });

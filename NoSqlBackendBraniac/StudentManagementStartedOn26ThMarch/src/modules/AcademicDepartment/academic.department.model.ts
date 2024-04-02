@@ -18,26 +18,26 @@ const academicDepartmentSchema = new Schema<TAcademicDepartment>(
   }
 );
 
-class AppError extends Error {
-  public statusCode: number;
-  constructor(statusCode: number, message: string, stack = "") {
-    super(message);
-    this.statusCode = statusCode;
-    if (stack) {
-      this.stack = stack;
-    } else {
-      Error.captureStackTrace(this, this.constructor);
-    }
-  }
-}
+// class AppError extends Error {
+//   public statusCode: number;
+//   constructor(statusCode: number, message: string, stack = "") {
+//     super(message);
+//     this.statusCode = statusCode;
+//     if (stack) {
+//       this.stack = stack;
+//     } else {
+//       Error.captureStackTrace(this, this.constructor);
+//     }
+//   }
+// }
 
 academicDepartmentSchema.pre("save", async function (next) {
   const isAcademicDepartmentExists = await AcademicDepartment.findOne({
     name: this.name
   });
 
-  if (!isAcademicDepartmentExists) {
-    throw new AppError(204, "Academic Department Exists");
+  if (isAcademicDepartmentExists) {
+    throw new Error("Academic Department Exists");
   }
   next();
 });
@@ -47,7 +47,7 @@ academicDepartmentSchema.pre("findOneAndUpdate", async function (next) {
   const isDepartmentExists = await AcademicDepartment.findOne(query);
 
   if (!isDepartmentExists) {
-    throw new Error("This Department Not Exists");
+    throw new Error("This Department Does Not Exists");
   }
   next();
 

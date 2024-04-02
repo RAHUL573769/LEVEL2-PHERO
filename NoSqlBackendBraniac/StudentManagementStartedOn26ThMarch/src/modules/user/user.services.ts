@@ -37,8 +37,7 @@ const createIntoDb = async (password: string, studentData: TStudent) => {
   const admissionSemester = await AcademicSemester.findById(
     studentData.admissionSemester
   );
-
-  //find academic semester data from student collection
+  //transaction and roll  back
 
   userData.id = await generateStudentId(admissionSemester as TAcademicSemester);
 
@@ -51,6 +50,10 @@ const createIntoDb = async (password: string, studentData: TStudent) => {
     return newStudent;
   }
   return result;
+
+  //end of transaction and roll  back
+
+  //find academic semester data from student collection
 };
 
 export const UserService = {

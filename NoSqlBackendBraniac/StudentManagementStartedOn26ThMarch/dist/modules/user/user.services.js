@@ -37,7 +37,7 @@ const createIntoDb = (password, studentData) => __awaiter(void 0, void 0, void 0
     // userData.id = "20r30353";
     //find academic semester data from student collection
     const admissionSemester = yield admission_Semester_model_1.AcademicSemester.findById(studentData.admissionSemester);
-    //find academic semester data from student collection
+    //transaction and roll  back
     userData.id = yield (0, user_utils_1.generateStudentId)(admissionSemester);
     const result = yield user_model_1.User.create(userData);
     if (Object.keys(result).length) {
@@ -47,6 +47,8 @@ const createIntoDb = (password, studentData) => __awaiter(void 0, void 0, void 0
         return newStudent;
     }
     return result;
+    //end of transaction and roll  back
+    //find academic semester data from student collection
 });
 exports.UserService = {
     createIntoDb

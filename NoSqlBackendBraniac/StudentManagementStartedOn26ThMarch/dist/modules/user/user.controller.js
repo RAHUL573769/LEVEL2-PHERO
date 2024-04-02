@@ -8,14 +8,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserControllers = void 0;
 const user_services_1 = require("./user.services");
 const sendRespons_1 = require("../../utils/sendRespons");
-const http_status_1 = __importDefault(require("http-status"));
 const catchAsync_1 = require("../../utils/catchAsync");
 // const catchAsync = (fn: any) => {
 //   return (req: Request, res: Response, next: NextFunction) => {
@@ -27,10 +23,10 @@ const catchAsync_1 = require("../../utils/catchAsync");
 const createStudent = (0, catchAsync_1.catchAsync)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { password, student: studentData } = req.body;
     const result = yield user_services_1.UserService.createIntoDb(password, studentData);
-    console.log("From User Controller Line 9", req.body);
+    console.log("From User Controller Line 9", result);
     (0, sendRespons_1.successResponse1)(res, {
         message: "Student Data Created Successfully",
-        statusCode: http_status_1.default.CREATED,
+        statusCode: 202,
         data: result,
         status: "Success"
     });
