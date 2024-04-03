@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AcademicSemesterServices = void 0;
 const admission_Semester_model_1 = require("./admission.Semester.model");
 const createAcademicSemesterintoDb = (payload) => __awaiter(void 0, void 0, void 0, function* () {
-    //semster name====>semster code
+    //semester name====>semster code
     const academicSemesterNameCodeMapper = {
         Autumn: "01",
         Summar: "02",

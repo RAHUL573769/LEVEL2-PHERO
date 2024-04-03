@@ -2,7 +2,7 @@ import { TAcademicSemester } from "./admission.Semester.interface";
 import { AcademicSemester } from "./admission.Semester.model";
 
 const createAcademicSemesterintoDb = async (payload: TAcademicSemester) => {
-  //semster name====>semster code
+  //semester name====>semster code
 
   type TAcademicSemesterNameCodeMapper = {
     [key: string]: string;

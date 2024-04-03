@@ -37,6 +37,7 @@ const generateStudentId = (payload) => __awaiter(void 0, void 0, void 0, functio
     const lastSemesterCode = lastStudentId === null || lastStudentId === void 0 ? void 0 : lastStudentId.substring(4, 6); //01
     const lastStudentYear = lastStudentId === null || lastStudentId === void 0 ? void 0 : lastStudentId.substring(0, 4);
     const currentSemesterCode = payload.code;
+    console.log(currentSemesterCode);
     const currentYear = payload.year;
     if (lastStudentId &&
         lastSemesterCode === currentSemesterCode &&
