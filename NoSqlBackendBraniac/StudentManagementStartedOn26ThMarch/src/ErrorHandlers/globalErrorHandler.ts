@@ -1,9 +1,4 @@
-import e, {
-  ErrorRequestHandler,
-  NextFunction,
-  Request,
-  Response
-} from "express";
+import { ErrorRequestHandler, NextFunction, Request, Response } from "express";
 import mongoose from "mongoose";
 import { TErrorResponse } from "../utils/errorType";
 import httpStatus from "http-status";

@@ -1,7 +1,8 @@
 export type TErrorResponse = {
+  message: string;
+
   statusCode: number;
   status: string;
-  message: string;
   issues: [
     {
       path: string;
