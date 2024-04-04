@@ -6,6 +6,8 @@ import mongoose from "mongoose";
 import { handleCastError } from "./handleCastError";
 import { AppError } from "../classes/AppError";
 import { handleGenericError } from "./handleGenericError";
+import { ZodError } from "zod";
+import { handleZodError } from "./handleZodError";
 
 export const errorPreprocessor = (err: any): TErrorResponse => {
   let errorResponse: TErrorResponse = {
@@ -68,6 +70,9 @@ export const errorPreprocessor = (err: any): TErrorResponse => {
     //   }
     // ];
     errorResponse = handleCastError(err);
+    return errorResponse;
+  } else if (err && err instanceof ZodError) {
+    errorResponse = handleZodError(err);
     return errorResponse;
   } else {
     // errorResponse.statusCode = 400;

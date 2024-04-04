@@ -3,6 +3,7 @@ import { UserControllers } from "./user.controller";
 import { ZodSchema } from "zod";
 import { UserValidation } from "./user.validations";
 import { validateMiddleWare } from "../../middlewares/validateMiddleware";
+import { StudentValidations } from "../student/student.validations";
 const router = express.Router();
 
 // const validateMiddleWare = (schema: ZodSchema) => {
@@ -19,8 +20,8 @@ const router = express.Router();
 // };
 
 router.post(
-  "/create-student",
-  //   validateMiddleWare(UserValidation.userSchema),
+  "/create-student", // validateMiddleWare(UserValidation.userSchema),
+  validateMiddleWare(StudentValidations.createStudentValidation),
   UserControllers.createStudent
 );
 

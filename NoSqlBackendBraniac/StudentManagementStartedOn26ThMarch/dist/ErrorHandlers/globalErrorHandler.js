@@ -80,6 +80,7 @@ const globalErrorHandler = (err, req, res, next) => {
         message: errorResponse.message,
         status: errorResponse.status,
         issues: errorResponse.issues,
+        // err,
         stack: config_1.default.node_env === "developement" ? err.stack : "undefined"
         // err
     });

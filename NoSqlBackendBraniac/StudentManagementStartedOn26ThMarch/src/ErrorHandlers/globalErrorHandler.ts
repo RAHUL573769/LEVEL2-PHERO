@@ -105,6 +105,7 @@ export const globalErrorHandler: ErrorRequestHandler = (
 
     status: errorResponse.status,
     issues: errorResponse.issues,
+    // err,
     stack: config.node_env === "developement" ? err.stack : "undefined"
     // err
   });

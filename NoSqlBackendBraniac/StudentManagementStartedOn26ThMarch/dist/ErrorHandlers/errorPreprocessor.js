@@ -10,6 +10,8 @@ const handleDuplicateError_1 = require("./handleDuplicateError");
 const mongoose_1 = __importDefault(require("mongoose"));
 const handleCastError_1 = require("./handleCastError");
 const handleGenericError_1 = require("./handleGenericError");
+const zod_1 = require("zod");
+const handleZodError_1 = require("./handleZodError");
 const errorPreprocessor = (err) => {
     let errorResponse = {
         message: "Validation Error",
@@ -66,6 +68,10 @@ const errorPreprocessor = (err) => {
         //   }
         // ];
         errorResponse = (0, handleCastError_1.handleCastError)(err);
+        return errorResponse;
+    }
+    else if (err && err instanceof zod_1.ZodError) {
+        errorResponse = (0, handleZodError_1.handleZodError)(err);
         return errorResponse;
     }
     else {

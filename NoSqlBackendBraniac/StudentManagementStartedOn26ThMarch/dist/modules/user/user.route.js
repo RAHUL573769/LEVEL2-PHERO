@@ -6,6 +6,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserRoute = void 0;
 const express_1 = __importDefault(require("express"));
 const user_controller_1 = require("./user.controller");
+const validateMiddleware_1 = require("../../middlewares/validateMiddleware");
+const student_validations_1 = require("../student/student.validations");
 const router = express_1.default.Router();
 // const validateMiddleWare = (schema: ZodSchema) => {
 //   return async (req: Request, res: Response, next: NextFunction) => {
@@ -18,7 +20,6 @@ const router = express_1.default.Router();
 //     }
 //   };
 // };
-router.post("/create-student", 
-//   validateMiddleWare(UserValidation.userSchema),
-user_controller_1.UserControllers.createStudent);
+router.post("/create-student", // validateMiddleWare(UserValidation.userSchema),
+(0, validateMiddleware_1.validateMiddleWare)(student_validations_1.StudentValidations.createStudentValidation), user_controller_1.UserControllers.createStudent);
 exports.UserRoute = router;
