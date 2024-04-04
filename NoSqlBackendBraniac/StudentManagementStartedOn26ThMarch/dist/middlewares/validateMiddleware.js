@@ -15,6 +15,7 @@ const validateMiddleWare = (schema) => {
         //validations
         try {
             const zodParsedData = yield schema.parseAsync({ body: req.body });
+            console.log("Zod Parsed Data", zodParsedData);
             next();
         }
         catch (error) {

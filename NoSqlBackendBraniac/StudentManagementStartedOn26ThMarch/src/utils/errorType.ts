@@ -3,10 +3,10 @@ export type TErrorResponse = {
 
   statusCode: number;
   status: string;
-  issues: [
-    {
-      path: string;
-      message: string;
-    }
-  ];
+  issues: TErrorIssues[];
+};
+
+export type TErrorIssues = {
+  path: string;
+  message: string;
 };

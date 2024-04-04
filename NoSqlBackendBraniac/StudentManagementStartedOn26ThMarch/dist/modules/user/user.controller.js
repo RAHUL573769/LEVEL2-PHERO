@@ -13,6 +13,7 @@ exports.UserControllers = void 0;
 const user_services_1 = require("./user.services");
 const sendRespons_1 = require("../../utils/sendRespons");
 const catchAsync_1 = require("../../utils/catchAsync");
+const AppError_1 = require("../../classes/AppError");
 // const catchAsync = (fn: any) => {
 //   return (req: Request, res: Response, next: NextFunction) => {
 //     Promise.resolve(fn(req, res, next)).catch((error) => {
@@ -22,6 +23,7 @@ const catchAsync_1 = require("../../utils/catchAsync");
 // };
 const createStudent = (0, catchAsync_1.catchAsync)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { password, student: studentData } = req.body;
+    throw new AppError_1.AppError("Vua Throwed", 403);
     const result = yield user_services_1.UserService.createIntoDb(password, studentData);
     console.log("From User Controller Line 9", result);
     (0, sendRespons_1.successResponse1)(res, {

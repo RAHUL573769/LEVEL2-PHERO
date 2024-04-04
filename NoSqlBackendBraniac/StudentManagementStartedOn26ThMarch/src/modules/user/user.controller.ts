@@ -3,6 +3,7 @@ import { UserService } from "./user.services";
 import { successResponse1 } from "../../utils/sendRespons";
 import httpStatus from "http-status";
 import { catchAsync } from "../../utils/catchAsync";
+import { AppError } from "../../classes/AppError";
 
 // const catchAsync = (fn: any) => {
 //   return (req: Request, res: Response, next: NextFunction) => {
@@ -15,6 +16,8 @@ import { catchAsync } from "../../utils/catchAsync";
 const createStudent = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { password, student: studentData } = req.body;
+
+    throw new AppError("Vua Throwed", 403);
     const result = await UserService.createIntoDb(password, studentData);
 
     console.log("From User Controller Line 9", result);
