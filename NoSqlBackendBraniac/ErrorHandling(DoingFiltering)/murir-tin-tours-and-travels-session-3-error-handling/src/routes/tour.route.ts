@@ -1,6 +1,9 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import express from 'express'
+import express, { NextFunction, Request, Response } from 'express'
 import { tourController } from '../controllers/tour.controller'
+import { createTourZodSchema } from '../validations/tour.validation'
+import { ZodSchema } from 'zod'
 
 const router = express.Router()
 
@@ -8,9 +11,28 @@ const router = express.Router()
 //   return (req: Request, res: Response, next: NextFunction) => {
 //     Promise.resolve(fn(req, res)).catch((error: any) => next(error))
 //   }
+
 // }
 
-router.post('/create-tour', tourController.createTour)
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const validateUser = (schema: ZodSchema) => {
+  return async (req: Request, res: Response, next: NextFunction) => {
+    const validateData = await schema.parseAsync(req.body)
+
+    if (!validateData) {
+      next(validateData)
+    }
+    req.body = validateData
+    next()
+  }
+}
+router.post(
+  '/create-tour',
+  validateUser(createTourZodSchema),
+  tourController.createTour,
+)
 router.get('/', tourController.getAllTours)
 // router.get('/', catchAsyncFunction() ------> (req: Request, res: Response, next: NextFunction) => {
 //     Promise.resolve(fn(req, res)).catch((error: any) => next(error))
