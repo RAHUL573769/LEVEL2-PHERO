@@ -11,7 +11,7 @@ const tourSchema = new mongoose_1.Schema({
     name: {
         type: String,
         required: [true, 'Please tell us your name'],
-        unique: true
+        unique: true,
     },
     //indexing
     durationHours: {
@@ -36,8 +36,7 @@ const tourSchema = new mongoose_1.Schema({
     },
     images: [String],
     createdAt: {
-        type: Date,
-        default: Date.now(),
+        type: String,
     },
     startDates: [Date],
     startLocation: {
@@ -66,20 +65,6 @@ tourSchema.pre('save', function (next) {
     this.slug = (0, slugify_1.default)(this.name, { lower: true });
     next();
 });
-tourSchema.methods.getNextNearestStartDateAndEndDate = function () {
-    const today = new Date();
-    const futureDates = this.startDates.filter((startDate) => {
-        return startDate > today;
-    });
-    //   65893905746394 - 4873843278478478
-    futureDates.sort((a, b) => a.getTime() - b.getTime());
-    const nearestStartDate = futureDates[0];
-    const estimatedEndDate = new Date(nearestStartDate.getTime() + this.durationHours * 60 * 60 * 1000);
-    return {
-        nearestStartDate,
-        estimatedEndDate,
-    };
-};
 const Tour = (0, mongoose_1.model)('Tour', tourSchema);
 exports.default = Tour;
 //Fat Model Thin Controller

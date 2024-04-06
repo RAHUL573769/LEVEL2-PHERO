@@ -2,8 +2,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import express, { NextFunction, Request, Response } from 'express'
 import { tourController } from '../controllers/tour.controller'
-import { createTourZodSchema } from '../validations/tour.validation'
 import { ZodSchema } from 'zod'
+import { createTourZodSchema } from '../validations/tour.validation'
 
 const router = express.Router()
 

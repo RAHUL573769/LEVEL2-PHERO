@@ -1,6 +1,9 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { ITour } from '../interfaces/tour.interface'
 import Tour from '../models/tour.model'
+import { filter } from '../helpers/Filtering/filter'
 
 const createTour = async (tourData: any): Promise<ITour> => {
   const result = await Tour.create(tourData)
@@ -8,8 +11,61 @@ const createTour = async (tourData: any): Promise<ITour> => {
   return result
 }
 
-const getAllTours = async (): Promise<ITour[]> => {
-  const result = await Tour.find()
+export type TQueryObj = {
+  [key: string]: unknown
+  page?: string
+  limit?: string
+  searchTerm?: string
+  fields?: string
+  sortBy?: string
+  sortOrder?: string
+}
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+// const filter = <T>(modelQuery: Query<T[], T>, queryObj: TQueryObj) => {
+//   const excludeFields = [
+//     'page',
+//     'searchTerm',
+//     'limit',
+//     'sort',
+//     'sortBy',
+//     'sortOrder',
+//     'fields',
+//   ]
+//   excludeFields.forEach((keyword) => delete queryObj[keyword])
+
+//   // eslint-disable-next-line @typescript-eslint/no-unused-vars
+//   modelQuery = modelQuery.find(queryObj)
+
+//   return modelQuery
+//   // console.log('Query Obj After', queryObj)
+// }
+
+const getAllTours = async (query: TQueryObj): Promise<ITour[]> => {
+  // const queryObj = { ...query }
+
+  // console.log('Query Obj Before', queryObj)
+  // const excludeFields = [
+  //   'page',
+  //   'searchTerm',
+  //   'limit',
+  //   'sort',
+  //   'sortBy',
+  //   'sortOrder',
+  //   'fields',
+  // ]
+  // excludeFields.forEach((keyword) => delete queryObj[keyword])
+  // console.log('Query Obj After', queryObj)
+
+  // const result = await Tour.find(query)
+  // const result = await Tour.find(queryObj)
+  // const result = await filter(Tour.find(), query)
+  const modelQuery = filter(Tour.find(), query)
+  // console.log('Query', query)
+  if (query.searchTerm) {
+    modelQuery.find({ name: { $regex: query.searchTerm, $options: 'i' } })
+  }
+  const result = await modelQuery
+
   return result
 }
 

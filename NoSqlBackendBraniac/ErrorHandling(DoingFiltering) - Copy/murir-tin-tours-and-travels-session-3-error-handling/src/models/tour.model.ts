@@ -8,7 +8,7 @@ const tourSchema = new Schema<ITour, TTourModel, ITourMethods>(
     name: {
       type: String,
       required: [true, 'Please tell us your name'],
-      unique: true
+      unique: true,
     },
     //indexing
     durationHours: {
@@ -33,8 +33,7 @@ const tourSchema = new Schema<ITour, TTourModel, ITourMethods>(
     },
     images: [String],
     createdAt: {
-      type: Date,
-      default: Date.now(),
+      type: String,
     },
     startDates: [Date],
     startLocation: {
@@ -68,29 +67,6 @@ tourSchema.pre('save', function (next) {
   this.slug = slugify(this.name, { lower: true })
   next()
 })
-
-tourSchema.methods.getNextNearestStartDateAndEndDate = function (): {
-  nearestStartDate: Date | null
-  estimatedEndDate: Date | null
-} {
-  const today = new Date()
-  const futureDates = this.startDates.filter((startDate: Date) => {
-    return startDate > today
-  })
-  //   65893905746394 - 4873843278478478
-
-  futureDates.sort((a: Date, b: Date) => a.getTime() - b.getTime())
-
-  const nearestStartDate = futureDates[0]
-  const estimatedEndDate = new Date(
-    nearestStartDate.getTime() + this.durationHours * 60 * 60 * 1000,
-  )
-
-  return {
-    nearestStartDate,
-    estimatedEndDate,
-  }
-}
 
 const Tour = model<ITour, TTourModel>('Tour', tourSchema)
 

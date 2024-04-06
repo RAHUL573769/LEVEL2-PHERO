@@ -56,7 +56,7 @@ const createTour = catchAsyncFunction(async (req: Request, res: Response) => {
 // app vitore next call -> router -> controller -> response -> but error hoise -> next(error) ->
 
 const getAllTours = catchAsyncFunction(async (req: Request, res: Response) => {
-  const result = await tourServices.getAllTours()
+  const result = await tourServices.getAllTours(req.query)
   // throw new Error('Something went wrong')
   sendSuccessResponse(res, {
     statusCode: 200,
