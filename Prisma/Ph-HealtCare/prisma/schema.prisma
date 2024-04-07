@@ -6,7 +6,7 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgres"
   url      = env("DATABASE_URL")
 }
 
@@ -18,6 +18,9 @@ model User{
   role      UsersRole
 
   needsPasswordChange Boolean
+  
 }
 enum UsersRole{
-  SUPER_ADMIN}
+  SUPER_ADMIN
+  
+  }
