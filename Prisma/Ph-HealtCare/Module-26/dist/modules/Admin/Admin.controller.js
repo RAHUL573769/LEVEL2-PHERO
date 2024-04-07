@@ -9,24 +9,25 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserController = void 0;
-const user_service_1 = require("./user.service");
-const createAdminController = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+exports.AdminController = void 0;
+const Admin_services_1 = require("./Admin.services");
+const getAdminController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const query = req.query;
+    console.log(query);
+    const result = yield Admin_services_1.AdminServices.getAllFromDb(query);
     try {
-        const result = yield user_service_1.UserService.createAdmin(req.body);
-        console.log("Result", result);
         res.status(200).json({
             success: true,
             data: result,
-            message: "Admin Created Succesfully"
+            message: "Admin Data Fetched Successfully"
         });
     }
     catch (error) {
         res.status(200).json({
             success: false,
             data: error,
-            message: "Something Went Wrong"
+            message: "Some Error Found"
         });
     }
 });
-exports.UserController = { createAdminController };
+exports.AdminController = { getAdminController };

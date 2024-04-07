@@ -6,9 +6,21 @@ const createAdminController = async (
   res: Response,
   next: NextFunction
 ) => {
-  const result = await UserService.createAdmin(req.body);
-  console.log("Result", result);
-  res.send(result);
+  try {
+    const result = await UserService.createAdmin(req.body);
+    console.log("Result", result);
+    res.status(200).json({
+      success: true,
+      data: result,
+      message: "Admin Created Succesfully"
+    });
+  } catch (error) {
+    res.status(200).json({
+      success: false,
+      data: error,
+      message: "Something Went Wrong"
+    });
+  }
 };
 
 export const UserController = { createAdminController };
