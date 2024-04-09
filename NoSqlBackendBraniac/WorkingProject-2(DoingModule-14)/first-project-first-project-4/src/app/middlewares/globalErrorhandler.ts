@@ -7,6 +7,8 @@ import { NextFunction, Request, Response } from 'express';
 import { ZodError } from 'zod';
 import { TErrorIssues, TErrorSource } from '../../types/types/types';
 import { handleZodError } from '../modules/ErrorHandler/handleZodError';
+import mongoose from 'mongoose';
+import { handleValidationError } from '../modules/ErrorHandler/handleValidationError';
 
 const globalErrorHandler = (
   err: any,
@@ -16,7 +18,7 @@ const globalErrorHandler = (
 ) => {
   const statusCode = 500;
   const message = 'Error From global ' || 'Something went wrong!';
-  // console.log(err.name);
+  // console.log(err);
 
   let errorSource: TErrorSource = {
     message: 'This is Error From Error Sources',
@@ -39,12 +41,22 @@ const globalErrorHandler = (
     // errorSource.status = 'Failed!!!';
 
     // console.log(err.issues);
+  } else if (err && err instanceof mongoose.Error.ValidationError) {
+    // console.log('Ami validation Error');
+    // errorSource.message = 'Ami ZVALLIDATION ERROR!!!';
+    // errorSource.statusCode = 404;
+    // errorSource.status = 'Failed!!!';
+
+    errorSource = handleValidationError(err);
+
+    console.log(errorSource);
   }
 
   return res.status(errorSource.statusCode).json({
     success: errorSource.status,
     message: errorSource.message,
     issues: errorSource.issues,
+    // amrError: err,
   });
 };
 
