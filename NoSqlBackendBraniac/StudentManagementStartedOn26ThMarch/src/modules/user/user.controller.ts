@@ -17,7 +17,7 @@ const createStudent = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { password, student: studentData } = req.body;
 
-    throw new AppError("Vua Throwed", 403);
+    // throw new AppError("Vua Throwed", 403);
     const result = await UserService.createIntoDb(password, studentData);
 
     console.log("From User Controller Line 9", result);
