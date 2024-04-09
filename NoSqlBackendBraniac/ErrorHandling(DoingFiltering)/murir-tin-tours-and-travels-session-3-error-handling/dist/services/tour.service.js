@@ -1,4 +1,5 @@
 "use strict";
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
@@ -56,9 +57,28 @@ const getAllTours = (query) => __awaiter(void 0, void 0, void 0, function* () {
     // const result = await Tour.find(queryObj)
     // const result = await filter(Tour.find(), query)
     const modelQuery = (0, filter_1.filter)(tour_model_1.default.find(), query);
+    // console.log(modelQuery)
     // console.log('Query', query)
     if (query.searchTerm) {
-        modelQuery.find({ name: { $regex: query.searchTerm, $options: 'i' } });
+        // console.log(modelQuery.model.schema.paths)
+        const fieldValues = Object.values(modelQuery.model.schema.paths);
+        // console.log(fieldValues)
+        // console.log(query.searchTerm)
+        const searchableFields = fieldValues
+            .filter((fieldObject) => {
+            if (modelQuery.model.schema.path(fieldObject.path).instance === 'String') {
+                return true;
+                // [fieldObject.path]: { $regex: query.searchTerm, $options: 'i' },
+            }
+        })
+            .map((fieldObj) => ({
+            // [fieldObject.path]: { $regex: query.searchTerm, $options: 'i' },
+            [fieldObj.path]: { $regex: query.searchTerm, $options: 'i' },
+        }));
+        // modelQuery.find({ name: { $regex: query.searchTerm, $options: 'i' } })
+        modelQuery.find({
+            $or: searchableFields,
+        });
     }
     const result = yield modelQuery;
     return result;

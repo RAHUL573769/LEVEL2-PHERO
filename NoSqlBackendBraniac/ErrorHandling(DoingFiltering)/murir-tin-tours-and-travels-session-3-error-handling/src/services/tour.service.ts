@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
@@ -60,9 +61,32 @@ const getAllTours = async (query: TQueryObj): Promise<ITour[]> => {
   // const result = await Tour.find(queryObj)
   // const result = await filter(Tour.find(), query)
   const modelQuery = filter(Tour.find(), query)
+  // console.log(modelQuery)
   // console.log('Query', query)
   if (query.searchTerm) {
-    modelQuery.find({ name: { $regex: query.searchTerm, $options: 'i' } })
+    // console.log(modelQuery.model.schema.paths)
+
+    const fieldValues = Object.values(modelQuery.model.schema.paths)
+    // console.log(fieldValues)
+    // console.log(query.searchTerm)
+
+    const searchableFields = fieldValues
+      .filter((fieldObject) => {
+        if (
+          modelQuery.model.schema.path(fieldObject.path).instance === 'String'
+        ) {
+          return true
+          // [fieldObject.path]: { $regex: query.searchTerm, $options: 'i' },
+        }
+      })
+      .map((fieldObj) => ({
+        // [fieldObject.path]: { $regex: query.searchTerm, $options: 'i' },
+        [fieldObj.path]: { $regex: query.searchTerm, $options: 'i' },
+      }))
+    // modelQuery.find({ name: { $regex: query.searchTerm, $options: 'i' } })
+    modelQuery.find({
+      $or: searchableFields,
+    })
   }
   const result = await modelQuery
 
