@@ -1,20 +1,32 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, RequestHandler, Response } from "express";
 import { UserServices } from "./User.services";
 
-const createUserController = async (req: Request, res: Response) => {
-  try {
-    const data = req.body;
-    const result = await UserServices.creteUserServices(data);
-
-    res.status(200).json({
-      message: "User Created",
-      status: "Success",
-      data: result
+const catchAsync = (fn: RequestHandler) => {
+  return async (req: Request, res: Response, next: NextFunction) => {
+    Promise.resolve(fn(req, res, next)).catch((err) => {
+      next(err);
     });
-  } catch (error) {
-    console.log(error);
-  }
+  };
 };
+
+// export const catchAsyncFunction = (fn: RequestHandler) => {
+//   return (req: Request, res: Response, next: NextFunction) => {
+//     Promise.resolve(fn(req, res, next)).catch((err) => {
+//       next(err);
+//     });
+//   };
+// };
+
+const createUserController = catchAsync(async (req: Request, res: Response) => {
+  const data = req.body;
+  const result = await UserServices.creteUserServices(data);
+
+  res.status(200).json({
+    message: "User Created",
+    status: "Success",
+    data: result
+  });
+});
 const getUserController = async (req: Request, res: Response) => {
   try {
     const result = await UserServices.getUserServices();
@@ -29,7 +41,11 @@ const getUserController = async (req: Request, res: Response) => {
   }
 };
 
-const getSearchedUserController = async (req: Request, res: Response) => {
+const getSearchedUserController = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   const { data } = req.query;
   console.log(req.query);
   try {
@@ -41,7 +57,7 @@ const getSearchedUserController = async (req: Request, res: Response) => {
       data: result
     });
   } catch (error) {
-    console.log(error);
+    next(error);
   }
 };
 export const UserController = {

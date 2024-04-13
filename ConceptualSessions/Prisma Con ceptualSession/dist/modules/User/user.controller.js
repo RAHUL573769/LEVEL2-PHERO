@@ -11,20 +11,29 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserController = void 0;
 const User_services_1 = require("./User.services");
-const createUserController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const data = req.body;
-        const result = yield User_services_1.UserServices.creteUserServices(data);
-        res.status(200).json({
-            message: "User Created",
-            status: "Success",
-            data: result
+const catchAsync = (fn) => {
+    return (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+        Promise.resolve(fn(req, res, next)).catch((err) => {
+            next(err);
         });
-    }
-    catch (error) {
-        console.log(error);
-    }
-});
+    });
+};
+// export const catchAsyncFunction = (fn: RequestHandler) => {
+//   return (req: Request, res: Response, next: NextFunction) => {
+//     Promise.resolve(fn(req, res, next)).catch((err) => {
+//       next(err);
+//     });
+//   };
+// };
+const createUserController = catchAsync((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const data = req.body;
+    const result = yield User_services_1.UserServices.creteUserServices(data);
+    res.status(200).json({
+        message: "User Created",
+        status: "Success",
+        data: result
+    });
+}));
 const getUserController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const result = yield User_services_1.UserServices.getUserServices();
@@ -38,7 +47,7 @@ const getUserController = (req, res) => __awaiter(void 0, void 0, void 0, functi
         console.log(error);
     }
 });
-const getSearchedUserController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const getSearchedUserController = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { data } = req.query;
     console.log(req.query);
     try {
@@ -50,7 +59,7 @@ const getSearchedUserController = (req, res) => __awaiter(void 0, void 0, void 0
         });
     }
     catch (error) {
-        console.log(error);
+        next(error);
     }
 });
 exports.UserController = {

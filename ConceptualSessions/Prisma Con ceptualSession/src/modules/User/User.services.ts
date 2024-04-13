@@ -18,7 +18,14 @@ const getUserServices = async () => {
 };
 
 const getSearchService = async (queryParas: any) => {
-  const { q, ...otherQueryParams } = queryParas;
+  const {
+    q,
+    limit = 2,
+    page = 1,
+    sortBy,
+    sortOrder,
+    ...otherQueryParams
+  } = queryParas;
   console.log("Query", queryParas);
   const conditions = [];
   if (q) {
@@ -71,6 +78,11 @@ const getSearchService = async (queryParas: any) => {
       // ]
 
       AND: conditions
+    },
+    skip: (Number(page) - 1) * limit,
+    take: Number(limit),
+    orderBy: {
+      [sortBy]: sortOrder
     }
   });
   console.log(queryParas);

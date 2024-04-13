@@ -37,7 +37,7 @@ const getUserServices = () => __awaiter(void 0, void 0, void 0, function* () {
     return result;
 });
 const getSearchService = (queryParas) => __awaiter(void 0, void 0, void 0, function* () {
-    const { q } = queryParas, otherQueryParams = __rest(queryParas, ["q"]);
+    const { q, limit = 2, page = 1, sortBy, sortOrder } = queryParas, otherQueryParams = __rest(queryParas, ["q", "limit", "page", "sortBy", "sortOrder"]);
     console.log("Query", queryParas);
     const conditions = [];
     if (q) {
@@ -88,6 +88,11 @@ const getSearchService = (queryParas) => __awaiter(void 0, void 0, void 0, funct
             //   }
             // ]
             AND: conditions
+        },
+        skip: (Number(page) - 1) * limit,
+        take: Number(limit),
+        orderBy: {
+            [sortBy]: sortOrder
         }
     });
     console.log(queryParas);
