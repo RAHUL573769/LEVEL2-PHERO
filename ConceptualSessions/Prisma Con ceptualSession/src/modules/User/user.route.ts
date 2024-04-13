@@ -8,6 +8,6 @@ router.get("/users", (req: Request, res: Response) => {
 });
 
 router.get("/get-users", UserController.getUserController);
-
+router.get("/search-users", UserController.getSearchedUserController);
 router.post("/create-users", UserController.createUserController);
 export const userRouter = router;

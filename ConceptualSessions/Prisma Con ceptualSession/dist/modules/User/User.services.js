@@ -8,6 +8,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __rest = (this && this.__rest) || function (s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+                t[p[i]] = s[p[i]];
+        }
+    return t;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserServices = void 0;
 const client_1 = require("@prisma/client");
@@ -25,4 +36,65 @@ const getUserServices = () => __awaiter(void 0, void 0, void 0, function* () {
     console.log(result);
     return result;
 });
-exports.UserServices = { creteUserServices, getUserServices };
+const getSearchService = (queryParas) => __awaiter(void 0, void 0, void 0, function* () {
+    const { q } = queryParas, otherQueryParams = __rest(queryParas, ["q"]);
+    console.log("Query", queryParas);
+    const conditions = [];
+    if (q) {
+        conditions.push({
+            // OR: [
+            //   {
+            //     userName: {
+            //       contains: q
+            //     }
+            //   },
+            //   {
+            //     email: {
+            //       contains: q
+            //     }
+            //   }
+            // ]
+            OR: ["userName", "email"].map((field) => ({ [field]: { contains: q } }))
+        });
+    }
+    if (Object.keys(otherQueryParams).length > 0) {
+        const filterData = Object.keys(otherQueryParams).map((key) => ({
+            [key]: otherQueryParams[key]
+        }));
+        conditions.push(...filterData);
+    }
+    // if (query) {
+    //   conditions.push({
+    //     OR: ["username", "email"].map((field) => ({
+    //       [field]: {
+    //         contains: query
+    //       }
+    //     }))
+    //   });
+    // }
+    // console.dir(conditions, { depth: Infinity });
+    const result = yield prisma.user.findMany({
+        where: {
+            // OR: [
+            //   {
+            //     userName: {
+            //       contains: q
+            //     }
+            //   },
+            //   {
+            //     email: {
+            //       contains: q
+            //     }
+            //   }
+            // ]
+            AND: conditions
+        }
+    });
+    console.log(queryParas);
+    return result;
+});
+exports.UserServices = {
+    creteUserServices,
+    getUserServices,
+    getSearchService
+};

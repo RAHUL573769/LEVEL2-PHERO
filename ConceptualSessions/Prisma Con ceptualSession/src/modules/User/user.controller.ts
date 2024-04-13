@@ -28,4 +28,24 @@ const getUserController = async (req: Request, res: Response) => {
     console.log(error);
   }
 };
-export const UserController = { createUserController, getUserController };
+
+const getSearchedUserController = async (req: Request, res: Response) => {
+  const { data } = req.query;
+  console.log(req.query);
+  try {
+    const result = await UserServices.getSearchService(req.query);
+
+    res.status(200).json({
+      message: "User Fetched",
+      status: "Success",
+      data: result
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const UserController = {
+  createUserController,
+  getUserController,
+  getSearchedUserController
+};

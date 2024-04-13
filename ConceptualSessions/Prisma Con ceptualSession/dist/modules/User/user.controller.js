@@ -38,4 +38,23 @@ const getUserController = (req, res) => __awaiter(void 0, void 0, void 0, functi
         console.log(error);
     }
 });
-exports.UserController = { createUserController, getUserController };
+const getSearchedUserController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { data } = req.query;
+    console.log(req.query);
+    try {
+        const result = yield User_services_1.UserServices.getSearchService(req.query);
+        res.status(200).json({
+            message: "User Fetched",
+            status: "Success",
+            data: result
+        });
+    }
+    catch (error) {
+        console.log(error);
+    }
+});
+exports.UserController = {
+    createUserController,
+    getUserController,
+    getSearchedUserController
+};
