@@ -19,6 +19,6 @@ const createUserController = (req, res) => __awaiter(void 0, void 0, void 0, fun
         status: "Success",
         data: result
     });
-    console.log(data);
+    // console.log(data);
 });
 exports.UserController = { createUserController };

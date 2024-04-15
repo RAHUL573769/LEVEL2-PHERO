@@ -10,7 +10,7 @@ const createUserController = async (req: Request, res: Response) => {
     status: "Success",
     data: result
   });
-  console.log(data);
+  // console.log(data);
 };
 
 export const UserController = { createUserController };
