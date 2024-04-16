@@ -35,38 +35,65 @@ const getAllFromDb = async () => {
 const getSingleFromDb = async (query: any) => {
   console.log("query", query);
 
-  // const { searchTerm } = query;
-  // console.log(searchTerm);
+  // [
+  //   {
+  //     name: {
+  //       contains: query.searchTerm,
+  //       mode: "insensitive"
+  //     }
+  //   },
+  //   {
+  //     email: {
+  //       contains: query.searchTerm,
+  //       mode: "insensitive"
+  //     }
+  //   }
+  // ]
+  const { searchTerm, ...filteredData } = query;
+  // console.log(filteredData);
 
-  // const andConditions: Prisma.AdminWhereInput[] = [];
+  const andConditions: Prisma.AdminWhereInput[] = [];
 
-  // if (searchTerm) {
-  //   andConditions.push({
-  //     OR: [
-  //       {
-  //         name: {
-  //           contains: query.searchTerm,
-  //           mode: "insensitive"
-  //         }
-  //       },
-  //       {
-  //         email: {
-  //           contains: query.searchTerm,
-  //           mode: "insensitive"
-  //         }
-  //       }
-  //     ]
-  //   });
-  // }
-  console.log(query.searchTerm);
-  // const whereConditions: Prisma.AdminWhereInput = { AND: andConditions };
+  const adminSearchableFields = ["name", "email"];
+
+  if (searchTerm) {
+    andConditions.push({
+      OR: adminSearchableFields.map((field) => ({
+        [field]: {
+          contains: query.searchTerm
+        }
+      }))
+    });
+  }
+
+  const termsExceptSearchTerm = Object.keys(filteredData);
+  if (termsExceptSearchTerm.length > 0) {
+    andConditions.push({
+      AND: Object.keys(filteredData).map((key) => ({
+        [key]: {
+          equals: filteredData[key]
+        }
+      }))
+    });
+  }
+  // console.log(query.searchTerm);
+  const whereConditions: Prisma.AdminWhereInput = { AND: andConditions };
   const result = await prisma.admin.findMany({
-    where: {
-      name: {
-        contains: query.searchTerm,
-        mode: "insensitive"
-      }
-    }
+    where: whereConditions
+    // OR: [
+    //   {
+    //     name: {
+    //       contains: query.searchTerm,
+    //       mode: "insensitive"
+    //     }
+    //   },
+    //   {
+    //     email: {
+    //       contains: query.searchTerm,
+    //       mode: "insensitive"
+    //     }
+    //   }
+    // ]
   });
   return result;
 };

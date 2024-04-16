@@ -11,6 +11,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AdminController = void 0;
 const Admin_services_1 = require("./Admin.services");
+const pick_1 = require("../../shared/pick");
+const admin_constants_1 = require("./admin.constants");
 const getAdminController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield Admin_services_1.AdminServices.getAllFromDb();
     try {
@@ -30,9 +32,11 @@ const getAdminController = (req, res) => __awaiter(void 0, void 0, void 0, funct
 });
 const getSingleAdminController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const query = req.query;
-    console.log("From Get Single", query);
-    const result = yield Admin_services_1.AdminServices.getSingleFromDb(query);
-    console.log(result);
+    // console.log("From Get Single", query);
+    const filters = (0, pick_1.pickFunction)(req.query, admin_constants_1.adminFilterableFields);
+    console.log("Filters", filters);
+    const result = yield Admin_services_1.AdminServices.getSingleFromDb(filters);
+    // console.log(result);
     try {
         res.status(200).json({
             success: true,
@@ -41,7 +45,7 @@ const getSingleAdminController = (req, res) => __awaiter(void 0, void 0, void 0,
         });
     }
     catch (error) {
-        res.status(200).json({
+        res.status(400).json({
             success: false,
             data: error,
             message: "Some Error Found"
