@@ -12,9 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AdminController = void 0;
 const Admin_services_1 = require("./Admin.services");
 const getAdminController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const query = req.query;
-    console.log(query);
-    const result = yield Admin_services_1.AdminServices.getAllFromDb(query);
+    const result = yield Admin_services_1.AdminServices.getAllFromDb();
     try {
         res.status(200).json({
             success: true,
@@ -30,4 +28,24 @@ const getAdminController = (req, res) => __awaiter(void 0, void 0, void 0, funct
         });
     }
 });
-exports.AdminController = { getAdminController };
+const getSingleAdminController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const query = req.query;
+    console.log("From Get Single", query);
+    const result = yield Admin_services_1.AdminServices.getSingleFromDb(query);
+    console.log(result);
+    try {
+        res.status(200).json({
+            success: true,
+            data: result,
+            message: "Admin Data Fetched Successfully"
+        });
+    }
+    catch (error) {
+        res.status(200).json({
+            success: false,
+            data: error,
+            message: "Some Error Found"
+        });
+    }
+});
+exports.AdminController = { getAdminController, getSingleAdminController };

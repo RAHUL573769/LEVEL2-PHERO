@@ -23,10 +23,10 @@ const createAdmin = (data) => __awaiter(void 0, void 0, void 0, function* () {
         const createUser = yield transactionClient.user.create({
             data: userData
         });
-        // const createAdmin = await transactionClient.admin.create({
-        //   data: data.admin
-        // });
-        // return createAdmin;
+        const createAdmin = yield transactionClient.admin.create({
+            data: data.admin
+        });
+        return createAdmin;
     }));
     // const result = await prisma.$transaction(async (trClient) => {
     //   await trClient.user.create({

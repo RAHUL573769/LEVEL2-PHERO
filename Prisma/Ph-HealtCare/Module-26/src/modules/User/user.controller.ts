@@ -15,7 +15,7 @@ const createAdminController = async (
       message: "Admin Created Succesfully"
     });
   } catch (error) {
-    res.status(200).json({
+    res.status(404).json({
       success: false,
       data: error,
       message: "Something Went Wrong"

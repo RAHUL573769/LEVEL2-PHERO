@@ -22,7 +22,7 @@ const createAdminController = (req, res, next) => __awaiter(void 0, void 0, void
         });
     }
     catch (error) {
-        res.status(200).json({
+        res.status(404).json({
             success: false,
             data: error,
             message: "Something Went Wrong"
