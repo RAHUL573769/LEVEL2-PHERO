@@ -13,6 +13,7 @@ exports.UserServices = void 0;
 const client_1 = require("@prisma/client");
 const createAdmin = (data) => __awaiter(void 0, void 0, void 0, function* () {
     const prisma = new client_1.PrismaClient();
+    console.log(data);
     const userData = {
         email: data.admin.email,
         password: data.password,
@@ -22,10 +23,19 @@ const createAdmin = (data) => __awaiter(void 0, void 0, void 0, function* () {
         const createUser = yield transactionClient.user.create({
             data: userData
         });
-        const createAdmin = yield transactionClient.admin.create({
-            data: userData
-        });
+        // const createAdmin = await transactionClient.admin.create({
+        //   data: data.admin
+        // });
+        // return createAdmin;
     }));
-    return;
+    // const result = await prisma.$transaction(async (trClient) => {
+    //   await trClient.user.create({
+    //   data: userData
+    //   });
+    //   return await trClient.admin.create({
+    //     data: data.admin
+    //   });
+    // });
+    return result;
 });
 exports.UserServices = { createAdmin };
