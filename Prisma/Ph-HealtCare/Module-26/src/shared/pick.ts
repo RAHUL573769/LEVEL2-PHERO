@@ -1,16 +1,17 @@
-export const pickFunction = <
-  T extends Record<string, unknown>,
-  K extends keyof T
->(
+const pick = <T extends Record<string, unknown>, k extends keyof T>(
   obj: T,
-  keys: K[]
-) => {
-  // console.log("From Line Number 5", obj, keys);
-  const finalObj: Partial<T> = {}; //creating an object
+  keys: k[]
+): Partial<T> => {
+  const finalObj: Partial<T> = {};
+  console.log(obj);
   for (const key of keys) {
     if (obj && Object.hasOwnProperty.call(obj, key)) {
       finalObj[key] = obj[key];
     }
   }
+
+  console.log(finalObj);
   return finalObj;
 };
+
+export default pick;

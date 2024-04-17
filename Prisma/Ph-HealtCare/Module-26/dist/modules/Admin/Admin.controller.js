@@ -8,11 +8,27 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AdminController = void 0;
 const Admin_services_1 = require("./Admin.services");
-const pick_1 = require("../../shared/pick");
 const admin_constants_1 = require("./admin.constants");
+const pick_1 = __importDefault(require("../../shared/pick"));
+// const pickFunction = <T extends Record<string, unknown>, K extends keyof T>(
+//   obj: T,
+//   keys: K[]
+// ): Partial<T> => {
+//   console.log("From Line Number 5", obj, keys);
+//   const finalObj: Partial<T> = {}; //creating an object
+//   for (const key of keys) {
+//     if (obj && Object.hasOwnProperty.call(obj, key)) {
+//       finalObj[key] = obj[key];
+//     }
+//   }
+//   return finalObj;
+// };
 const getAdminController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield Admin_services_1.AdminServices.getAllFromDb();
     try {
@@ -31,12 +47,11 @@ const getAdminController = (req, res) => __awaiter(void 0, void 0, void 0, funct
     }
 });
 const getSingleAdminController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const query = req.query;
+    // const filters = req.query;
     // console.log("From Get Single", query);
-    const filters = (0, pick_1.pickFunction)(req.query, admin_constants_1.adminFilterableFields);
-    console.log("Filters", filters);
+    const filters = (0, pick_1.default)(req.query, admin_constants_1.adminFilterableFields); // console.log("Filters", filters);
     const result = yield Admin_services_1.AdminServices.getSingleFromDb(filters);
-    // console.log(result);
+    console.log(result);
     try {
         res.status(200).json({
             success: true,

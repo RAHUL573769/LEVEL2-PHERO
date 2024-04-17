@@ -1,9 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.adminFilterableFields = void 0;
+exports.adminSearchAbleFields = exports.adminFilterableFields = void 0;
 exports.adminFilterableFields = [
     "name",
     "email",
     "searchTerm",
-    "contactNumber"
+    "contactNumber",
+    "y"
 ];
+exports.adminSearchAbleFields = ["name", "email", "contactNumber"];

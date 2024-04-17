@@ -1,7 +1,21 @@
 import { Request, Response } from "express";
 import { AdminServices } from "./Admin.services";
-import { pickFunction } from "../../shared/pick";
 import { adminFilterableFields } from "./admin.constants";
+import pick from "../../shared/pick";
+
+// const pickFunction = <T extends Record<string, unknown>, K extends keyof T>(
+//   obj: T,
+//   keys: K[]
+// ): Partial<T> => {
+//   console.log("From Line Number 5", obj, keys);
+//   const finalObj: Partial<T> = {}; //creating an object
+//   for (const key of keys) {
+//     if (obj && Object.hasOwnProperty.call(obj, key)) {
+//       finalObj[key] = obj[key];
+//     }
+//   }
+//   return finalObj;
+// };
 
 const getAdminController = async (req: Request, res: Response) => {
   const result = await AdminServices.getAllFromDb();
@@ -21,14 +35,13 @@ const getAdminController = async (req: Request, res: Response) => {
 };
 
 const getSingleAdminController = async (req: Request, res: Response) => {
-  const query = req.query;
+  // const filters = req.query;
   // console.log("From Get Single", query);
 
-  const filters = pickFunction(req.query, adminFilterableFields);
-  console.log("Filters", filters);
+  const filters = pick(req.query, adminFilterableFields); // console.log("Filters", filters);
 
   const result = await AdminServices.getSingleFromDb(filters);
-  // console.log(result);
+  console.log(result);
   try {
     res.status(200).json({
       success: true,
