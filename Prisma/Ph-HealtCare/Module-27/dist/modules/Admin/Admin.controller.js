@@ -51,13 +51,14 @@ const getSingleAdminController = (req, res) => __awaiter(void 0, void 0, void 0,
     // console.log("From Get Single", query);
     const filters = (0, pick_1.default)(req.query, admin_constants_1.adminFilterableFields); // console.log("Filters", filters);
     const options = (0, pick_1.default)(req.query, ["limit", "page", "sortBy", "sortOrder"]);
-    console.log("options", options);
+    // console.log("options", options);
     const result = yield Admin_services_1.AdminServices.getSingleFromDb(filters, options);
     console.log(result);
     try {
         res.status(200).json({
             success: true,
-            data: result,
+            meta: result.metaData,
+            data: result.data,
             message: "Admin Data Fetched Successfully"
         });
     }
@@ -69,4 +70,83 @@ const getSingleAdminController = (req, res) => __awaiter(void 0, void 0, void 0,
         });
     }
 });
-exports.AdminController = { getAdminController, getSingleAdminController };
+const getByIdFromDb = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const id = req.params.id;
+    const result = yield Admin_services_1.AdminServices.getById(id);
+    try {
+        res.status(200).json({
+            success: true,
+            data: result,
+            message: "Admin  Data Fetched BY Id Successfully"
+        });
+    }
+    catch (error) {
+        res.status(200).json({
+            success: false,
+            data: error,
+            message: "Some Error in get by id controller Found"
+        });
+    }
+});
+const updateDataInDb = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const id = req.params.id;
+    const result = yield Admin_services_1.AdminServices.updateDataInDb(id, req.body);
+    try {
+        res.status(200).json({
+            success: true,
+            data: result,
+            message: "Admin  Data Updated BY Id Successfully"
+        });
+    }
+    catch (error) {
+        res.status(200).json({
+            success: false,
+            data: error,
+            message: "Some Error in get by Update Id controller Found"
+        });
+    }
+});
+const deleteData = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const params = req.params.id;
+    try {
+        const result = yield Admin_services_1.AdminServices.deleteDataFomDb(params);
+        res.status(200).json({
+            success: true,
+            data: result,
+            message: "Admin  Data DELETED BY Id Successfully"
+        });
+    }
+    catch (error) {
+        res.status(200).json({
+            success: false,
+            data: error,
+            message: "Some Error in dELETEcontroller Found"
+        });
+    }
+});
+const softdeleteData = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const params = req.params.id;
+    try {
+        const result = yield Admin_services_1.AdminServices.softDeleteDataFomDb(params);
+        res.status(200).json({
+            success: true,
+            data: result,
+            message: "Admin  Data DELETED BY Id Successfully"
+        });
+    }
+    catch (error) {
+        res.status(200).json({
+            success: false,
+            data: error,
+            message: "Some Error in dELETEcontroller Found"
+        });
+    }
+});
+exports.AdminController = {
+    getAdminController,
+    softdeleteData,
+    getSingleAdminController,
+    getByIdFromDb,
+    updateDataInDb,
+    deleteData
+};

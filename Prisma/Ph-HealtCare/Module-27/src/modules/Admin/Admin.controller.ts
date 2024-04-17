@@ -40,13 +40,14 @@ const getSingleAdminController = async (req: Request, res: Response) => {
 
   const filters = pick(req.query, adminFilterableFields); // console.log("Filters", filters);
   const options = pick(req.query, ["limit", "page", "sortBy", "sortOrder"]);
-  console.log("options", options);
+  // console.log("options", options);
   const result = await AdminServices.getSingleFromDb(filters, options);
   console.log(result);
   try {
     res.status(200).json({
       success: true,
-      data: result,
+      meta: result.metaData,
+      data: result.data,
       message: "Admin Data Fetched Successfully"
     });
   } catch (error) {
@@ -57,4 +58,82 @@ const getSingleAdminController = async (req: Request, res: Response) => {
     });
   }
 };
-export const AdminController = { getAdminController, getSingleAdminController };
+
+const getByIdFromDb = async (req: Request, res: Response) => {
+  const id = req.params.id;
+  const result = await AdminServices.getById(id);
+  try {
+    res.status(200).json({
+      success: true,
+      data: result,
+      message: "Admin  Data Fetched BY Id Successfully"
+    });
+  } catch (error) {
+    res.status(200).json({
+      success: false,
+      data: error,
+      message: "Some Error in get by id controller Found"
+    });
+  }
+};
+
+const updateDataInDb = async (req: Request, res: Response) => {
+  const id = req.params.id;
+  const result = await AdminServices.updateDataInDb(id, req.body);
+  try {
+    res.status(200).json({
+      success: true,
+      data: result,
+      message: "Admin  Data Updated BY Id Successfully"
+    });
+  } catch (error) {
+    res.status(200).json({
+      success: false,
+      data: error,
+      message: "Some Error in get by Update Id controller Found"
+    });
+  }
+};
+
+const deleteData = async (req: Request, res: Response) => {
+  const params = req.params.id;
+  try {
+    const result = await AdminServices.deleteDataFomDb(params);
+    res.status(200).json({
+      success: true,
+      data: result,
+      message: "Admin  Data DELETED BY Id Successfully"
+    });
+  } catch (error) {
+    res.status(200).json({
+      success: false,
+      data: error,
+      message: "Some Error in dELETEcontroller Found"
+    });
+  }
+};
+const softdeleteData = async (req: Request, res: Response) => {
+  const params = req.params.id;
+  try {
+    const result = await AdminServices.softDeleteDataFomDb(params);
+    res.status(200).json({
+      success: true,
+      data: result,
+      message: "Admin  Data DELETED BY Id Successfully"
+    });
+  } catch (error) {
+    res.status(200).json({
+      success: false,
+      data: error,
+      message: "Some Error in dELETEcontroller Found"
+    });
+  }
+};
+export const AdminController = {
+  getAdminController,
+  softdeleteData,
+  getSingleAdminController,
+  getByIdFromDb,
+  updateDataInDb,
+  deleteData
+};

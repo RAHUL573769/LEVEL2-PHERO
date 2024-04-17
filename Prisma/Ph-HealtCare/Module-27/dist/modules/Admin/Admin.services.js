@@ -21,6 +21,7 @@ var __rest = (this && this.__rest) || function (s, e) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AdminServices = void 0;
+const client_1 = require("@prisma/client");
 const admin_constants_1 = require("./admin.constants");
 const paginationHelpers_1 = require("../../helpers/paginationHelpers");
 const prismaHelpers_1 = require("../../helpers/prismaHelpers");
@@ -121,7 +122,9 @@ const getSingleFromDb = (params, option) => __awaiter(void 0, void 0, void 0, fu
         //     createdAt: 'desc'
         // }
     });
-    return { page, limit, result };
+    const total = yield prismaHelpers_1.prisma.admin.count({ where: whereConditions });
+    console.log(total);
+    return { metaData: { page, limit, total }, data: result };
 });
 // const getSingleFromDb = async (query: any) => {
 //   console.log("query", query);
@@ -183,5 +186,81 @@ const getSingleFromDb = (params, option) => __awaiter(void 0, void 0, void 0, fu
 //   });
 //   return result;
 // };
-exports.AdminServices = { getAllFromDb, getSingleFromDb };
+const getById = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield prismaHelpers_1.prisma.admin.findUnique({
+        where: { id }
+    });
+    return result;
+});
+const updateDataInDb = (id, data) => __awaiter(void 0, void 0, void 0, function* () {
+    // const isExists = await prisma.admin.findUnique({
+    //   where: {
+    //     id
+    //   }
+    // });
+    yield prismaHelpers_1.prisma.admin.findUniqueOrThrow({
+        where: {
+            id
+        }
+    });
+    const result = yield prismaHelpers_1.prisma.admin.update({
+        where: { id },
+        data
+    });
+    return result;
+});
+const deleteDataFomDb = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    yield prismaHelpers_1.prisma.admin.findUniqueOrThrow({
+        where: {
+            id
+        }
+    });
+    const result = yield prismaHelpers_1.prisma.$transaction((transactionClient) => __awaiter(void 0, void 0, void 0, function* () {
+        const adminDeletedData = yield transactionClient.admin.delete({
+            where: {
+                id
+            }
+        });
+        const userDeletedData = yield transactionClient.user.delete({
+            where: {
+                email: adminDeletedData.email
+            }
+        });
+        return adminDeletedData;
+    }));
+    return result;
+});
+const softDeleteDataFomDb = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    yield prismaHelpers_1.prisma.admin.findUniqueOrThrow({
+        where: {
+            id
+        }
+    });
+    const result = yield prismaHelpers_1.prisma.$transaction((transactionClient) => __awaiter(void 0, void 0, void 0, function* () {
+        const adminDeletedData = yield transactionClient.admin.update({
+            where: {
+                id
+            },
+            data: { isDeleted: true }
+        });
+        const userDeletedData = yield transactionClient.user.update({
+            where: {
+                email: adminDeletedData.email
+            },
+            data: {
+                status: client_1.UserStatus.DELETED
+            }
+        });
+        return adminDeletedData;
+    }));
+    return result;
+});
+exports.AdminServices = {
+    softDeleteDataFomDb,
+    getAllFromDb,
+    getSingleFromDb,
+    deleteDataFomDb,
+    getById,
+    updateDataInDb
+};
 //Page number==2 limit==2
