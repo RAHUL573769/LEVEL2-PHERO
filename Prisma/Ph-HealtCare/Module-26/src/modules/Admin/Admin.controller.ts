@@ -39,8 +39,9 @@ const getSingleAdminController = async (req: Request, res: Response) => {
   // console.log("From Get Single", query);
 
   const filters = pick(req.query, adminFilterableFields); // console.log("Filters", filters);
-
-  const result = await AdminServices.getSingleFromDb(filters);
+  const options = pick(req.query, ["limit", "page", "sortBy", "sortOrder"]);
+  console.log("options", options);
+  const result = await AdminServices.getSingleFromDb(filters, options);
   console.log(result);
   try {
     res.status(200).json({

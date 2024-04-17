@@ -5,7 +5,6 @@ exports.adminFilterableFields = [
     "name",
     "email",
     "searchTerm",
-    "contactNumber",
-    "y"
+    "contactNumber"
 ];
 exports.adminSearchAbleFields = ["name", "email", "contactNumber"];

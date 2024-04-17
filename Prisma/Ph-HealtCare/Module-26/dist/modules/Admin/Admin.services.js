@@ -21,9 +21,28 @@ var __rest = (this && this.__rest) || function (s, e) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AdminServices = void 0;
-const client_1 = require("@prisma/client");
 const admin_constants_1 = require("./admin.constants");
-const prisma = new client_1.PrismaClient();
+const paginationHelpers_1 = require("../../helpers/paginationHelpers");
+const prismaHelpers_1 = require("../../helpers/prismaHelpers");
+// const calculatePagination = (options: {
+//   page?: number;
+//   limit?: number;
+//   sortOrder?: string;
+//   sortBy?: string;
+// }) => {
+//   const page: Number = Number(options.page) || 1;
+//   const limit: number = Number(options.limit) || 10;
+//   const skip: number = (Number(page) - 1) * limit;
+//   const sortBy: string = options.sortOrder || "createdAt";
+//   const sortOrder: string = options.sortOrder || "desc";
+//   return {
+//     page,
+//     limit,
+//     skip,
+//     sortBy,
+//     sortOrder
+//   };
+// };
 const getAllFromDb = () => __awaiter(void 0, void 0, void 0, function* () {
     // const { searchTerm } = query;
     // console.log(searchTerm);
@@ -47,14 +66,16 @@ const getAllFromDb = () => __awaiter(void 0, void 0, void 0, function* () {
     //   });
     // }
     // const whereConditions: Prisma.AdminWhereInput = { AND: andConditions };
-    const result = yield prisma.admin.findMany();
+    const result = yield prismaHelpers_1.prisma.admin.findMany();
     return result;
 });
-const getSingleFromDb = (params) => __awaiter(void 0, void 0, void 0, function* () {
+const getSingleFromDb = (params, option) => __awaiter(void 0, void 0, void 0, function* () {
     // const { page, limit, skip } = paginationHelper.calculatePagination(options);
+    // const { limit, page } = option;
+    const { limit, page, skip } = (0, paginationHelpers_1.calculatePagination)(option);
     const { searchTerm } = params, filterData = __rest(params, ["searchTerm"]);
     const andConditions = [];
-    console.log("Filteres data", filterData);
+    console.log("Filtered data", filterData);
     if (params.searchTerm) {
         andConditions.push({
             OR: admin_constants_1.adminSearchAbleFields.map((field) => ({
@@ -76,8 +97,22 @@ const getSingleFromDb = (params) => __awaiter(void 0, void 0, void 0, function* 
     }
     //console.dir(andConditions, { depth: 'infinity' })
     const whereConditions = { AND: andConditions };
-    const result = yield prisma.admin.findMany({
-        where: whereConditions
+    const result = yield prismaHelpers_1.prisma.admin.findMany({
+        where: whereConditions,
+        // skip: (Number(page) - 1) * limit,
+        // take: Number(limit),
+        skip,
+        take: limit,
+        // orderBy: {
+        //   [option.sortBy]: option.sortOrder
+        // }
+        orderBy: option.sortBy && option.sortOrder
+            ? {
+                [option.sortBy]: option.sortOrder
+            }
+            : {
+                createdAt: "desc"
+            }
         // skip,
         // tak limit,e:
         // orderBy: options.sortBy && options.sortOrder ? {
@@ -149,3 +184,4 @@ const getSingleFromDb = (params) => __awaiter(void 0, void 0, void 0, function* 
 //   return result;
 // };
 exports.AdminServices = { getAllFromDb, getSingleFromDb };
+//Page number==2 limit==2

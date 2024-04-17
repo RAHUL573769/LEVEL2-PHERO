@@ -1,8 +1,27 @@
-import { Prisma, PrismaClient } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 import { adminSearchAbleFields } from "./admin.constants";
+import { calculatePagination } from "../../helpers/paginationHelpers";
+import { prisma } from "../../helpers/prismaHelpers";
 
-const prisma = new PrismaClient();
-
+// const calculatePagination = (options: {
+//   page?: number;
+//   limit?: number;
+//   sortOrder?: string;
+//   sortBy?: string;
+// }) => {
+//   const page: Number = Number(options.page) || 1;
+//   const limit: number = Number(options.limit) || 10;
+//   const skip: number = (Number(page) - 1) * limit;
+//   const sortBy: string = options.sortOrder || "createdAt";
+//   const sortOrder: string = options.sortOrder || "desc";
+//   return {
+//     page,
+//     limit,
+//     skip,
+//     sortBy,
+//     sortOrder
+//   };
+// };
 const getAllFromDb = async () => {
   // const { searchTerm } = query;
   // console.log(searchTerm);
@@ -32,12 +51,14 @@ const getAllFromDb = async () => {
   const result = await prisma.admin.findMany();
   return result;
 };
-const getSingleFromDb = async (params: any) => {
+const getSingleFromDb = async (params: any, option: any) => {
   // const { page, limit, skip } = paginationHelper.calculatePagination(options);
+  // const { limit, page } = option;
+  const { limit, page, skip } = calculatePagination(option);
   const { searchTerm, ...filterData } = params;
   const andConditions: Prisma.AdminWhereInput[] = [];
 
-  console.log("Filteres data", filterData);
+  console.log("Filtered data", filterData);
   if (params.searchTerm) {
     andConditions.push({
       OR: adminSearchAbleFields.map((field) => ({
@@ -63,7 +84,22 @@ const getSingleFromDb = async (params: any) => {
   const whereConditions: Prisma.AdminWhereInput = { AND: andConditions };
 
   const result = await prisma.admin.findMany({
-    where: whereConditions
+    where: whereConditions,
+    // skip: (Number(page) - 1) * limit,
+    // take: Number(limit),
+    skip,
+    take: limit,
+    // orderBy: {
+    //   [option.sortBy]: option.sortOrder
+    // }
+    orderBy:
+      option.sortBy && option.sortOrder
+        ? {
+            [option.sortBy]: option.sortOrder
+          }
+        : {
+            createdAt: "desc"
+          }
     // skip,
     // tak limit,e:
     // orderBy: options.sortBy && options.sortOrder ? {
@@ -142,3 +178,4 @@ const getSingleFromDb = async (params: any) => {
 // };
 
 export const AdminServices = { getAllFromDb, getSingleFromDb };
+//Page number==2 limit==2

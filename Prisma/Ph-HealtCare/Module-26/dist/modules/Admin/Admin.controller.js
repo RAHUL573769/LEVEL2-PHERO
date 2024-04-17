@@ -50,7 +50,9 @@ const getSingleAdminController = (req, res) => __awaiter(void 0, void 0, void 0,
     // const filters = req.query;
     // console.log("From Get Single", query);
     const filters = (0, pick_1.default)(req.query, admin_constants_1.adminFilterableFields); // console.log("Filters", filters);
-    const result = yield Admin_services_1.AdminServices.getSingleFromDb(filters);
+    const options = (0, pick_1.default)(req.query, ["limit", "page", "sortBy", "sortOrder"]);
+    console.log("options", options);
+    const result = yield Admin_services_1.AdminServices.getSingleFromDb(filters, options);
     console.log(result);
     try {
         res.status(200).json({
