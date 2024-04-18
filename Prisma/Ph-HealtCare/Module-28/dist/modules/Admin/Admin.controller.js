@@ -17,6 +17,7 @@ const Admin_services_1 = require("./Admin.services");
 const admin_constants_1 = require("./admin.constants");
 const pick_1 = __importDefault(require("../../shared/pick"));
 const successResponse_1 = require("../../helpers/successResponse");
+const catchAsyncHelpers_1 = require("../../helpers/catchAsyncHelpers");
 // const pickFunction = <T extends Record<string, unknown>, K extends keyof T>(
 //   obj: T,
 //   keys: K[]
@@ -51,26 +52,43 @@ const successResponse_1 = require("../../helpers/successResponse");
 //     meta: jsonData.meta || null
 //   });
 // };
-const getAdminController = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const result = yield Admin_services_1.AdminServices.getAllFromDb();
-        // res.status(200).json({
-        //   success: true,
-        //   data: result,
-        //   message: "Admin Data Fetched Successfully"
-        // });
-        (0, successResponse_1.sendResponse)(res, {
-            statusCode: 200,
-            success: true,
-            message: "Admin data Fetched",
-            data: result
-        });
-    }
-    catch (error) {
-        next(error);
-    }
-});
-const getSingleAdminController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+// const catchAsync = (functions: RequestHandler) => {
+//   return async (req: Request, res: Response, next: NextFunction) => {
+//     Promise.resolve(functions(req, res, next)).catch((err) => {
+//       next(err);
+//     });
+//   };
+// };
+const getAdminController = (0, catchAsyncHelpers_1.catchAsync)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield Admin_services_1.AdminServices.getAllFromDb();
+    // res.status(200).json({
+    //   success: true,
+    //   data: result,
+    //   message: "Admin Data Fetched Successfully"
+    // });
+    (0, successResponse_1.sendResponse)(res, {
+        statusCode: 200,
+        success: true,
+        message: "Admin data Fetched",
+        data: result
+    });
+}));
+const getSingleAdminController = (0, catchAsyncHelpers_1.catchAsync)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    // const filters = req.query;
+    // console.log("From Get Single", query);
+    const filters = (0, pick_1.default)(req.query, admin_constants_1.adminFilterableFields); // console.log("Filters", filters);
+    const options = (0, pick_1.default)(req.query, ["limit", "page", "sortBy", "sortOrder"]);
+    // console.log("options", options);
+    const result = yield Admin_services_1.AdminServices.getSingleFromDb(filters, options);
+    console.log(result);
+    res.status(200).json({
+        success: true,
+        meta: result.metaData,
+        data: result.data,
+        message: "Admin Data Fetched Successfully"
+    });
+}));
+const getByIdFromDb = (0, catchAsyncHelpers_1.catchAsync)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     // const filters = req.query;
     // console.log("From Get Single", query);
     const filters = (0, pick_1.default)(req.query, admin_constants_1.adminFilterableFields); // console.log("Filters", filters);
@@ -93,43 +111,31 @@ const getSingleAdminController = (req, res) => __awaiter(void 0, void 0, void 0,
             message: "Some Error Found"
         });
     }
-});
-const getByIdFromDb = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const id = req.params.id;
-    const result = yield Admin_services_1.AdminServices.getById(id);
+}));
+const updateDataInDb = (0, catchAsyncHelpers_1.catchAsync)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    // const filters = req.query;
+    // console.log("From Get Single", query);
+    const filters = (0, pick_1.default)(req.query, admin_constants_1.adminFilterableFields); // console.log("Filters", filters);
+    const options = (0, pick_1.default)(req.query, ["limit", "page", "sortBy", "sortOrder"]);
+    // console.log("options", options);
+    const result = yield Admin_services_1.AdminServices.getSingleFromDb(filters, options);
+    console.log(result);
     try {
         res.status(200).json({
             success: true,
-            data: result,
-            message: "Admin  Data Fetched BY Id Successfully"
+            meta: result.metaData,
+            data: result.data,
+            message: "Admin Data Fetched Successfully"
         });
     }
     catch (error) {
-        res.status(200).json({
+        res.status(400).json({
             success: false,
             data: error,
-            message: "Some Error in get by id controller Found"
+            message: "Some Error Found"
         });
     }
-});
-const updateDataInDb = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const id = req.params.id;
-    const result = yield Admin_services_1.AdminServices.updateDataInDb(id, req.body);
-    try {
-        res.status(200).json({
-            success: true,
-            data: result,
-            message: "Admin  Data Updated BY Id Successfully"
-        });
-    }
-    catch (error) {
-        res.status(200).json({
-            success: false,
-            data: error,
-            message: "Some Error in get by Update Id controller Found"
-        });
-    }
-});
+}));
 const deleteData = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const params = req.params.id;
     try {

@@ -1,8 +1,9 @@
-import { NextFunction, Request, Response } from "express";
+import { NextFunction, Request, RequestHandler, Response } from "express";
 import { AdminServices } from "./Admin.services";
 import { adminFilterableFields } from "./admin.constants";
 import pick from "../../shared/pick";
 import { sendResponse } from "../../helpers/successResponse";
+import { catchAsync } from "../../helpers/catchAsyncHelpers";
 
 // const pickFunction = <T extends Record<string, unknown>, K extends keyof T>(
 //   obj: T,
@@ -41,12 +42,15 @@ import { sendResponse } from "../../helpers/successResponse";
 //   });
 // };
 
-const getAdminController = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
+// const catchAsync = (functions: RequestHandler) => {
+//   return async (req: Request, res: Response, next: NextFunction) => {
+//     Promise.resolve(functions(req, res, next)).catch((err) => {
+//       next(err);
+//     });
+//   };
+// };
+const getAdminController = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
     const result = await AdminServices.getAllFromDb();
     // res.status(200).json({
     //   success: true,
@@ -60,12 +64,30 @@ const getAdminController = async (
       message: "Admin data Fetched",
       data: result
     });
-  } catch (error) {
-    next(error);
   }
-};
+);
 
-const getSingleAdminController = async (req: Request, res: Response) => {
+const getSingleAdminController = catchAsync(
+  async (req: Request, res: Response) => {
+    // const filters = req.query;
+    // console.log("From Get Single", query);
+
+    const filters = pick(req.query, adminFilterableFields); // console.log("Filters", filters);
+    const options = pick(req.query, ["limit", "page", "sortBy", "sortOrder"]);
+    // console.log("options", options);
+    const result = await AdminServices.getSingleFromDb(filters, options);
+    console.log(result);
+
+    res.status(200).json({
+      success: true,
+      meta: result.metaData,
+      data: result.data,
+      message: "Admin Data Fetched Successfully"
+    });
+  }
+);
+
+const getByIdFromDb = catchAsync(async (req: Request, res: Response) => {
   // const filters = req.query;
   // console.log("From Get Single", query);
 
@@ -88,43 +110,32 @@ const getSingleAdminController = async (req: Request, res: Response) => {
       message: "Some Error Found"
     });
   }
-};
+});
 
-const getByIdFromDb = async (req: Request, res: Response) => {
-  const id = req.params.id;
-  const result = await AdminServices.getById(id);
+const updateDataInDb = catchAsync(async (req: Request, res: Response) => {
+  // const filters = req.query;
+  // console.log("From Get Single", query);
+
+  const filters = pick(req.query, adminFilterableFields); // console.log("Filters", filters);
+  const options = pick(req.query, ["limit", "page", "sortBy", "sortOrder"]);
+  // console.log("options", options);
+  const result = await AdminServices.getSingleFromDb(filters, options);
+  console.log(result);
   try {
     res.status(200).json({
       success: true,
-      data: result,
-      message: "Admin  Data Fetched BY Id Successfully"
+      meta: result.metaData,
+      data: result.data,
+      message: "Admin Data Fetched Successfully"
     });
   } catch (error) {
-    res.status(200).json({
+    res.status(400).json({
       success: false,
       data: error,
-      message: "Some Error in get by id controller Found"
+      message: "Some Error Found"
     });
   }
-};
-
-const updateDataInDb = async (req: Request, res: Response) => {
-  const id = req.params.id;
-  const result = await AdminServices.updateDataInDb(id, req.body);
-  try {
-    res.status(200).json({
-      success: true,
-      data: result,
-      message: "Admin  Data Updated BY Id Successfully"
-    });
-  } catch (error) {
-    res.status(200).json({
-      success: false,
-      data: error,
-      message: "Some Error in get by Update Id controller Found"
-    });
-  }
-};
+});
 
 const deleteData = async (req: Request, res: Response) => {
   const params = req.params.id;

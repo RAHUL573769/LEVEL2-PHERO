@@ -1,13 +1,10 @@
 import { NextFunction, Request, Response } from "express";
 import { UserService } from "./user.service";
 import { sendResponse } from "../../helpers/successResponse";
+import { catchAsync } from "../../helpers/catchAsyncHelpers";
 
-const createAdminController = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
+const createAdminController = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
     const result = await UserService.createAdmin(req.body);
     console.log("Result", result);
     sendResponse(res, {
@@ -21,14 +18,7 @@ const createAdminController = async (
     //   data: result,
     //   message: "Admin Created Succesfully"
     // });
-  } catch (error) {
-    next(error);
-    // res.status(404).json({
-    //   success: false,
-    //   data: error,
-    //   message: "Something Went Wrong"
-    // });
   }
-};
+);
 
 export const UserController = { createAdminController };
