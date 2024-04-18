@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AdminController = void 0;
 const Admin_services_1 = require("./Admin.services");
 const admin_constants_1 = require("./admin.constants");
-const pick_1 = __importDefault(require("../../shared/pick"));
+const pick_1 = __importDefault(require("../../helpers/pick"));
 const successResponse_1 = require("../../helpers/successResponse");
 const catchAsyncHelpers_1 = require("../../helpers/catchAsyncHelpers");
 // const pickFunction = <T extends Record<string, unknown>, K extends keyof T>(

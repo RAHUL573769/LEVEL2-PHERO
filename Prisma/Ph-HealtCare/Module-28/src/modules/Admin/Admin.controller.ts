@@ -1,7 +1,7 @@
 import { NextFunction, Request, RequestHandler, Response } from "express";
 import { AdminServices } from "./Admin.services";
 import { adminFilterableFields } from "./admin.constants";
-import pick from "../../shared/pick";
+import pick from "../../helpers/pick";
 import { sendResponse } from "../../helpers/successResponse";
 import { catchAsync } from "../../helpers/catchAsyncHelpers";
 
