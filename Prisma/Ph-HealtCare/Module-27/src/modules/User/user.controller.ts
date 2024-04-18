@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { UserService } from "./user.service";
+import { sendResponse } from "../../helpers/successResponse";
 
 const createAdminController = async (
   req: Request,
@@ -9,11 +10,17 @@ const createAdminController = async (
   try {
     const result = await UserService.createAdmin(req.body);
     console.log("Result", result);
-    res.status(200).json({
+    sendResponse(res, {
+      statusCode: 200,
       success: true,
-      data: result,
-      message: "Admin Created Succesfully"
+      message: " data Crested Fetched",
+      data: result
     });
+    // res.status(200).json({
+    //   success: true,
+    //   data: result,
+    //   message: "Admin Created Succesfully"
+    // });
   } catch (error) {
     res.status(404).json({
       success: false,

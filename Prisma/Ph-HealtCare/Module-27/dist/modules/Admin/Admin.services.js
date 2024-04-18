@@ -96,6 +96,9 @@ const getSingleFromDb = (params, option) => __awaiter(void 0, void 0, void 0, fu
             }))
         });
     }
+    andConditions.push({
+        isDeleted: false
+    });
     //console.dir(andConditions, { depth: 'infinity' })
     const whereConditions = { AND: andConditions };
     const result = yield prismaHelpers_1.prisma.admin.findMany({
@@ -188,7 +191,7 @@ const getSingleFromDb = (params, option) => __awaiter(void 0, void 0, void 0, fu
 // };
 const getById = (id) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield prismaHelpers_1.prisma.admin.findUnique({
-        where: { id }
+        where: { id, isDeleted: false }
     });
     return result;
 });
@@ -200,7 +203,8 @@ const updateDataInDb = (id, data) => __awaiter(void 0, void 0, void 0, function*
     // });
     yield prismaHelpers_1.prisma.admin.findUniqueOrThrow({
         where: {
-            id
+            id,
+            isDeleted: false
         }
     });
     const result = yield prismaHelpers_1.prisma.admin.update({
@@ -233,7 +237,8 @@ const deleteDataFomDb = (id) => __awaiter(void 0, void 0, void 0, function* () {
 const softDeleteDataFomDb = (id) => __awaiter(void 0, void 0, void 0, function* () {
     yield prismaHelpers_1.prisma.admin.findUniqueOrThrow({
         where: {
-            id
+            id,
+            isDeleted: false
         }
     });
     const result = yield prismaHelpers_1.prisma.$transaction((transactionClient) => __awaiter(void 0, void 0, void 0, function* () {

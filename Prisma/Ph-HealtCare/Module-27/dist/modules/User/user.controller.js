@@ -11,15 +11,22 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserController = void 0;
 const user_service_1 = require("./user.service");
+const successResponse_1 = require("../../helpers/successResponse");
 const createAdminController = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const result = yield user_service_1.UserService.createAdmin(req.body);
         console.log("Result", result);
-        res.status(200).json({
+        (0, successResponse_1.sendResponse)(res, {
+            statusCode: 200,
             success: true,
-            data: result,
-            message: "Admin Created Succesfully"
+            message: " data Crested Fetched",
+            data: result
         });
+        // res.status(200).json({
+        //   success: true,
+        //   data: result,
+        //   message: "Admin Created Succesfully"
+        // });
     }
     catch (error) {
         res.status(404).json({

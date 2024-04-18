@@ -16,6 +16,7 @@ exports.AdminController = void 0;
 const Admin_services_1 = require("./Admin.services");
 const admin_constants_1 = require("./admin.constants");
 const pick_1 = __importDefault(require("../../shared/pick"));
+const successResponse_1 = require("../../helpers/successResponse");
 // const pickFunction = <T extends Record<string, unknown>, K extends keyof T>(
 //   obj: T,
 //   keys: K[]
@@ -29,13 +30,40 @@ const pick_1 = __importDefault(require("../../shared/pick"));
 //   }
 //   return finalObj;
 // };
+// const sendResponse = <T>(
+//   res: Response,
+//   jsonData: {
+//     statusCode: number;
+//     success: boolean;
+//     message: string;
+//     meta?: {
+//       page: number;
+//       limit: number;
+//       total: number;
+//     };
+//     data: T | T[];
+//   }
+// ) => {
+//   res.status(jsonData.statusCode).json({
+//     success: jsonData.success,
+//     data: jsonData.data,
+//     message: jsonData.data,
+//     meta: jsonData.meta || null
+//   });
+// };
 const getAdminController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield Admin_services_1.AdminServices.getAllFromDb();
     try {
-        res.status(200).json({
+        const result = yield Admin_services_1.AdminServices.getAllFromDb();
+        // res.status(200).json({
+        //   success: true,
+        //   data: result,
+        //   message: "Admin Data Fetched Successfully"
+        // });
+        (0, successResponse_1.sendResponse)(res, {
+            statusCode: 200,
             success: true,
-            data: result,
-            message: "Admin Data Fetched Successfully"
+            message: "Admin data Fetched",
+            data: result
         });
     }
     catch (error) {

@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { AdminServices } from "./Admin.services";
 import { adminFilterableFields } from "./admin.constants";
 import pick from "../../shared/pick";
+import { sendResponse } from "../../helpers/successResponse";
 
 // const pickFunction = <T extends Record<string, unknown>, K extends keyof T>(
 //   obj: T,
@@ -17,13 +18,43 @@ import pick from "../../shared/pick";
 //   return finalObj;
 // };
 
+// const sendResponse = <T>(
+//   res: Response,
+//   jsonData: {
+//     statusCode: number;
+//     success: boolean;
+//     message: string;
+//     meta?: {
+//       page: number;
+//       limit: number;
+//       total: number;
+//     };
+//     data: T | T[];
+//   }
+// ) => {
+//   res.status(jsonData.statusCode).json({
+//     success: jsonData.success,
+//     data: jsonData.data,
+//     message: jsonData.data,
+
+//     meta: jsonData.meta || null
+//   });
+// };
+
 const getAdminController = async (req: Request, res: Response) => {
-  const result = await AdminServices.getAllFromDb();
   try {
-    res.status(200).json({
+    const result = await AdminServices.getAllFromDb();
+    // res.status(200).json({
+    //   success: true,
+    //   data: result,
+    //   message: "Admin Data Fetched Successfully"
+    // });
+
+    sendResponse(res, {
+      statusCode: 200,
       success: true,
-      data: result,
-      message: "Admin Data Fetched Successfully"
+      message: "Admin data Fetched",
+      data: result
     });
   } catch (error) {
     res.status(200).json({
