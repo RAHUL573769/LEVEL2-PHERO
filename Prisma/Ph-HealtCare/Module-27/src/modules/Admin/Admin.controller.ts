@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { AdminServices } from "./Admin.services";
 import { adminFilterableFields } from "./admin.constants";
 import pick from "../../shared/pick";
@@ -41,7 +41,11 @@ import { sendResponse } from "../../helpers/successResponse";
 //   });
 // };
 
-const getAdminController = async (req: Request, res: Response) => {
+const getAdminController = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const result = await AdminServices.getAllFromDb();
     // res.status(200).json({
@@ -57,11 +61,7 @@ const getAdminController = async (req: Request, res: Response) => {
       data: result
     });
   } catch (error) {
-    res.status(200).json({
-      success: false,
-      data: error,
-      message: "Some Error Found"
-    });
+    next(error);
   }
 };
 

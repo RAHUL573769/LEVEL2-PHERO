@@ -51,7 +51,7 @@ const successResponse_1 = require("../../helpers/successResponse");
 //     meta: jsonData.meta || null
 //   });
 // };
-const getAdminController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const getAdminController = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const result = yield Admin_services_1.AdminServices.getAllFromDb();
         // res.status(200).json({
@@ -67,11 +67,7 @@ const getAdminController = (req, res) => __awaiter(void 0, void 0, void 0, funct
         });
     }
     catch (error) {
-        res.status(200).json({
-            success: false,
-            data: error,
-            message: "Some Error Found"
-        });
+        next(error);
     }
 });
 const getSingleAdminController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
