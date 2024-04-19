@@ -15,11 +15,34 @@ const auth_services_1 = require("./auth.services");
 const successResponse_1 = require("../helpers/successResponse");
 const loginUser = (0, catchAsyncHelpers_1.catchAsync)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield auth_services_1.AuthServices.loginUser(req.body);
+    // console.log("Result", result);
+    const { refreshToken } = result;
+    res.cookie("refreshToken", refreshToken, { httpOnly: true, secure: false });
     (0, successResponse_1.sendResponse)(res, {
         statusCode: 202,
-        data: result,
-        message: "Auth Logeed In",
+        data: {
+            accessToken: result.token,
+            needsPasswordChange: result.needsPasswordChange
+        },
+        // data: result,
+        message: "Auth Logged In",
         success: true
     });
 }));
-exports.AuthController = { loginUser };
+const refreshToken = (0, catchAsyncHelpers_1.catchAsync)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const { refreshToken } = req.cookies;
+    const result = yield auth_services_1.AuthServices.refreshToken(refreshToken);
+    // console.log("Result", result);
+    (0, successResponse_1.sendResponse)(res, {
+        statusCode: 202,
+        data: result,
+        // data: {
+        //   accessToken: result.token,
+        //   needsPasswordChange: result.needsPasswordChange
+        // },
+        // data: result,
+        message: "Auth Logged In",
+        success: true
+    });
+}));
+exports.AuthController = { loginUser, refreshToken };
