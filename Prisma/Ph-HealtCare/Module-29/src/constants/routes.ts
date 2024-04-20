@@ -1,4 +1,4 @@
-import { AuthRouter } from "../Auth/auth.route";
+import { AuthRouter } from "../modules/Auth/auth.route";
 import { AdminRoute } from "../modules/Admin/Admi.route";
 import { UserRouter } from "../modules/User/userRoute";
 

@@ -11,9 +11,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AcademicDepartment = void 0;
 const mongoose_1 = require("mongoose");
+const AppError_1 = require("../../classes/AppError");
 const academicDepartmentSchema = new mongoose_1.Schema({
     name: {
         type: String,
+        unique: true,
         required: true
     },
     academicFaculty: {
@@ -48,10 +50,12 @@ academicDepartmentSchema.pre("save", function (next) {
 });
 academicDepartmentSchema.pre("findOneAndUpdate", function (next) {
     return __awaiter(this, void 0, void 0, function* () {
+        //query middleware
+        //query middleware
         const query = this.getQuery();
         const isDepartmentExists = yield exports.AcademicDepartment.findOne(query);
         if (!isDepartmentExists) {
-            throw new Error("This Department Does Not Exists");
+            throw new AppError_1.AppError("This Department Does Not Exists", 404);
         }
         next();
         //   console.log(query);

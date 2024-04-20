@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.post(
   "/create-academic-faculty",
-  validateMiddleWare(AcademicFacultyValidation.createAcademicFacultyValidation),
+  // validateMiddleWare(AcademicFacultyValidation.createAcademicFacultyValidation),
   AcademicFacultyControllers.createAcademicFaculty
 );
 router.get("/", AcademicFacultyControllers.getAllAcademicFaculty);

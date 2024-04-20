@@ -17,12 +17,12 @@ const createAcademicDepartment = (payload) => __awaiter(void 0, void 0, void 0, 
     //   });
     //   if (isAcademicDepartmentExists) {
     //     throw new Error("Academic Ddeaprtment Exists");
-    //   }
+    //   }  ===>One way to handle error
     const result = yield academic_department_model_1.AcademicDepartment.create(payload);
     return result;
 });
 const getAcademicDepartment = () => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield academic_department_model_1.AcademicDepartment.find().populate("academicFaculty");
+    const result = yield academic_department_model_1.AcademicDepartment.find().populate("academicFaculty"); //here academicFaculty valus is property name
     return result;
 });
 const getSingleAcademicDepartment = (id) => __awaiter(void 0, void 0, void 0, function* () {

@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import { TAcademicSemester } from "../AdmissionSemester/admission.Semester.interface";
 import { AcademicSemester } from "../AdmissionSemester/admission.Semester.model";
 import { TStudent } from "../student/student.interface";
@@ -39,18 +40,33 @@ const createIntoDb = async (password: string, studentData: TStudent) => {
   );
   //transaction and roll  back
 
-  userData.id = await generateStudentId(admissionSemester as TAcademicSemester);
+  const session = await mongoose.startSession();
+  try {
+    session.startTransaction();
+    userData.id = await generateStudentId(
+      admissionSemester as TAcademicSemester
+    );
+    //transaction --1
+    const newUser = await User.create([userData], { session }); // after using transaction it becomes  array
+    if (!newUser.length) {
+      throw new Error("Falied to create User");
+    }
 
-  const result = await User.create(userData);
-  if (Object.keys(result).length) {
-    studentData.id = result.id;
-    studentData.user = result._id;
+    studentData.id = newUser[0].id;
+    studentData.user = newUser[0]._id;
 
-    const newStudent = await Student.create(studentData);
+    const newStudent = await Student.create([studentData], { session });
+    if (!newStudent) {
+      throw new Error("Falied to create Student");
+    }
+    await session.commitTransaction();
+    await session.endSession();
     return newStudent;
+  } catch (error) {
+    await session.abortTransaction();
+    await session.endSession();
+    console.log(error);
   }
-  return result;
-
   //end of transaction and roll  back
 
   //find academic semester data from student collection

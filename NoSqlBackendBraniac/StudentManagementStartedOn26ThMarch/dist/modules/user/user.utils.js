@@ -30,8 +30,8 @@ const findLastStudentId = () => __awaiter(void 0, void 0, void 0, function* () {
 const generateStudentId = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     // first time 0000
     //0001  => 1
-    // const currentId = (await findLastStudentId()) || (0).toString();
-    let currentId = (0).toString(); //0000 by default
+    let currentId = (0).toString();
+    // let currentId = (0).toString(); //0000 by default
     const lastStudentId = yield findLastStudentId();
     //2030010001
     const lastSemesterCode = lastStudentId === null || lastStudentId === void 0 ? void 0 : lastStudentId.substring(4, 6); //01

@@ -19,8 +19,8 @@ const port = config_1.default.port;
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            // mongoose.connect(config.database_cloud as string);
-            mongoose_1.default.connect(config_1.default.database_local);
+            mongoose_1.default.connect(config_1.default.database_cloud);
+            // mongoose.connect(config.database_local as string);
             app_1.default.listen(port, () => {
                 console.log(`Example app listening on port ${port}`);
             });

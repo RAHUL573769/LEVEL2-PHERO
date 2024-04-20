@@ -21,7 +21,7 @@ const router = express.Router();
 
 router.post(
   "/create-student", // validateMiddleWare(UserValidation.userSchema),
-  validateMiddleWare(StudentValidations.createStudentValidation),
+  // validateMiddleWare(StudentValidations.createStudentValidation),
   UserControllers.createStudent
 );
 

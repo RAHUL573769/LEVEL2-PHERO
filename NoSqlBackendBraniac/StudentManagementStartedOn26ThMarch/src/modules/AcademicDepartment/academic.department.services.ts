@@ -8,13 +8,13 @@ const createAcademicDepartment = async (payload: TAcademicDepartment) => {
 
   //   if (isAcademicDepartmentExists) {
   //     throw new Error("Academic Ddeaprtment Exists");
-  //   }
+  //   }  ===>One way to handle error
   const result = await AcademicDepartment.create(payload);
   return result;
 };
 
 const getAcademicDepartment = async () => {
-  const result = await AcademicDepartment.find().populate("academicFaculty");
+  const result = await AcademicDepartment.find().populate("academicFaculty"); //here academicFaculty valus is property name
   return result;
 };
 const getSingleAcademicDepartment = async (id: string) => {

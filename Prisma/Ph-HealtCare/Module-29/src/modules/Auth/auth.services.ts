@@ -1,8 +1,9 @@
 import { UserStatus } from "@prisma/client";
-import { generateToken, verifyToken } from "../helpers/jwtHelpers";
-import { prisma } from "../helpers/prismaHelpers";
+
 import bcrypt from "bcrypt";
 import jwt, { JwtPayload } from "jsonwebtoken";
+import { prisma } from "../../helpers/prismaHelpers";
+import { generateToken, verifyToken } from "../../helpers/jwtHelpers";
 
 // const generateToken=(payload:any,secret:string,expiresIn:string)=>{
 //   var token = jwt.sign(
