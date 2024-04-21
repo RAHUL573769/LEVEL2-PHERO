@@ -66,8 +66,32 @@ const changePasswordController = catchAsync(
     });
   }
 );
+
+const forgotPasswordController = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    // console.log("49", req.user, req.body);
+    const email = req.body;
+    const result = await AuthServices.forgotPassword(email);
+    // console.log("Result", result);
+
+    sendResponse(res, {
+      statusCode: 202,
+      data: result,
+      // data: {
+      //   accessToken: result.token,
+      //   needsPasswordChange: result.needsPasswordChange
+      // },
+
+      // data: result,
+      message: "Forgot Password Change DONE",
+      success: true
+    });
+  }
+);
+
 export const AuthController = {
   loginUser,
   refreshToken,
-  changePasswordController
+  changePasswordController,
+  forgotPasswordController
 };

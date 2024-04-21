@@ -7,5 +7,10 @@ export default {
   jwt_secret: process.env.JWT_SECRET,
   expires_in: process.env.EXPIRES_IN,
   refreshtokensecret: process.env.REFRESH_TOKEN_SECRET,
-  refreshtokenexpires: process.env.REFRESH_TOKEN_EXPIRES
+  refreshtokenexpires: process.env.REFRESH_TOKEN_EXPIRES,
+  resetpasswordtoken: process.env.RESET_PASSWORD_TOKEN,
+  resetpasswordtokentime: process.env.RESET_PASSWORD_TOKEN_EXPIRES,
+  resetPasswordLink: process.env.RESET_PASSWORD_LINK,
+  userEmail: process.env.EMAIL,
+  app_password: process.env.APP_PASS
 };

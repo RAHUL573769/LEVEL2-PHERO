@@ -2,6 +2,8 @@
   "cSpell.words": [
     "refreshtokenexpires",
     "refreshtokensecret",
+    "resetpasswordtoken",
+    "resetpasswordtokentime",
     "softdelete",
     "Yoiu"
   ]

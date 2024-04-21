@@ -32,7 +32,7 @@ const userRouter = express.Router();
 userRouter.get("/get-user", UserController.createAdminController);
 userRouter.post(
   "/create-user", // auth("ADMIN", "SUPER_ADMIN"),
-  auth(UsersRole.ADMIN),
+  // auth(UsersRole.ADMIN),
 
   UserController.createAdminController
 );
