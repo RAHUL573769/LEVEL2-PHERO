@@ -48,7 +48,7 @@ const loginUser = async (payload: { email: string; password: string }) => {
   var token = generateToken(
     { email: userData.email, role: userData.role },
     "abcd",
-    "5m"
+    "20m"
   );
   // const refreshToken = jwt.sign(
   //   { email: userData.email, role: userData.role },
@@ -60,7 +60,7 @@ const loginUser = async (payload: { email: string; password: string }) => {
   const refreshToken = generateToken(
     { email: userData.email, role: userData.role },
     "abcdefgh",
-    "5m"
+    "50m"
   );
   // return userData;
   return {
@@ -87,7 +87,7 @@ const refreshToken = async (token: string) => {
     var accessToken = generateToken(
       { email: userData.email, role: userData.role },
       "abcd",
-      "5m"
+      "20m"
     );
 
     return accessToken;
@@ -97,4 +97,38 @@ const refreshToken = async (token: string) => {
     throw new Error("You are not Authorized");
   }
 };
-export const AuthServices = { loginUser, refreshToken };
+
+const changePassword = async (user, payload) => {
+  const userData = await prisma.user.findFirstOrThrow({
+    where: {
+      email: user.email
+    }
+  });
+
+  const isPasswordCorrect: boolean = await bcrypt.compare(
+    payload.oldPassword,
+    userData.password
+  );
+  console.log(isPasswordCorrect);
+  if (!isPasswordCorrect) {
+    throw new Error("Password Incorrect");
+  }
+  const hashedPassword: string = await bcrypt.hash(payload.newPassword, 12);
+  console.log("Hashed Password", hashedPassword);
+
+  await prisma.user.update({
+    where: {
+      email: userData.email,
+      status: UserStatus.ACTIVE
+    },
+    data: {
+      password: hashedPassword,
+      needsPasswordChange: false
+    }
+  });
+
+  return {
+    message: "Password Change Done"
+  };
+};
+export const AuthServices = { loginUser, refreshToken, changePassword };

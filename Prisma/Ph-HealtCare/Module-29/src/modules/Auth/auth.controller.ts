@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { catchAsync } from "../../helpers/catchAsyncHelpers";
 import { AuthServices } from "./auth.services";
 import { sendResponse } from "../../helpers/successResponse";
+import { any } from "zod";
 
 const loginUser = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -38,9 +39,35 @@ const refreshToken = catchAsync(
       // },
 
       // data: result,
-      message: "Auth Logged In",
+      message: "Access Tokn Generated Succesfully",
       success: true
     });
   }
 );
-export const AuthController = { loginUser, refreshToken };
+
+const changePasswordController = catchAsync(
+  async (req: Request & { user?: any }, res: Response, next: NextFunction) => {
+    // console.log("49", req.user, req.body);
+    const user = req.user;
+    const result = await AuthServices.changePassword(user, req.body);
+    // console.log("Result", result);
+
+    sendResponse(res, {
+      statusCode: 202,
+      data: result,
+      // data: {
+      //   accessToken: result.token,
+      //   needsPasswordChange: result.needsPasswordChange
+      // },
+
+      // data: result,
+      message: "Password Change DONE",
+      success: true
+    });
+  }
+);
+export const AuthController = {
+  loginUser,
+  refreshToken,
+  changePasswordController
+};
