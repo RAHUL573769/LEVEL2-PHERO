@@ -1,6 +1,5 @@
 import httpStatus from 'http-status';
 import mongoose from 'mongoose';
-
 import AppError from '../../errors/AppError';
 import { CourseSearchableFields } from './course.constant';
 import { TCourse, TCoursefaculty } from './course.interface';
