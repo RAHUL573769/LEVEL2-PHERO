@@ -17,6 +17,7 @@ import {
   generateFacultyId,
   generateStudentId,
 } from './user.utils';
+import { TAcademicSemester } from '../academicSemester/academicSemester.interface';
 
 const createStudentIntoDB = async (password: string, payload: TStudent) => {
   // create a user object
@@ -36,13 +37,15 @@ const createStudentIntoDB = async (password: string, payload: TStudent) => {
   if (!admissionSemester) {
     throw new AppError(400, 'Admission semester not found');
   }
-  
+
   const session = await mongoose.startSession();
 
   try {
     session.startTransaction();
     //set  generated id
-    userData.id = await generateStudentId(admissionSemester);
+    userData.id = await generateStudentId(
+      admissionSemester as TAcademicSemester,
+    );
 
     // create a user (transaction-1)
     const newUser = await User.create([userData], { session }); // array
@@ -148,7 +151,7 @@ const createAdminIntoDB = async (password: string, payload: TFaculty) => {
     userData.id = await generateAdminId();
 
     // create a user (transaction-1)
-    const newUser = await User.create([userData], { session }); 
+    const newUser = await User.create([userData], { session });
 
     //create a admin
     if (!newUser.length) {
@@ -172,6 +175,7 @@ const createAdminIntoDB = async (password: string, payload: TFaculty) => {
   } catch (err: any) {
     await session.abortTransaction();
     await session.endSession();
+    console.log(err);
     throw new Error(err);
   }
 };
