@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import httpStatus from 'http-status';
 import mongoose from 'mongoose';
 import config from '../../config';
@@ -60,7 +61,8 @@ const createStudentIntoDB = async (password: string, payload: TStudent) => {
   } catch (err) {
     await session.abortTransaction();
     await session.endSession();
-    console.log(err);
+    // eslint-disable-next-line no-undef
+    next(err);
     throw new Error('Failed to create student');
   }
 };
@@ -68,3 +70,7 @@ const createStudentIntoDB = async (password: string, payload: TStudent) => {
 export const UserServices = {
   createStudentIntoDB,
 };
+// eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
+function next(err: any) {
+  throw new Error('Function not implemented.');
+}

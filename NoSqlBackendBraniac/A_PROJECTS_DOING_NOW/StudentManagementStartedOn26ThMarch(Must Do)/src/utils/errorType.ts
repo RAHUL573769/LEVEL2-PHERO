@@ -4,6 +4,10 @@ export type TErrorResponse = {
   statusCode: number;
   status: string;
   issues: TErrorIssues[];
+  // issues: {
+  //   path: string;
+  //   message: string;
+  // }[];
 };
 
 export type TErrorIssues = {

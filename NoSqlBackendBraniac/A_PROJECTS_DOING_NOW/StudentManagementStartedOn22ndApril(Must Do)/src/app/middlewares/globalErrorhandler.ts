@@ -2,8 +2,13 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import e from 'cors';
 import { NextFunction, Request, Response } from 'express';
+import { ZodError, ZodIssue } from 'zod';
+import { TErrorSource, TGenericError } from '../interfaces/error';
+import { handleZodError } from '../errors/handleZodEror';
+import mongoose from 'mongoose';
+import { handleValidationError } from '../errors/handlValidationError';
+import { handleCastError } from '../errors/handleCastError';
 
 const globalErrorHandler = (
   err: any,
@@ -11,13 +16,78 @@ const globalErrorHandler = (
   res: Response,
   next: NextFunction,
 ) => {
-  const statusCode = err.statusCode || 500;
-  const message = err.message || 'Something went wrong!';
-  console.log(err);
+  //Setting Default Values
+  let statusCode = err.statusCode || 500;
+  let message = err.message || 'Something went wrong!';
+  // let status = 'failed';
+
+  //Setting Default Values
+
+  // eslint-disable-next-line prefer-const
+  let errorSource: TErrorSource = [
+    {
+      path: '',
+      message: 'Something Went Wrong ',
+    },
+  ];
+  // console.log(err);
+
+  // const handleZodError = (err: ZodError) => {
+  //   const errorSources: TErrorSource = err.issues.map((issue: ZodIssue) => {
+  //     return {
+  //       path: issue?.path[issue.path.length - 1],
+  //       message: issue.message,
+  //     };
+  //   });
+
+  //   return {
+  //     statusCode,
+  //     message: 'Zod Validation Error',
+  //     errorSources,
+  //   };
+  // };
+
+  // const handleCastError = (err: mongoose.Error.CastError): TGenericError => {
+  //   console.log('Ami Cast Error');
+  //   const errorSources: TErrorSource = [
+  //     {
+  //       path: err.path,
+  //       message: err.message,
+  //     },
+  //   ];
+  //   return {
+  //     statusCode,
+  //     errorSources,
+  //     message,
+  //   };
+  // };
+
+  if (err && err instanceof ZodError) {
+    const simplifiedError = handleZodError(err);
+
+    statusCode = simplifiedError.statusCode;
+    message = simplifiedError.message;
+    errorSource = simplifiedError.errorSources;
+    // console.log('Simplified Error', simplifiedError);
+  } else if (err && err.name === 'ValidationError') {
+    const simplifiedError = handleValidationError(err);
+    // console.log(simplifiedError);
+
+    statusCode = simplifiedError.statusCode;
+    message = simplifiedError.message;
+    errorSource = simplifiedError.errorSources;
+  } else if (err && err.name === 'CastError') {
+    const simplifiedError = handleCastError(err);
+    statusCode = simplifiedError.statusCode;
+    message = simplifiedError.message;
+    errorSource = simplifiedError.errorSources;
+  }
+
   return res.status(statusCode).json({
     success: false,
     message,
-    error: err.message,
+    errorSource,
+    stack: err.stack,
   });
 };
 
