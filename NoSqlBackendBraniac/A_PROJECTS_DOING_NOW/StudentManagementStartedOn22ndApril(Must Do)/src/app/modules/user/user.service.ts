@@ -58,12 +58,14 @@ const createStudentIntoDB = async (password: string, payload: TStudent) => {
     await session.endSession();
 
     return newStudent;
-  } catch (err) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (err: any) {
     await session.abortTransaction();
     await session.endSession();
     // eslint-disable-next-line no-undef
-    next(err);
-    throw new Error('Failed to create student');
+    console.log(err);
+    // throw new AppError(404, 'Failed to create student');
+    throw new Error(err);
   }
 };
 
@@ -71,6 +73,3 @@ export const UserServices = {
   createStudentIntoDB,
 };
 // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
-function next(err: any) {
-  throw new Error('Function not implemented.');
-}

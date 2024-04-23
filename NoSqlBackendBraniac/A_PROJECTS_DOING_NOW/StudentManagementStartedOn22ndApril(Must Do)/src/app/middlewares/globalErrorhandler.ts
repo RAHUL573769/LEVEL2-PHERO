@@ -9,6 +9,7 @@ import { handleZodError } from '../errors/handleZodEror';
 import mongoose from 'mongoose';
 import { handleValidationError } from '../errors/handlValidationError';
 import { handleCastError } from '../errors/handleCastError';
+import { handleDuplicateError } from '../errors/handleDuplicateError';
 
 const globalErrorHandler = (
   err: any,
@@ -81,12 +82,27 @@ const globalErrorHandler = (
     statusCode = simplifiedError.statusCode;
     message = simplifiedError.message;
     errorSource = simplifiedError.errorSources;
+  } else if (err && err.code === 11000) {
+    const simplifiedError = handleDuplicateError(err);
+    statusCode = simplifiedError.statusCode;
+    message = simplifiedError.message;
+    errorSource = simplifiedError.errorSources;
+  } else if (err && err instanceof Error) {
+    message = err.message;
+    errorSource = [
+      {
+        path: '',
+        message: err?.message,
+      },
+    ];
   }
+  console.log(err);
 
   return res.status(statusCode).json({
     success: false,
     message,
     errorSource,
+    err,
     stack: err.stack,
   });
 };
